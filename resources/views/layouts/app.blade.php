@@ -16,10 +16,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="{{ asset('lib/fontawesome/fontawesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/fontawesome-5/css/all.min.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('lib/bootstrap-5/bootstrap.min.css') }}" rel="stylesheet">
+
+    @yield('style')
 </head>
 <body>
     <div id="app">
@@ -37,7 +39,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Akses</a></li>
-                                <li><a class="dropdown-item" href="#">Menu</a></li>
+                                <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -75,7 +77,9 @@
 
     <script src="{{ asset('lib/jquery/jquery.js') }}"></script>
     <script src="{{ asset('lib/bootstrap-5/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('lib/fontawesome/fontawesome.min.js') }}"></script>
+    <script src="{{ asset('lib/fontawesome-5/js/fontawesome.min.js') }}"></script>
+
+    @yield('script')
 </body>
 </html>
 
