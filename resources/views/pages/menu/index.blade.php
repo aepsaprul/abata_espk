@@ -10,6 +10,9 @@
     .fas {
         font-size: 14px;
     }
+    .btn {
+        padding: .2rem .6rem;
+    }
 </style>
 @endsection
 
@@ -17,6 +20,12 @@
 <div class="container-fluid">
     <div class="row justify-content-start">
         <div class="col-md-6">
+            <h6 class="text-uppercase text-center">Menu Utama</h6>
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <a href="#" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
             <table id="table_satu" class="table table-bordered" style="width:100%">
                 <thead>
                     <tr class="text-center bg-secondary text-white">
@@ -27,42 +36,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($kertas as $key => $kertas) --}}
+                    @foreach ($menu_utamas as $key => $menu_utama)
                     <tr>
-                        <td>1</td>
-                        <td>Dashboard</td>
-                        <td>/dashboard</td>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $menu_utama->nama_menu }}</td>
+                        <td>{{ $menu_utama->link }}</td>
                         <td class="text-center">
-                            <a href="#"><i class="fas fa-edit"></i></a> |
-                            <a href="#"><i class="fas fa-trash"></i></a>
+                            <a href="{{ route('menu.edit', [$menu_utama->id]) }}"><i class="fas fa-edit"></i></a> |
+                            <a href="{{ route('menu.edit', [$menu_utama->id]) }}"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
             <div class="mt-5"></div>
+            <h6 class="text-uppercase text-center">Menu Tombol</h6>
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <a href="#" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
             <table id="table_dua" class="table table-bordered" style="width:100%">
                 <thead>
                     <tr class="text-center bg-secondary text-white">
                         <th>No</th>
-                        <th>Nama Menu</th>
+                        <th>Menu Utama</th>
+                        <th>Menu Sub</th>
+                        <th>Nama Tombol</th>
                         <th>Link</th>
                         <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($kertas as $key => $kertas) --}}
+                    @foreach ($menu_btns as $key => $menu_btn)
                     <tr>
-                        <td>1</td>
-                        <td>Dashboard</td>
-                        <td>/dashboard</td>
-                        <td><a href="#"><i class="fas fa-edit"></i></a></td>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $menu_btn->menu_utama_id }}</td>
+                        <td>{{ $menu_btn->menu_sub_id }}</td>
+                        <td>{{ $menu_btn->nama_button }}</td>
+                        <td>{{ $menu_btn->link }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('menu.edit', [$menu_btn->id]) }}"><i class="fas fa-edit"></i></a> |
+                            <a href="{{ route('menu.edit', [$menu_btn->id]) }}"><i class="fas fa-trash"></i></a>
+                        </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
         <div class="col-md-6">
+            <h6 class="text-uppercase text-center">Menu Sub</h6>
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <a href="#" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
             <table id="table_tiga" class="table table-bordered" style="width:100%">
                 <thead>
                     <tr class="text-center bg-secondary text-white">
@@ -73,14 +101,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($kertas as $key => $kertas) --}}
+                    @foreach ($menu_subs as $key => $menu_sub)
                     <tr>
-                        <td>1</td>
-                        <td>Dashboard</td>
-                        <td>/dashboard</td>
-                        <td><a href="#"><i class="fas fa-edit"></i></a></td>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $menu_sub->nama_menu }}</td>
+                        <td>{{ $menu_sub->link }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('menu.edit', [$menu_sub->id]) }}"><i class="fas fa-edit"></i></a> |
+                            <a href="{{ route('menu.edit', [$menu_sub->id]) }}"><i class="fas fa-trash"></i></a>
+                        </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

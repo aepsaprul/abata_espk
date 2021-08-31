@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EspkMenuButton;
+use App\Models\EspkMenuSub;
+use App\Models\EspkMenuUtama;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -13,7 +16,11 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('pages.menu.index');
+        $menu_utama = EspkMenuUtama::get();
+        $menu_sub = EspkMenuSub::get();
+        $menu_btn = EspkMenuButton::get();
+
+        return view('pages.menu.index', ['menu_utamas' => $menu_utama, 'menu_subs' => $menu_sub, 'menu_btns' => $menu_btn]);
     }
 
     /**
