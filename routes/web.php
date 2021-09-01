@@ -21,5 +21,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('menu', MenuController::class);
+    Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::post('menu/store', [MenuController::class, 'store'])->name('menu.store');
+    Route::post('menu/edit/menu_utama', [MenuController::class, 'editMenuUtama'])->name('menu.edit.menu_utama');
+    Route::post('menu/update', [MenuController::class, 'update'])->name('menu.update');
+    Route::post('menu/delete/btn', [MenuController::class, 'deleteBtn'])->name('menu.delete.btn');
+    Route::post('menu/delete', [MenuController::class, 'delete'])->name('menu.delete');
 });

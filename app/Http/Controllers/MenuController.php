@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $menu_utama = EspkMenuUtama::get();
@@ -23,77 +18,79 @@ class MenuController extends Controller
         return view('pages.menu.index', ['menu_utamas' => $menu_utama, 'menu_subs' => $menu_sub, 'menu_btns' => $menu_btn]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        if ($request->button == "menu_utama_btn_add") {
-            $data = "menu utama btn add";
+        if ($request->button == "menu_utama_btn_store") {
+
+            $menu_utama = new EspkMenuUtama;
+            $menu_utama->nama_menu = $request->nama_menu;
+            $menu_utama->link = $request->link;
+            $menu_utama->save();
+
         } else {
             $data = "kosong";
         }
 
         return response()->json([
-            'data' => $data
+            'data' => "sukses"
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function editMenuUtama(Request $request)
     {
-        //
+        $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
+
+        return response()->json([
+            'id' => $menu_utama->id,
+            'nama_menu' => $menu_utama->nama_menu,
+            'link' => $menu_utama->link
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(Request $request)
     {
-        //
+        if ($request->button == "menu_utama_btn_update") {
+            $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
+            $menu_utama->nama_menu = $request->nama_menu;
+            $menu_utama->link = $request->link;
+            $menu_utama->save();
+        } else {
+            $data = "kosong";
+        }
+
+        return response()->json([
+            'data' => 'sukses'
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function deleteBtn(Request $request)
     {
-        //
+        if ($request->button == "menu_utama_btn_delete") {
+            $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
+            $value = $menu_utama->nama_menu;
+        } else {
+            $value = "";
+        }
+
+        return response()->json([
+            'id' => $request->id,
+            'value' => $value
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        if ($request->button == "menu_utama_btn_delete") {
+            $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
+            $menu_utama->delete();
+
+            $notif = "menu_utama";
+        } else {
+            $notif = "kosong";
+        }
+
+        return response()->json([
+            'notif' => $notif
+        ]);
     }
 }
