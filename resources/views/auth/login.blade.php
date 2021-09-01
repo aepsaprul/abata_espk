@@ -17,8 +17,8 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
+        <div class="col-md-6 mt-5">
+            <div class="card mt-5">
                 <div class="card-header text-center bg-primary text-white fw-bold">{{ __('Login') }} E - SPK</div>
 
                 <div class="card-body">

@@ -75,8 +75,8 @@
         </main>
     </div>
 
-    <script src="{{ asset('lib/jquery/jquery.js') }}"></script>
     <script src="{{ asset('lib/bootstrap-5/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('lib/datatables/js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('lib/fontawesome-5/js/fontawesome.min.js') }}"></script>
 
     @yield('script')

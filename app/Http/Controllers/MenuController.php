@@ -41,7 +41,15 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->button == "menu_utama_btn_add") {
+            $data = "menu utama btn add";
+        } else {
+            $data = "kosong";
+        }
+
+        return response()->json([
+            'data' => $data
+        ]);
     }
 
     /**
