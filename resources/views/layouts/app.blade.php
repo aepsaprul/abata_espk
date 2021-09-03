@@ -45,6 +45,14 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">Dashboard</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Data Primer
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ route('jenis_pekerjaan.index') }}">Jenis Pekerjaan</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <div class="btn-group d-flex">
                         <button type="button" class="btn dropdown-toggle text-uppercase" data-bs-toggle="dropdown" aria-expanded="false">

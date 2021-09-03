@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\JenisPekerjaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
+
+    // menu
     Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
     Route::get('menu/create/menu_sub', [MenuController::class, 'createMenuSub'])->name('menu.create.menu_sub');
     Route::get('menu/create/menu_tombol', [MenuController::class, 'createMenuTombol'])->name('menu.create.menu_tombol');
@@ -30,4 +33,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('menu/update', [MenuController::class, 'update'])->name('menu.update');
     Route::post('menu/delete/btn', [MenuController::class, 'deleteBtn'])->name('menu.delete.btn');
     Route::post('menu/delete', [MenuController::class, 'delete'])->name('menu.delete');
+
+    // jenis pekerjaan
+    Route::resource('jenis_pekerjaan', JenisPekerjaanController::class);
+    Route::get('jenis_pekerjaan/{id}/edit-jenis', [JenisPekerjaanController::class, 'editJenis'])->name('jenis_pekerjaan.edit.jenis');
+    Route::post('jenis_pekerjaan/delete/btn', [JenisPekerjaanController::class, 'deleteBtn'])->name('jenis_pekerjaan.delete.btn');
+    Route::post('jenis_pekerjaan/delete', [JenisPekerjaanController::class, 'delete'])->name('jenis_pekerjaan.delete');
 });
