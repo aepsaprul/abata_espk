@@ -18,7 +18,7 @@ class JenisPekerjaanController extends Controller
         $tipe = EspkTipePekerjaan::get();
         $jenis = EspkJenisPekerjaan::with('tipePekerjaan')->get();
 
-        return view('pages.jenis_pekerjaan.index', ['tipes' => $tipe, 'jenis' => $jenis]);
+        return view('pages.data-primer.jenis_pekerjaan.index', ['tipes' => $tipe, 'jenis' => $jenis]);
     }
 
     /**

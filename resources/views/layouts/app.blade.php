@@ -50,7 +50,8 @@
                             Data Primer
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ route('jenis_pekerjaan.index') }}">Jenis Pekerjaan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('pelanggan.index') }}"><i class="fas fa-chevron-right"></i> Pelanggan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('jenis_pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Jenis Pekerjaan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
