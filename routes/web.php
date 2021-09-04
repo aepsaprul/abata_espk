@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
 
     // jenis pekerjaan
     Route::resource('jenis_pekerjaan', JenisPekerjaanController::class);
-    Route::get('jenis_pekerjaan/{id}/edit-jenis', [JenisPekerjaanController::class, 'editJenis'])->name('jenis_pekerjaan.edit.jenis');
+    Route::get('jenis_pekerjaan/{id}/edit_jenis', [JenisPekerjaanController::class, 'editJenis'])->name('jenis_pekerjaan.edit.jenis');
     Route::post('jenis_pekerjaan/delete/btn', [JenisPekerjaanController::class, 'deleteBtn'])->name('jenis_pekerjaan.delete.btn');
     Route::post('jenis_pekerjaan/delete', [JenisPekerjaanController::class, 'delete'])->name('jenis_pekerjaan.delete');
 });

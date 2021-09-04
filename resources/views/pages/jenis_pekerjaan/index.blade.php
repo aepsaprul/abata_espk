@@ -68,9 +68,8 @@
                     @foreach ($jenis as $key => $jenis)
                     <tr>
                         <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $jenis->nama_menu }}</td>
-                        <td>{{ $jenis->menuUtama->nama_menu }}</td>
-                        <td>{{ $jenis->link }}</td>
+                        <td>{{ $jenis->jenis }}</td>
+                        <td>{{ $jenis->tipePekerjaan->tipe }}</td>
                         <td class="text-center">
                             <button data-id="{{ $jenis->id }}" class="border-0 bg-white jenis_btn_edit"><i class="fas fa-edit"></i></button> |
                             <button data-id="{{ $jenis->id }}" class="border-0 bg-white jenis_btn_delete"><i class="fas fa-trash"></i></button>
@@ -149,7 +148,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Menu Sub</h5>
+                <h5 class="modal-title">Tambah Jenis Pekerjaan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -351,42 +350,41 @@
             });
         });
 
-        $('#menu_sub_btn_create').on('click', function() {
-            $('.menu_sub_create_menu_utama_id').empty();
+        $('#jenis_btn_create').on('click', function() {
+            $('.jenis_create_tipe_pekerjaan_id').empty();
 
             $.ajax({
-                url: '{{ URL::route('menu.create.menu_sub') }}',
+                url: '{{ URL::route('jenis_pekerjaan.create') }}',
                 type: 'GET',
                 success: function(response) {
 
-                    var val = "<select class=\"form-control\" id=\"menu_sub_create_menu_utama_id\" name=\"menu_sub_create_menu_utama_id\">" +
-                        "<option value=\"\">--Pilih Menu Utama--</option>";
+                    var val = "<select class=\"form-control\" id=\"jenis_create_tipe_pekerjaan_id\" name=\"jenis_create_tipe_pekerjaan_id\">" +
+                        "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
 
-                    $.each(response.menu_utama, function(index, value) {
-                        val += "<option value=\"" + value.id + "\">"+ value.nama_menu +"</option>";
+                    $.each(response.tipe, function(index, value) {
+                        val += "<option value=\"" + value.id + "\">"+ value.tipe +"</option>";
                     });
 
                     val += "</select>";
 
-                    $('.menu_sub_create_menu_utama_id').append(val);
-                    $('#menu_sub_modal_create').modal('show');
+                    $('.jenis_create_tipe_pekerjaan_id').append(val);
+                    $('#jenis_modal_create').modal('show');
                 }
             });
         });
 
-        $('#menu_sub_form_create').submit(function(e) {
+        $('#jenis_form_create').submit(function(e) {
             e.preventDefault();
 
             var formData = {
-                nama_menu: $('#menu_sub_create_nama_menu').val(),
-                link: $('#menu_sub_create_link').val(),
-                menu_utama_id: $('#menu_sub_create_menu_utama_id').val(),
-                button: "menu_sub_btn_store",
+                jenis: $('#jenis_create_jenis').val(),
+                tipe_pekerjaan_id: $('#jenis_create_tipe_pekerjaan_id').val(),
+                button: "jenis_btn_store",
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.store') }}',
+                url: '{{ URL::route('jenis_pekerjaan.store') }}',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -397,57 +395,64 @@
             });
         });
 
-        $('.menu_sub_btn_edit').on('click', function() {
-            $('.menu_sub_edit_menu_utama_id').empty();
+        $('.jenis_btn_edit').on('click', function() {
+            $('.jenis_edit_tipe_pekerjaan_id').empty();
+
+            var id = $(this).attr('data-id');
+            var url = '{{ route("jenis_pekerjaan.edit.jenis", ":id") }}';
+            url = url.replace(':id', id );
 
             var formData = {
-                id: $(this).attr('data-id'),
+                id: id,
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.edit.menu_sub') }}',
-                type: 'POST',
+                url: url,
+                type: 'GET',
                 data: formData,
                 success: function(response) {
-                    $('#menu_sub_edit_id').val(response.id);
-                    $('#menu_sub_edit_nama_menu').val(response.nama_menu);
-                    $('#menu_sub_edit_link').val(response.link);
+                    // console.log(response);
+                    $('#jenis_edit_id').val(response.id);
+                    $('#jenis_edit_jenis').val(response.jenis);
 
-                    var val = "<select class=\"form-control\" id=\"menu_sub_edit_menu_utama_id\" name=\"menu_sub_edit_menu_utama_id\">" +
+                    var val = "<select class=\"form-control\" id=\"jenis_edit_tipe_pekerjaan_id\" name=\"jenis_edit_tipe_pekerjaan_id\">" +
                         "<option value=\"\">--Pilih Menu Utama--</option>";
 
-                    $.each(response.menu_utama, function(index, value) {
+                    $.each(response.tipes, function(index, value) {
                         val += "<option value=\"" + value.id + "\"";
-                        if (response.menu_utama_id == value.id) {
+                        if (response.tipe_pekerjaan_id == value.id) {
                             val += "selected";
                         }
-                        val += ">"+ value.nama_menu +"</option>";
+                        val += ">"+ value.tipe +"</option>";
                     });
 
                     val += "</select>";
 
-                    $('.menu_sub_edit_menu_utama_id').append(val);
-                    $('#menu_sub_modal_edit').modal('show');
+                    $('.jenis_edit_tipe_pekerjaan_id').append(val);
+                    $('#jenis_modal_edit').modal('show');
                 }
             });
         });
 
-        $('#menu_sub_form_edit').submit(function(e) {
+        $('#jenis_form_edit').submit(function(e) {
             e.preventDefault();
 
+            var id = $('#jenis_edit_id').val();
+            var url = '{{ route("jenis_pekerjaan.update", ":id") }}';
+            url = url.replace(':id', id );
+
             var formData = {
-                id: $('#menu_sub_edit_id').val(),
-                nama_menu: $('#menu_sub_edit_nama_menu').val(),
-                link: $('#menu_sub_edit_link').val(),
-                menu_utama_id: $('#menu_sub_edit_menu_utama_id').val(),
-                button: "menu_sub_btn_update",
+                id: id,
+                jenis: $('#jenis_edit_jenis').val(),
+                tipe_pekerjaan_id: $('#jenis_edit_tipe_pekerjaan_id').val(),
+                button: "jenis_btn_update",
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.update') }}',
-                type: 'POST',
+                url: url,
+                type: 'PUT',
                 data: formData,
                 success: function(response) {
                     setTimeout(function() {
@@ -457,38 +462,38 @@
             });
         });
 
-        $('.menu_sub_btn_delete').on('click', function() {
-            $('.menu_sub_title_delete').empty();
+        $('.jenis_btn_delete').on('click', function() {
+            $('.jenis_title_delete').empty();
 
             var formData = {
                 id: $(this).attr('data-id'),
-                button: "menu_sub_btn_delete",
+                button: "jenis_btn_delete",
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.delete.btn') }}',
+                url: '{{ URL::route('jenis_pekerjaan.delete.btn') }}',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                    $('#menu_sub_delete_id').val(response.id);
-                    $('.menu_sub_title_delete').append(response.value);
-                    $('#menu_sub_modal_delete').modal('show');
+                    $('#jenis_delete_id').val(response.id);
+                    $('.jenis_title_delete').append(response.value);
+                    $('#jenis_modal_delete').modal('show');
                 }
             })
         });
 
-        $('#menu_sub_form_delete').submit( function(e) {
+        $('#jenis_form_delete').submit( function(e) {
             e.preventDefault();
 
             var formData = {
-                id: $('#menu_sub_delete_id').val(),
-                button: "menu_sub_btn_delete",
+                id: $('#jenis_delete_id').val(),
+                button: "jenis_btn_delete",
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.delete') }}',
+                url: '{{ URL::route('jenis_pekerjaan.delete') }}',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -498,6 +503,8 @@
                 }
             })
         });
+
+
     } );
 </script>
 @endsection

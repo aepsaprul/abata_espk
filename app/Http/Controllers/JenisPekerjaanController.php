@@ -16,7 +16,7 @@ class JenisPekerjaanController extends Controller
     public function index()
     {
         $tipe = EspkTipePekerjaan::get();
-        $jenis = EspkJenisPekerjaan::get();
+        $jenis = EspkJenisPekerjaan::with('tipePekerjaan')->get();
 
         return view('pages.jenis_pekerjaan.index', ['tipes' => $tipe, 'jenis' => $jenis]);
     }
@@ -28,7 +28,11 @@ class JenisPekerjaanController extends Controller
      */
     public function create()
     {
-        //
+        $tipe = EspkTipePekerjaan::get();
+
+        return response()->json([
+            'tipe' => $tipe
+        ]);
     }
 
     /**
@@ -46,7 +50,7 @@ class JenisPekerjaanController extends Controller
 
             $response = "Tipe pekerjaan berhasil ditambah";
         } elseif ($request->button == "jenis_btn_store") {
-            $jenis = new EspkTipePekerjaan;
+            $jenis = new EspkJenisPekerjaan();
             $jenis->jenis = $request->jenis;
             $jenis->tipe_pekerjaan_id = $request->tipe_pekerjaan_id;
             $jenis->save();
@@ -90,7 +94,15 @@ class JenisPekerjaanController extends Controller
 
     public function editJenis($id)
     {
+        $jenis = EspkJenisPekerjaan::find($id);
+        $tipe = EspkTipePekerjaan::get();
 
+        return response()->json([
+            'id' => $id,
+            'jenis' => $jenis->jenis,
+            'tipe_pekerjaan_id' => $jenis->tipe_pekerjaan_id,
+            'tipes' => $tipe
+        ]);
     }
 
     /**
