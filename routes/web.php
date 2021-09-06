@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\JenisPekerjaanController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PekerjaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('jenis_pekerjaan/{id}/edit_jenis', [JenisPekerjaanController::class, 'editJenis'])->name('jenis_pekerjaan.edit.jenis');
     Route::post('jenis_pekerjaan/delete/btn', [JenisPekerjaanController::class, 'deleteBtn'])->name('jenis_pekerjaan.delete.btn');
     Route::post('jenis_pekerjaan/delete', [JenisPekerjaanController::class, 'delete'])->name('jenis_pekerjaan.delete');
+
+    // data pekerjaan
+    Route::resource('pekerjaan', PekerjaanController::class);
 });
