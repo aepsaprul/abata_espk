@@ -31,13 +31,15 @@ class PekerjaanController extends Controller
     public function create()
     {
         $pelanggan = EspkPelanggan::get();
-        $pelaksana = MasterCabang::get();
+        $cabang_cetak = MasterCabang::get();
+        $cabang_finishing = MasterCabang::get();
         $jenis_pekerjaan = EspkJenisPekerjaan::with('tipePekerjaan')->get();
         $tipe_pekerjaan = EspkTipePekerjaan::get();
 
         return view('pages.pekerjaan.pesanan.create', [
             'pelanggans' => $pelanggan,
-            'pelaksanas' => $pelaksana,
+            'cabang_cetaks' => $cabang_cetak,
+            'cabang_finishings' => $cabang_finishing,
             'jenis_pekerjaans' => $jenis_pekerjaan,
             'tipe_pekerjaans' => $tipe_pekerjaan
         ]);
@@ -51,7 +53,27 @@ class PekerjaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pekerjaan = new EspkPekerjaan;
+        $pekerjaan->pelanggan_id = $request->pelanggan_id;
+        $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
+        $pekerjaan->pegawai_desain_id = $request->pegawai_desain_id;
+        $pekerjaan->nama_pesanan = $request->nama_pesanan;
+        $pekerjaan->nomor_nota = $request->nomor_nota;
+        $pekerjaan->tanggal_pesanan = $request->tanggal_pesanan;
+        $pekerjaan->rencana_jadi = $request->rencana_jadi;
+        $pekerjaan->jenis_pesanan = $request->jenis_pesanan;
+        $pekerjaan->jumlah = $request->jumlah;
+        $pekerjaan->ukuran = $request->ukuran;
+        $pekerjaan->jenis_kertas = $request->jenis_kertas;
+        $pekerjaan->warna = $request->warna;
+        $pekerjaan->keterangan = $request->keterangan;
+
+        // if ($request->file('file')) {
+        //     $file = $request->file('file')->store('file', 'public');
+        //     $pekerjaan->file = $file;
+        // }
+
+        $pekerjaan->save();
     }
 
     /**

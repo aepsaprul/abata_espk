@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('style')
-<link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
 <style>
     .col-md-10 {
@@ -54,13 +53,13 @@
                     <div class="mb-3 row">
                         <label for="tanggal_pesanan" class="col-sm-4 col-form-label">Tanggal Pesanan</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm" name="tanggal_pesanan">
+                            <input type="date" class="form-control form-control-sm" name="tanggal_pesanan">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="rencana_jadi" class="col-sm-4 col-form-label">Rencana Jadi</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm" name="rencana_jadi">
+                            <input type="date" class="form-control form-control-sm" name="rencana_jadi">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -112,18 +111,27 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="pelaksana" class="col-sm-4 col-form-label">Pelaksana</label>
+                        <label for="cabang_cetak" class="col-sm-4 col-form-label">Cetak</label>
                         <div class="col-sm-8">
-                            <select class="form-select form-select-sm" name="pelaksana">
-                                <option value="">--Pilih Pelaksana--</option>
-                                @foreach ($pelaksanas as $pelaksana)
-                                    <option value="{{ $pelaksana->id }}">{{ $pelaksana->nama_cabang }}</option>
+                            <select class="form-select form-select-sm" name="cabang_cetak">
+                                @foreach ($cabang_cetaks as $cabang_cetak)
+                                    <option value="{{ $cabang_cetak->id }}">{{ $cabang_cetak->nama_cabang }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="desain" class="col-sm-4 col-form-label">Desain</label>
+                        <label for="cabang_finishing" class="col-sm-4 col-form-label">Finishing</label>
+                        <div class="col-sm-8">
+                            <select class="form-select form-select-sm" name="cabang_finishing">
+                                @foreach ($cabang_finishings as $cabang_finishing)
+                                    <option value="{{ $cabang_finishing->id }}">{{ $cabang_finishing->nama_cabang }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="desain" class="col-sm-4 col-form-label">File</label>
                         <div class="col-sm-8">
                             <input class="form-control form-control-sm" id="file" type="file" name="file">
                         </div>
