@@ -20,6 +20,8 @@ class CreateEspkPekerjaansTable extends Migration
             $table->integer('pelanggan_id')->nullable();
             $table->integer('pegawai_penerima_pesanan_id')->nullable();
             $table->integer('pegawai_desain_id')->nullable();
+            $table->integer('cabang_cetak_id')->nullable();
+            $table->integer('cabang_finishing_id')->nullable();
             $table->string('nama_pesanan', 50)->nullable();
             $table->integer('nomor_nota')->nullable();
             $table->date('tanggal_pesanan')->nullable();
