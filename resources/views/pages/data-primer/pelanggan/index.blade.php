@@ -21,6 +21,11 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <h6 class="text-uppercase text-center">Data Pelanggan</h6>
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="row mb-2">
                 <div class="col-md-4">
                     <button id="pelanggan_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>

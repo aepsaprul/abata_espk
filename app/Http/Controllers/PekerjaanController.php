@@ -141,5 +141,7 @@ class PekerjaanController extends Controller
     {
         $pekerjaan = EspkPekerjaan::find($id);
         $pekerjaan->delete();
+
+        return redirect()->route('pekerjaan.index')->with('status', 'Data berhasil dihapus');
     }
 }

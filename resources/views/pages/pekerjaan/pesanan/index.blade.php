@@ -21,6 +21,13 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <h6 class="text-uppercase text-center">Data Pesanan</h6>
+            <div style="height: 50px;">
+            @if (session('status'))
+                <div class="text-success fst-italic">
+                    {{ session('status') }}
+                </div>
+            @endif
+            </div>
             <div class="row mb-2">
                 <div class="col-md-4">
                     <a href="{{ route('pekerjaan.create') }}" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></a>
@@ -41,13 +48,20 @@
                     @foreach ($pesanans as $key => $pesanan)
                     <tr>
                         <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $pesanan->cabang_pemesan_id }}</td>
+                        <td>{{ $pesanan->masterCabang->nama_cabang }}</td>
                         <td>{{ $pesanan->nama_pesanan }}</td>
                         <td>{{ $pesanan->rencana_jadi }}</td>
-                        <td>{{ $pesanan->cabang_penerima_id }}</td>
+                        <td>{{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
                         <td class="text-center">
                             <button data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_edit"><i class="fas fa-edit"></i></button> |
-                            <a href="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_delete"><i class="fas fa-trash"></i></a>
+                            {{-- <a href="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_delete"><i class="fas fa-trash"></i></a> --}}
+                            <form action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" method="POST" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button class="border-0 bg-white">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
