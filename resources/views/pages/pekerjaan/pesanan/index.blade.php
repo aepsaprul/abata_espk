@@ -47,7 +47,7 @@
                         <td>{{ $pesanan->cabang_penerima_id }}</td>
                         <td class="text-center">
                             <button data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_edit"><i class="fas fa-edit"></i></button> |
-                            <button data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_delete"><i class="fas fa-trash"></i></button>
+                            <a href="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_delete"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                     @endforeach

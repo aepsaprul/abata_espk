@@ -152,14 +152,21 @@
                             @foreach ($tipe_pekerjaans as $tipe_pekerjaan)
                                 <div class="col-md-6">
                                     <p>{{ $tipe_pekerjaan->tipe }}</p>
+                                    @if ($tipe_pekerjaan->tipe == "Cetak" )
+                                        @php $type = "radio"; @endphp
+                                    @else
+                                        @php $type = "checkbox"; @endphp
+                                    @endif
                                 </div>
                                 <div class="col-md-6">
                                     @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="jenis_pekerjaan_switch" style="padding: 10px; width: 40px; margin-right: 10px;">
-                                            <label class="form-check-label" for="jenis_pekerjaan_switch">{{ $jenis_pekerjaan->jenis }}</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}">
+                                            <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
+                                                {{ $jenis_pekerjaan->jenis }}
+                                            </label>
                                         </div>
-                                        <input type="text" class="form-control form-control-sm mt-1 mb-2" name="jenis_pekerjaan_keterangan">
+                                        <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
                                     @endforeach
                                 </div>
                             @endforeach
@@ -177,4 +184,32 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('input[id="jenis_pekerjaan_keterangan_radio"]').prop("disabled", true);
+        $('input[id="jenis_pekerjaan_keterangan_checkbox"]').prop("disabled", true);
+
+        $('input[type="radio"]').on('change', function() {
+            var id = $(this).attr('data-id');
+            $('input[id="jenis_pekerjaan_keterangan_radio"]').prop("disabled", true);
+            $('input[id="jenis_pekerjaan_keterangan_radio"]').val("");
+            if($('#jenis_pekerjaan_' + id).prop("checked", true)) {
+                $('.jenis_pekerjaan_keterangan_' + id).prop("disabled", false);
+            }
+        });
+
+        $('input[type="checkbox"]').on('change', function() {
+            var id = $(this).attr('data-id');
+            $('.jenis_pekerjaan_keterangan_' + id).val("");
+            if($('#jenis_pekerjaan_' + id).is(":checked")) {
+                $('.jenis_pekerjaan_keterangan_' + id).prop("disabled", false);
+            } else {
+                $('.jenis_pekerjaan_keterangan_' + id).prop("disabled", true);
+            }
+        });
+    });
+</script>
 @endsection

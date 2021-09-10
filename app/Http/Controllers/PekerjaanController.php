@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EspkJenisPekerjaan;
 use App\Models\EspkPekerjaan;
+use App\Models\EspkPekerjaanProses;
 use App\Models\EspkPelanggan;
 use App\Models\EspkTipePekerjaan;
 use App\Models\MasterCabang;
@@ -59,6 +60,7 @@ class PekerjaanController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $pekerjaan = new EspkPekerjaan;
         $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
@@ -83,6 +85,16 @@ class PekerjaanController extends Controller
         }
 
         $pekerjaan->save();
+
+        foreach ($request->jenis_pekerjaan_id as $key => $jenis_pekerjaan) {
+            $jenis_pekerjaans = new EspkPekerjaanProses();
+            $jenis_pekerjaans->jenis_pekerjaan_id = $jenis_pekerjaan;
+            $jenis_pekerjaans->pekerjaan_id = $pekerjaan->id;
+            $jenis_pekerjaans->keterangan = $request->jenis_pekerjaan_keterangan[$key];
+            $jenis_pekerjaans->save();
+        }
+
+        return redirect()->route('pekerjaan.index')->with('status', 'Data berhasil disimpan');
     }
 
     /**
@@ -127,6 +139,7 @@ class PekerjaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pekerjaan = EspkPekerjaan::find($id);
+        $pekerjaan->delete();
     }
 }
