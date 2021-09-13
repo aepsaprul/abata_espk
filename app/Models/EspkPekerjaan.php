@@ -9,6 +9,10 @@ class EspkPekerjaan extends Model
 {
     use HasFactory;
 
+    public function pekerjaanProses() {
+        return $this->hasMany(EspkPekerjaanProses::class, 'pekerjaan_id', 'id');
+    }
+
     public function masterCabang() {
         return $this->belongsTo(MasterCabang::class, 'cabang_pemesan_id', 'id');
     }

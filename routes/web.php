@@ -24,7 +24,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-
     // menu
     Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
     Route::get('menu/create/menu_sub', [MenuController::class, 'createMenuSub'])->name('menu.create.menu_sub');
@@ -49,4 +48,5 @@ Route::middleware(['auth'])->group(function () {
 
     // data pekerjaan
     Route::resource('pekerjaan', PekerjaanController::class);
+    Route::get('pekerjaan/{file}/download/{nama_pesanan}', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
 });

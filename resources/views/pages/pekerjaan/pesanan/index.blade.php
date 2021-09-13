@@ -53,12 +53,11 @@
                         <td>{{ $pesanan->rencana_jadi }}</td>
                         <td>{{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
                         <td class="text-center">
-                            <button data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_edit"><i class="fas fa-edit"></i></button> |
-                            {{-- <a href="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" data-id="{{ $pesanan->id }}" class="border-0 bg-white pesanan_btn_delete"><i class="fas fa-trash"></i></a> --}}
+                            <a href="{{ route('pekerjaan.edit', [$pesanan->id]) }}" class="border-0 bg-white text-dark"><i class="fas fa-edit"></i></a> |
                             <form action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" method="POST" class="d-inline">
                                 @method('delete')
                                 @csrf
-                                <button class="border-0 bg-white">
+                                <button class="border-0 bg-white" onclick="return confirm('Yakin akan dihapus?')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

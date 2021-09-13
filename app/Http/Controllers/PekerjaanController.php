@@ -11,6 +11,7 @@ use App\Models\MasterCabang;
 use App\Models\MasterKaryawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PekerjaanController extends Controller
 {
@@ -60,7 +61,6 @@ class PekerjaanController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $pekerjaan = new EspkPekerjaan;
         $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
@@ -116,7 +116,38 @@ class PekerjaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pekerjaan = EspkPekerjaan::find($id);
+        $pelanggan = EspkPelanggan::get();
+        $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23'])->get();
+        $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
+        $cabang_cetak = MasterCabang::get();
+        $cabang_finishing = MasterCabang::get();
+        $jenis_pekerjaan = EspkJenisPekerjaan::with([
+            'tipePekerjaan',
+            'pekerjaanProses' => function ($query) use ($id) {
+                $query->where('pekerjaan_id', $id);
+            }
+            ])->get();
+        $tipe_pekerjaan = EspkTipePekerjaan::with([
+            'jenisPekerjaan',
+            'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
+                $query->where('pekerjaan_id', $id);
+            }
+        ])->get();
+        // $pekerjaan_proses = EspkPekerjaanProses::where('pekerjaan_id', $id)->get();
+        $pekerjaan_proses = EspkPekerjaanProses::where('pekerjaan_id', $id)->get();
+
+        return view('pages.pekerjaan.pesanan.edit', [
+            'pekerjaan' => $pekerjaan,
+            'pelanggans' => $pelanggan,
+            'cabang_cetaks' => $cabang_cetak,
+            'cabang_finishings' => $cabang_finishing,
+            'jenis_pekerjaans' => $jenis_pekerjaan,
+            'tipe_pekerjaans' => $tipe_pekerjaan,
+            'penerima_pesanans' => $penerima_pesanan,
+            'desains' => $desain,
+            'pekerjaan_proses' => $pekerjaan_proses
+        ]);
     }
 
     /**
@@ -142,6 +173,21 @@ class PekerjaanController extends Controller
         $pekerjaan = EspkPekerjaan::find($id);
         $pekerjaan->delete();
 
+        if($pekerjaan->file && file_exists(storage_path('app/public/' . $pekerjaan->file))) {
+            Storage::delete('public/' . $pekerjaan->file);
+        }
+
+        $pekerjaan_proses_db = EspkPekerjaanProses::where('pekerjaan_id', $id)->get();
+
+        foreach ($pekerjaan_proses_db as $key => $pekerjaan_proses) {
+            EspkPekerjaanProses::where('id', $pekerjaan_proses->id)->delete();
+        }
+
         return redirect()->route('pekerjaan.index')->with('status', 'Data berhasil dihapus');
+    }
+
+    public function download(Request $request, $file)
+    {
+        return response()->download(storage_path('app/public/file/'. $file));
     }
 }
