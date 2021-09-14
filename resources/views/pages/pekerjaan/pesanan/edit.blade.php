@@ -20,7 +20,8 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <form action="{{ route('pekerjaan.update', [$pekerjaan->id]) }}" method="POST" enctype="multipart/form-data">
-            @csrf
+                @method('PUT')
+                @csrf
                 <h6 class="text-uppercase text-center">Tambah Pesanan {{ Auth::user()->masterKaryawan->masterCabang->nama_cabang }}</h6>
                 <div class="row mb-2">
                     <div class="col-md-4">
@@ -177,10 +178,11 @@
                                         </div>
                                         @php if (!$jenis_pekerjaan->pekerjaanProses->isEmpty()) { @endphp
                                             @foreach ($jenis_pekerjaan->pekerjaanProses as $item)
+                                            <input type="hidden" name="pekerjaan_proses_id[]" value="{{ $item->id }}">
                                             <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]" value="{{ $item->keterangan}}">
                                             @endforeach
                                         @php } else { @endphp
-                                            <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
+                                            <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" disabled name="jenis_pekerjaan_keterangan[]">
                                         @php }  @endphp
                                     @endforeach
                                 </div>
@@ -205,8 +207,8 @@
 <script>
     $(document).ready(function() {
         $('#file').hide();
-        $('input[id="jenis_pekerjaan_keterangan_radio"]').prop("disabled", true);
-        $('input[id="jenis_pekerjaan_keterangan_checkbox"]').prop("disabled", true);
+        // $('input[id="jenis_pekerjaan_keterangan_radio"]').prop("disabled", true);
+        // $('input[id="jenis_pekerjaan_keterangan_checkbox"]').prop("disabled", true);
 
         $('#ganti').on('click', function(e) {
             e.preventDefault();

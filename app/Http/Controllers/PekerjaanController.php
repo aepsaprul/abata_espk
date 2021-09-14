@@ -127,7 +127,7 @@ class PekerjaanController extends Controller
             'pekerjaanProses' => function ($query) use ($id) {
                 $query->where('pekerjaan_id', $id);
             }
-            ])->get();
+        ])->get();
         $tipe_pekerjaan = EspkTipePekerjaan::with([
             'jenisPekerjaan',
             'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
@@ -159,7 +159,43 @@ class PekerjaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pekerjaan = EspkPekerjaan::find($id);
+        $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
+        $pekerjaan->pelanggan_id = $request->pelanggan_id;
+        $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
+        $pekerjaan->pegawai_desain_id = $request->pegawai_desain_id;
+        $pekerjaan->cabang_cetak_id = $request->cabang_cetak_id;
+        $pekerjaan->cabang_finishing_id = $request->cabang_finishing_id;
+        $pekerjaan->nama_pesanan = $request->nama_pesanan;
+        $pekerjaan->nomor_nota = $request->nomor_nota;
+        $pekerjaan->tanggal_pesanan = $request->tanggal_pesanan;
+        $pekerjaan->rencana_jadi = $request->rencana_jadi;
+        $pekerjaan->jenis_pesanan = $request->jenis_pesanan;
+        $pekerjaan->jumlah = $request->jumlah;
+        $pekerjaan->ukuran = $request->ukuran;
+        $pekerjaan->jenis_kertas = $request->jenis_kertas;
+        $pekerjaan->warna = $request->warna;
+        $pekerjaan->keterangan = $request->keterangan;
+
+        if ($request->file('file')) {
+            if($pekerjaan->file && file_exists(storage_path('app/public/' . $pekerjaan->file))) {
+                Storage::delete('public/' . $pekerjaan->file);
+            }
+            $file = $request->file('file')->store('file', 'public');
+            $pekerjaan->file = $file;
+        }
+
+        $pekerjaan->save();
+
+        foreach ($request->pekerjaan_proses_id as $key => $pekerjaan_proses) {
+            $pekerjaan_proses = EspkPekerjaanProses::find($pekerjaan_proses);
+            $pekerjaan_proses->jenis_pekerjaan_id = $request->jenis_pekerjaan_id[$key];
+            $pekerjaan_proses->pekerjaan_id = $pekerjaan->id;
+            $pekerjaan_proses->keterangan = $request->jenis_pekerjaan_keterangan[$key];
+            $pekerjaan_proses->save();
+        }
+
+        return redirect()->route('pekerjaan.index')->with('status', 'Data berhasil disimpan');
     }
 
     /**
