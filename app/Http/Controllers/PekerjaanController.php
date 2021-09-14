@@ -226,4 +226,27 @@ class PekerjaanController extends Controller
     {
         return response()->download(storage_path('app/public/file/'. $file));
     }
+
+    public function publish(Request $request)
+    {
+        $pekerjaan = EspkPekerjaan::find($request->id);
+        $pelaksana = MasterCabang::get();
+
+        return response()->json([
+            'id' => $pekerjaan->id,
+            'nama_pesanan' => $pekerjaan->nama_pesanan,
+            'pelaksanas' => $pelaksana
+        ]);
+    }
+
+    public function publishStore(Request $request)
+    {
+        $pekerjaan = EspkPekerjaan::find($request->id);
+        $pekerjaan->cabang_pelaksana_id = $request->cabang_pelaksana_id;
+        $pekerjaan->save();
+
+        return response()->json([
+            'status' => 'sukses'
+        ]);
+    }
 }

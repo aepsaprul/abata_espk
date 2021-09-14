@@ -49,4 +49,6 @@ Route::middleware(['auth'])->group(function () {
     // data pekerjaan
     Route::resource('pekerjaan', PekerjaanController::class);
     Route::get('pekerjaan/{file}/download/{nama_pesanan}', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
+    Route::post('pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');
+    Route::post('pekerjaan/publish_store', [PekerjaanController::class, 'publishStore'])->name('pekerjaan.publish_store');
 });
