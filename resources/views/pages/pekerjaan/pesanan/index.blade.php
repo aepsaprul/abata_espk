@@ -30,7 +30,7 @@
             </div>
             <div class="row mb-2">
                 <div class="col-md-4">
-                    <a href="{{ route('pekerjaan.create') }}" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></a>
+                    <a href="{{ route('pekerjaan.create') }}" class="mb-4 btn btn-outline-primary" title="Tambah"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
             <table id="table_satu" class="table table-bordered" style="width:100%">
@@ -48,17 +48,17 @@
                     @foreach ($pesanans as $key => $pesanan)
                     <tr>
                         <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $pesanan->masterCabang->nama_cabang }}</td>
+                        <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
                         <td>{{ $pesanan->nama_pesanan }}</td>
                         <td>{{ $pesanan->rencana_jadi }}</td>
                         <td>{{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
                         <td class="text-center">
-                            <button class="border-0 bg-white text-dark mx-1 publish" data-id="{{ $pesanan->id }}"><i class="fas fa-rocket"></i></button> |
-                            <a href="{{ route('pekerjaan.edit', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2"><i class="fas fa-edit"></i></a> |
+                            <button class="border-0 bg-white text-dark mx-1 publish" data-id="{{ $pesanan->id }}" title="Publish"><i class="fas fa-rocket"></i></button> |
+                            <a href="{{ route('pekerjaan.edit', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Ubah"><i class="fas fa-edit"></i></a> |
                             <form action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" method="POST" class="d-inline">
                                 @method('delete')
                                 @csrf
-                                <button class="border-0 bg-white" onclick="return confirm('Yakin akan dihapus?')">
+                                <button class="border-0 bg-white" onclick="return confirm('Yakin akan dihapus?')" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -60,7 +60,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Pesanan</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-chevron-right"></i> Pekerjaan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('proses_pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Pekerjaan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

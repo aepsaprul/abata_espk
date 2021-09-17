@@ -13,8 +13,12 @@ class EspkPekerjaan extends Model
         return $this->hasMany(EspkPekerjaanProses::class, 'pekerjaan_id', 'id');
     }
 
-    public function masterCabang() {
+    public function cabangPemesan() {
         return $this->belongsTo(MasterCabang::class, 'cabang_pemesan_id', 'id');
+    }
+
+    public function cabangPelaksana() {
+        return $this->belongsTo(MasterCabang::class, 'cabang_pelaksana_id', 'id');
     }
 
     public function pegawaiPenerimaPesanan() {

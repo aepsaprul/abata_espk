@@ -22,7 +22,7 @@ class PekerjaanController extends Controller
      */
     public function index()
     {
-        $pekerjaan = EspkPekerjaan::get();
+        $pekerjaan = EspkPekerjaan::where('cabang_pelaksana_id', null)->get();
 
         return view('pages.pekerjaan.pesanan.index', ['pesanans' => $pekerjaan]);
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\JenisPekerjaanController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PekerjaanController;
+use App\Http\Controllers\ProsesPekerjaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,9 @@ use App\Http\Controllers\PekerjaanController;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function() {
+    return redirect()->route('login');
+});
 
 Auth::routes();
 
@@ -47,8 +50,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('jenis_pekerjaan/delete', [JenisPekerjaanController::class, 'delete'])->name('jenis_pekerjaan.delete');
 
     // data pekerjaan
+        // pesanan
     Route::resource('pekerjaan', PekerjaanController::class);
     Route::get('pekerjaan/{file}/download/{nama_pesanan}', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
     Route::post('pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');
     Route::post('pekerjaan/publish_store', [PekerjaanController::class, 'publishStore'])->name('pekerjaan.publish_store');
+
+    // proses pekerjaan
+    Route::get('proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');
+    Route::post('proses_pekerjaan', [ProsesPekerjaanController::class, 'create'])->name('proses_pekerjaan.create');
+
 });

@@ -21,7 +21,7 @@
         <div class="col-md-10">
             <form action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-                <h6 class="text-uppercase text-center">Tambah Pesanan {{ Auth::user()->masterKaryawan->masterCabang->nama_cabang }}</h6>
+                <h6 class="text-uppercase text-center">Tambah Pesanan</h6>
                 <div class="row mb-2">
                     <div class="col-md-4">
                         <a href="{{ url('pekerjaan') }}" class="mb-4 btn btn-outline-primary"><i class="fas fa-arrow-left"></i></a>
