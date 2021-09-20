@@ -38,7 +38,7 @@
                             Admin
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Akses</a></li>
+                                <li><a class="dropdown-item border-bottom" href="#">Akses</a></li>
                                 <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
                             </ul>
                         </li>
@@ -50,7 +50,7 @@
                             Data Primer
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ route('pelanggan.index') }}"><i class="fas fa-chevron-right"></i> Pelanggan</a></li>
+                                <li><a class="dropdown-item border-bottom" href="{{ route('pelanggan.index') }}"><i class="fas fa-chevron-right"></i> Pelanggan</a></li>
                                 <li><a class="dropdown-item" href="{{ route('jenis_pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Jenis Pekerjaan</a></li>
                             </ul>
                         </li>
@@ -59,17 +59,8 @@
                             Pekerjaan
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ route('pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Pesanan</a></li>
+                                <li><a class="dropdown-item border-bottom" href="{{ route('pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Pesanan</a></li>
                                 <li><a class="dropdown-item" href="{{ route('proses_pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Pekerjaan</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Keuangan
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Hutang</a></li>
-                                <li><a class="dropdown-item" href="#">Piutang</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -77,8 +68,8 @@
                             Laporan
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Pekerjaan</a></li>
-                                <li><a class="dropdown-item" href="#">Tagihan</a></li>
+                                <li><a class="dropdown-item border-bottom" href="#">Pekerjaan</a></li>
+                                <li><a class="dropdown-item border-bottom" href="#">Tagihan</a></li>
                                 <li><a class="dropdown-item" href="#">Kinerja</a></li>
                             </ul>
                         </li>
@@ -115,7 +106,8 @@
         </main>
     </div>
 
-    <script src="{{ asset('lib/bootstrap-5/bootstrap.min.js') }}"></script>
+    {{-- <script src="{{ asset('lib/bootstrap-5/bootstrap.min.js') }}"></script> --}}
+    <script src="{{ asset('lib/bootstrap-5/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('lib/datatables/js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('lib/fontawesome-5/js/fontawesome.min.js') }}"></script>
 

@@ -58,6 +58,6 @@ Route::middleware(['auth'])->group(function () {
 
     // proses pekerjaan
     Route::get('proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');
-    Route::post('proses_pekerjaan', [ProsesPekerjaanController::class, 'create'])->name('proses_pekerjaan.create');
+    Route::post('proses_pekerjaan/update_pesanan', [ProsesPekerjaanController::class, 'updatePesanan'])->name('proses_pekerjaan.update_pesanan');
 
 });

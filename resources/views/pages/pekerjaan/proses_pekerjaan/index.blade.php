@@ -100,17 +100,25 @@
                                 <td>{{ $pesanan->nama_pesanan }}</td>
                                 <td>{{ $pesanan->nomor_nota }}</td>
                                 <td>{{ $pesanan->rencana_jadi }}</td>
-                                <td></td>
+                                <td>
+                                    @if ($pesanan->status_id != null)
+                                        {{ $pesanan->status->nama_status }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td class="text-center">
-                                    <button class="border-0 bg-white text-dark mx-1 publish" data-id="{{ $pesanan->id }}" title="Publish"><i class="fas fa-rocket"></i></button> |
-                                    <a href="{{ route('pesanan.edit', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Ubah"><i class="fas fa-edit"></i></a> |
-                                    <form action="{{ route('pesanan.destroy', [$pesanan->id]) }}" method="POST" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="border-0 bg-white" onclick="return confirm('Yakin akan dihapus?')" title="Hapus">
-                                            <i class="fas fa-trash"></i>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Aksi">
+                                            <i class="fas fa-cog"></i>
                                         </button>
-                                    </form>
+                                        <ul class="dropdown-menu">
+                                            <li class="border-bottom"><a class="dropdown-item" href="#">Download</a></li>
+                                            <li><a class="dropdown-item status" href="#" data-pesanan="{{ $pesanan->nama_pesanan }}" data-id="{{ $pesanan->id }}">Status</a></li>
+                                        </ul>
+                                      </div> |
+                                    <a href="#" class="border-0 bg-white text-dark mx-2" title="Lihat"><i class="fas fa-eye"></i></a> |
+                                    <a href="#" class="text-dark mx-2" title="Print"><i class="fas fa-print"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -123,7 +131,7 @@
 </div>
 
 {{-- modal create  --}}
-<div class="modal fade" tabindex="-1" id="modal_create">
+<div class="modal fade" tabindex="-1" id="modal_ubah_status">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -131,17 +139,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form_create">
+                <form id="form_ubah_status">
                     <input type="hidden" class="form-control" id="modal_id" name="modal_id">
                     <div class="mb-3">
-                        <label for="modal_nama_pesanan" class="form-label">Nama Pesanan</label>
-                        <input type="text" class="form-control" id="modal_nama_pesanan" name="modal_nama_pesanan" disabled>
+                        <label for="modal_pekerjaan" class="form-label">Pekerjaan</label>
+                        <input type="text" class="form-control" id="modal_pekerjaan" name="modal_pekerjaan" disabled>
                     </div>
                     <div class="mb-3">
-                        <label for="modal_cabang_pelaksana_id" class="form-label">Pelaksana</label>
-                        <select class="form-control modal_cabang_pelaksana_id" id="modal_cabang_pelaksana_id" name="modal_cabang_pelaksana_id">
-
+                        <label for="modal_status" class="form-label">Status</label>
+                        <select class="form-control modal_status" id="modal_status" name="modal_status">
+                            <option value="2">Dibatalkan</option>
+                            <option value="1">Disetujui</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modal_keterangan" class="form-label">Keterangan</label>
+                        <input type="text" class="form-control modal_keterangan" id="modal_keterangan" name="modal_keterangan">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -153,6 +166,7 @@
 @endsection
 
 @section('script')
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> --}}
 <script src="{{ asset('lib/datatables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('lib/datatables/js/dataTables.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('lib/datatables/js/dataTables.buttons.min.js') }}"></script>
@@ -171,44 +185,25 @@
             "ordering": false
         });
 
-        $('.publish').on('click', function() {
-            var id = $(this).attr('data-id');
-
-            var formData = {
-                id: id,
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: '{{ URL::route('pekerjaan.publish') }}',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    console.log(response);
-                    $('#modal_id').val(response.id);
-                    $('#modal_nama_pesanan').val(response.nama_pesanan);
-
-                    $.each(response.pelaksanas, function(index, value) {
-                        var pelaksana = "<option value=\"" + value.id + "\"> " + value.nama_cabang + "</option>";
-                        $('.modal_cabang_pelaksana_id').append(pelaksana);
-                    });
-
-                    $('#modal_create').modal('show');
-                }
-            });
+        $('.status').on('click', function() {
+            $('#modal_keterangan').val("");
+            $('#modal_id').val($(this).attr('data-id'));
+            $('#modal_pekerjaan').val($(this).attr('data-pesanan'));
+            $('#modal_ubah_status').modal('show');
         });
 
-        $('#form_create').submit(function(e) {
+        $('#form_ubah_status').submit(function(e) {
             e.preventDefault();
 
             var formData = {
                 id: $('#modal_id').val(),
-                cabang_pelaksana_id: $('#modal_cabang_pelaksana_id').val(),
+                status_id: $('#modal_status').val(),
+                keterangan: $('#modal_keterangan').val(),
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('pekerjaan.publish_store') }}',
+                url: '{{ URL::route('proses_pekerjaan.update_pesanan') }}',
                 type: 'POST',
                 data: formData,
                 success: function(response) {

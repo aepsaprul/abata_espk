@@ -33,6 +33,7 @@ class CreateEspkPekerjaansTable extends Migration
             $table->string('warna', 30)->nullable();
             $table->text('keterangan')->nullable();
             $table->text('file')->nullable();
+            $table->integer('status_id')->nullable();
             $table->timestamps();
         });
     }

@@ -24,4 +24,8 @@ class EspkPekerjaan extends Model
     public function pegawaiPenerimaPesanan() {
         return $this->belongsTo(MasterKaryawan::class, 'pegawai_penerima_pesanan_id', 'id');
     }
+
+    public function status() {
+        return $this->belongsTo(EspkStatus::class, 'status_id', 'id');
+    }
 }
