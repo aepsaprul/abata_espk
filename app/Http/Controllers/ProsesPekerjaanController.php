@@ -60,4 +60,9 @@ class ProsesPekerjaanController extends Controller
             'status_pekerjaans' => $status_pekerjaan
         ]);
     }
+
+    public function print()
+    {
+        return view('pages.pekerjaan.proses_pekerjaan.print');
+    }
 }

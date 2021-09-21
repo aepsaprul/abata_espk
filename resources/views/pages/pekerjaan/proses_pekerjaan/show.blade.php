@@ -162,7 +162,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="row">
+                        <div class="row mt-5">
                             <table class="table table-stripped">
                                 <tr>
                                     <th>Status</th>

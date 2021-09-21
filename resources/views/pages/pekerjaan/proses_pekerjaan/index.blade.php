@@ -121,7 +121,7 @@
                                         </ul>
                                       </div> |
                                     <a href="{{ route('proses_pekerjaan.show', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Lihat"><i class="fas fa-eye"></i></a> |
-                                    <a href="#" class="text-dark mx-2" title="Print"><i class="fas fa-print"></i></a>
+                                    <a href="{{ route('proses_pekerjaan.print', [$pesanan->id]) }}" class="text-dark mx-2" title="Print"><i class="fas fa-print"></i></a>
                                 </td>
                             </tr>
                             @endforeach

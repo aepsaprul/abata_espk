@@ -60,5 +60,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');
     Route::post('proses_pekerjaan/update_pesanan', [ProsesPekerjaanController::class, 'updatePesanan'])->name('proses_pekerjaan.update_pesanan');
     Route::get('proses_pekerjaan/{id}/show', [ProsesPekerjaanController::class, 'show'])->name('proses_pekerjaan.show');
+    Route::get('proses_pekerjaan/{id}/print', [ProsesPekerjaanController::class, 'print'])->name('proses_pekerjaan.print');
 
 });
