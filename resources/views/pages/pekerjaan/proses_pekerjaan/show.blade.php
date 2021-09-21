@@ -162,9 +162,26 @@
                                 </div>
                             @endforeach
                         </div>
+                        <div class="row">
+                            <table class="table table-stripped">
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Pelaksana</th>
+                                    <th>Waktu</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                                @foreach ($status_pekerjaans as $status)
+                                    <tr>
+                                        <td>{{ $status->status->nama_status }}</td>
+                                        <td>{{ $status->pelaksana->nama_lengkap }}</td>
+                                        <td>{{ $status->waktu }}</td>
+                                        <td>{{ $status->status_keterangan }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <hr>
             </form>
         </div>
     </div>

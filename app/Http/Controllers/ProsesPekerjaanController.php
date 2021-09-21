@@ -52,7 +52,12 @@ class ProsesPekerjaanController extends Controller
                 $query->where('pekerjaan_id', $id);
             }
         ])->get();
+        $status_pekerjaan = EspkStatusPekerjaan::where('pekerjaan_id', $id)->get();
 
-        return view('pages.pekerjaan.proses_pekerjaan.show', ['pekerjaan' => $pekerjaan, 'tipe_pekerjaans' => $tipe_pekerjaan]);
+        return view('pages.pekerjaan.proses_pekerjaan.show', [
+            'pekerjaan' => $pekerjaan,
+            'tipe_pekerjaans' => $tipe_pekerjaan,
+            'status_pekerjaans' => $status_pekerjaan
+        ]);
     }
 }
