@@ -147,7 +147,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="modal_status" class="form-label">Status</label>
-                        <select class="form-control modal_status" id="modal_status" name="modal_status">
+                        <select class="form-control modal_status" id="modal_status" name="modal_status" required>
+                            <option value="">--Pilih Status--</option>
                             <option value="2">Dibatalkan</option>
                             <option value="1">Disetujui</option>
                         </select>
@@ -190,6 +191,14 @@
             $('#modal_id').val($(this).attr('data-id'));
             $('#modal_pekerjaan').val($(this).attr('data-pesanan'));
             $('#modal_ubah_status').modal('show');
+        });
+
+        $('#modal_status').on('change', function() {
+            if($('#modal_status').val() == 2) {
+                $('#modal_keterangan').prop('required', true);
+            } else {
+                $('#modal_keterangan').prop('required', false);
+            }
         });
 
         $('#form_ubah_status').submit(function(e) {
