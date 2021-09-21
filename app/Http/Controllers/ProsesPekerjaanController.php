@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EspkPekerjaan;
 use App\Models\EspkStatusPekerjaan;
+use App\Models\EspkTipePekerjaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,5 +41,18 @@ class ProsesPekerjaanController extends Controller
         return response()->json([
             'response' => 'sukses'
         ]);
+    }
+
+    public function show($id)
+    {
+        $pekerjaan = EspkPekerjaan::find($id);
+        $tipe_pekerjaan = EspkTipePekerjaan::with([
+            'jenisPekerjaan',
+            'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
+                $query->where('pekerjaan_id', $id);
+            }
+        ])->get();
+
+        return view('pages.pekerjaan.proses_pekerjaan.show', ['pekerjaan' => $pekerjaan, 'tipe_pekerjaans' => $tipe_pekerjaan]);
     }
 }

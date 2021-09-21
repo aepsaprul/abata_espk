@@ -9,6 +9,18 @@ class EspkPekerjaan extends Model
 {
     use HasFactory;
 
+    public function cabangCetak() {
+        return $this->belongsTo(MasterCabang::class, 'cabang_cetak_id', 'id');
+    }
+
+    public function cabangFinishing() {
+        return $this->belongsTo(MasterCabang::class, 'cabang_finishing_id', 'id');
+    }
+
+    public function pelanggan() {
+        return $this->belongsTo(EspkPelanggan::class, 'pelanggan_id', 'id');
+    }
+
     public function pekerjaanProses() {
         return $this->hasMany(EspkPekerjaanProses::class, 'pekerjaan_id', 'id');
     }
@@ -23,6 +35,10 @@ class EspkPekerjaan extends Model
 
     public function pegawaiPenerimaPesanan() {
         return $this->belongsTo(MasterKaryawan::class, 'pegawai_penerima_pesanan_id', 'id');
+    }
+
+    public function pegawaiDesain() {
+        return $this->belongsTo(MasterKaryawan::class, 'pegawai_desain_id', 'id');
     }
 
     public function status() {
