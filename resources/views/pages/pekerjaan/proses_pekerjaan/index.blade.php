@@ -113,7 +113,10 @@
                                             <i class="fas fa-cog"></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li class="border-bottom"><a class="dropdown-item" href="#">Download</a></li>
+                                            <li class="border-bottom">
+                                                @php $modul = explode('/', $pesanan->file); @endphp
+                                                <a class="dropdown-item" href="{{ route('pekerjaan.download', [$modul[1], $pesanan->nama_pesanan]) }}">Download</a>
+                                            </li>
                                             <li><a class="dropdown-item status" href="#" data-pesanan="{{ $pesanan->nama_pesanan }}" data-id="{{ $pesanan->id }}">Status</a></li>
                                         </ul>
                                       </div> |
