@@ -30,6 +30,7 @@
             </div>
 
             {{-- tabel pesanan  --}}
+            @if (!$pekerjaans->isEmpty())
             <div class="card">
                 <div class="card-header">
                     <i class="fas fa-th-list"></i> Daftar Pekerjaan
@@ -55,17 +56,34 @@
                                 <td>{{ $pekerjaan->nama_pesanan }}</td>
                                 <td>{{ $pekerjaan->nomor_nota }}</td>
                                 <td>{{ $pekerjaan->rencana_jadi }}</td>
-                                <td></td>
+                                <td>
+                                    @if ($pekerjaan->status_id != null)
+                                        {{ $pekerjaan->status->nama_status }}
+                                        @if ($pekerjaan->status_id == 6 || $pekerjaan->status_id == 7)
+                                            @php $hide = "d-none"; @endphp
+                                        @else
+                                            @php $hide = ""; @endphp
+                                        @endif
+                                    @else
+                                        -
+                                        @php $hide = ""; @endphp
+                                    @endif
+                                </td>
                                 <td class="text-center">
-                                    <button class="border-0 bg-white text-dark mx-1 publish" data-id="{{ $pekerjaan->id }}" title="Publish"><i class="fas fa-rocket"></i></button> |
-                                    <a href="{{ route('pekerjaan.edit', [$pekerjaan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Ubah"><i class="fas fa-edit"></i></a> |
-                                    <form action="{{ route('pekerjaan.destroy', [$pekerjaan->id]) }}" method="POST" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="border-0 bg-white" onclick="return confirm('Yakin akan dihapus?')" title="Hapus">
-                                            <i class="fas fa-trash"></i>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Aksi">
+                                            <i class="fas fa-cog"></i>
                                         </button>
-                                    </form>
+                                        <ul class="dropdown-menu">
+                                            <li class="border-bottom">
+                                                @php $modul = explode('/', $pekerjaan->file); @endphp
+                                                <a class="dropdown-item" href="{{ route('pekerjaan.download', [$modul[1], $pekerjaan->nama_pesanan]) }}">Download</a>
+                                            </li>
+                                            <li><a class="dropdown-item status {{ $hide }}" href="#" data-status="{{ $pekerjaan->status_id }}" data-pesanan="{{ $pekerjaan->nama_pesanan }}" data-id="{{ $pekerjaan->id }}">Status</a></li>
+                                        </ul>
+                                      </div> |
+                                    <a href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Lihat"><i class="fas fa-eye"></i></a> |
+                                    <a href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}" class="text-dark mx-2" title="Print"><i class="fas fa-print"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -73,8 +91,10 @@
                     </table>
                 </div>
             </div>
+            @endif
 
             {{-- tabel pekerjaan  --}}
+            @if (!$pesanans->isEmpty())
             <div class="card mt-5">
                 <div class="card-header">
                     <i class="fas fa-th-list"></i> Daftar Pesanan
@@ -103,8 +123,14 @@
                                 <td>
                                     @if ($pesanan->status_id != null)
                                         {{ $pesanan->status->nama_status }}
+                                        @if ($pesanan->status_id != null)
+                                            @php $hide = "d-none"; @endphp
+                                        @else
+                                            @php $hide = ""; @endphp
+                                        @endif
                                     @else
                                         -
+                                        @php $hide = ""; @endphp
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -117,7 +143,9 @@
                                                 @php $modul = explode('/', $pesanan->file); @endphp
                                                 <a class="dropdown-item" href="{{ route('pekerjaan.download', [$modul[1], $pesanan->nama_pesanan]) }}">Download</a>
                                             </li>
-                                            <li><a class="dropdown-item status" href="#" data-pesanan="{{ $pesanan->nama_pesanan }}" data-id="{{ $pesanan->id }}">Status</a></li>
+                                            <li>
+                                                <a class="dropdown-item status {{ $hide }}" href="#" data-status="{{ $pesanan->status_id }}" data-pesanan="{{ $pesanan->nama_pesanan }}" data-id="{{ $pesanan->id }}">Status</a>
+                                            </li>
                                         </ul>
                                       </div> |
                                     <a href="{{ route('proses_pekerjaan.show', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Lihat"><i class="fas fa-eye"></i></a> |
@@ -129,6 +157,7 @@
                     </table>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>
@@ -138,7 +167,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Publish</h5>
+                <h5 class="modal-title">Ubah Status</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -151,9 +180,7 @@
                     <div class="mb-3">
                         <label for="modal_status" class="form-label">Status</label>
                         <select class="form-control modal_status" id="modal_status" name="modal_status" required>
-                            <option value="">--Pilih Status--</option>
-                            <option value="2">Dibatalkan</option>
-                            <option value="1">Disetujui</option>
+
                         </select>
                     </div>
                     <div class="mb-3">
@@ -190,14 +217,44 @@
         });
 
         $('.status').on('click', function() {
+            $('.modal_status').empty();
+
             $('#modal_keterangan').val("");
             $('#modal_id').val($(this).attr('data-id'));
             $('#modal_pekerjaan').val($(this).attr('data-pesanan'));
+
+            var status_val = "<option value=\"\">--Pilih Status--</option>";
+
+            if ($(this).attr('data-status') == 1) {
+                status_val += "" +
+                    "<option value=\"7\">Dibatalkan</option>" +
+                    "<option value=\"3\">Pra Cetak</option>";
+            } else if ($(this).attr('data-status') == 3) {
+                status_val += "" +
+                    "<option value=\"7\">Dibatalkan</option>" +
+                    "<option value=\"4\">Proses Cetak</option>" +
+                    "<option value=\"5\">Proses Finishing</option>";
+            } else if ($(this).attr('data-status') == 4) {
+                status_val += "" +
+                    "<option value=\"7\">Dibatalkan</option>" +
+                    "<option value=\"5\">Proses Finishing</option>" +
+                    "<option value=\"6\">Selesai, Siap Dikirim</option>";
+            } else if ($(this).attr('data-status') == 5) {
+                status_val += "" +
+                    "<option value=\"7\">Dibatalkan</option>" +
+                    "<option value=\"6\">Selesai, Siap Dikirim</option>";
+            } else {
+                status_val += "" +
+                    "<option value=\"2\">Dibatalkan</option>" +
+                    "<option value=\"1\">Disetujui</option>";
+            }
+
+            $('.modal_status').append(status_val);
             $('#modal_ubah_status').modal('show');
         });
 
         $('#modal_status').on('change', function() {
-            if($('#modal_status').val() == 2) {
+            if($('#modal_status').val() == 2 || $('#modal_status').val() == 7) {
                 $('#modal_keterangan').prop('required', true);
             } else {
                 $('#modal_keterangan').prop('required', false);
@@ -215,7 +272,7 @@
             }
 
             $.ajax({
-                url: '{{ URL::route('proses_pekerjaan.update_pesanan') }}',
+                url: '{{ URL::route('proses_pekerjaan.update_status') }}',
                 type: 'POST',
                 data: formData,
                 success: function(response) {

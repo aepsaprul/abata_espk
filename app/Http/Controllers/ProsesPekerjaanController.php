@@ -15,6 +15,7 @@ class ProsesPekerjaanController extends Controller
         $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
         ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
         ->whereNotNull('status_id')
+        ->whereNotIn('status_id', [2])
         ->get();
 
         $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
@@ -24,7 +25,15 @@ class ProsesPekerjaanController extends Controller
         return view('pages.pekerjaan.proses_pekerjaan.index', ['pekerjaans' => $pekerjaan, 'pesanans' => $pesanan]);
     }
 
-    public function updatePesanan(Request $request)
+    public function editStatus($id)
+    {
+        $pekerjaan = EspkPekerjaan::find($id);
+        return response()->json([
+            'pekerjaan' => $pekerjaan
+        ]);
+    }
+
+    public function updateStatus(Request $request)
     {
         $pekerjaan = EspkPekerjaan::where('id', $request->id)->first();
         $pekerjaan->status_id = $request->status_id;
@@ -61,8 +70,9 @@ class ProsesPekerjaanController extends Controller
         ]);
     }
 
-    public function print()
+    public function print($id)
     {
-        return view('pages.pekerjaan.proses_pekerjaan.print');
+        $pekerjaan = EspkPekerjaan::find($id);
+        return view('pages.pekerjaan.proses_pekerjaan.print', ['pekerjaan' => $pekerjaan]);
     }
 }

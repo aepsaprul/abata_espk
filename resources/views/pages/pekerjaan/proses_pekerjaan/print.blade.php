@@ -38,7 +38,7 @@
                                 <th class="text-uppercase text-center">pemesan</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase text-center">hilda</td>
+                                <td class="text-uppercase text-center">{{ $pekerjaan->pelanggan->nama }}</td>
                             </tr>
                         </table>
 
@@ -47,7 +47,7 @@
                                 <th class="text-uppercase text-center">judul</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase text-center">testing 4</td>
+                                <td class="text-uppercase text-center">{{ $pekerjaan->nama_pesanan }}</td>
                             </tr>
                         </table>
 
@@ -59,10 +59,10 @@
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">rencana jadi</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">4</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">06 September 2021</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->nomor_nota }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->tanggal_pesanan }}</td>
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">-</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">08 September 2021</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->rencana_jadi }}</td>
                             </tr>
                         </table>
 
@@ -74,10 +74,10 @@
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">warna tinta</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">test</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">1000</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">folio</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">test</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->jenis_pesanan }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->jumlah }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->ukuran }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->warna }}</td>
                             </tr>
                         </table>
 
@@ -97,22 +97,22 @@
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">pencatat</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">hvs</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">aep</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">aep</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->jenis_kertas }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
                             </tr>
                         </table>
 
                         <table class="table table-bordered" style="border: 2px solid #d0d0d0;">
                             <tr style="border: 2px solid #d0d0d0;">
-                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">setting</th>
+                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">desain</th>
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">cetak</th>
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">finishing</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">andi</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">holding (ho)</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">holding (ho)</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->pegawaiDesain->nama_lengkap }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->cabangCetak->nama_cabang }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->cabangFinishing->nama_cabang }}</td>
                             </tr>
                         </table>
 
@@ -121,7 +121,7 @@
                                 <th class="text-uppercase">keterangan:</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase">test</td>
+                                <td class="text-uppercase">{{ $pekerjaan->keterangan }}</td>
                             </tr>
                         </table>
                         <button onclick="window.print()">Print this page</button>
