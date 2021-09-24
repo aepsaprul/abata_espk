@@ -15,7 +15,7 @@ class MenuController extends Controller
         $menu_sub = EspkMenuSub::with('menuUtama')->get();
         $menu_btn = EspkMenuButton::get();
 
-        return view('pages.menu.index', ['menu_utamas' => $menu_utama, 'menu_subs' => $menu_sub, 'menu_btns' => $menu_btn]);
+        return view('pages.admin.menu.index', ['menu_utamas' => $menu_utama, 'menu_subs' => $menu_sub, 'menu_btns' => $menu_btn]);
     }
 
     public function createMenuSub()

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\JenisPekerjaanController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\NavController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\ProsesPekerjaanController;
@@ -37,6 +39,19 @@ Route::middleware(['auth'])->group(function () {
     Route::post('menu/update', [MenuController::class, 'update'])->name('menu.update');
     Route::post('menu/delete/btn', [MenuController::class, 'deleteBtn'])->name('menu.delete.btn');
     Route::post('menu/delete', [MenuController::class, 'delete'])->name('menu.delete');
+
+    // karyawan
+    Route::get('karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+    Route::get('karyawan/{id}/akses', [KaryawanController::class, 'akses'])->name('karyawan.akses');
+
+    // navigasi
+    Route::get('navigasi', [NavController::class, 'index'])->name('navigasi.index');
+    Route::get('navigasi/create', [NavController::class, 'create'])->name('navigasi.create');
+    Route::post('navigasi/store', [NavController::class, 'store'])->name('navigasi.store');
+    Route::get('navigasi/{id}/edit', [NavController::class, 'edit'])->name('navigasi.edit');
+    Route::put('navigasi/{id}/update', [NavController::class, 'update'])->name('navigasi.update');
+    Route::get('navigasi/{id}/delete_btn', [NavController::class, 'deleteBtn'])->name('navigasi.delete_btn');
+    Route::get('navigasi/{id}/delete', [NavController::class, 'delete'])->name('navigasi.delete');
 
     // data primer pelanggan
     Route::resource('pelanggan', PelangganController::class);

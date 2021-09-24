@@ -38,8 +38,8 @@
                             Admin
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item border-bottom" href="#">Akses</a></li>
-                                <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
+                                <li><a class="dropdown-item" href="{{ route('navigasi.index') }}">Navigasi</a></li>
+                                <li><a class="dropdown-item border-top" href="{{ route('karyawan.index') }}">Karyawan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -68,13 +68,9 @@
                             Laporan
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item border-bottom" href="#">Pekerjaan</a></li>
-                                <li><a class="dropdown-item border-bottom" href="#">Tagihan</a></li>
-                                <li><a class="dropdown-item" href="#">Kinerja</a></li>
+                                <li><a class="dropdown-item border-bottom" href="#">Pesanan</a></li>
+                                <li><a class="dropdown-item" href="#">Pekerjaan</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Pengguna</a>
                         </li>
                     </ul>
                     <div class="btn-group d-flex">
