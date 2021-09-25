@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\JenisPekerjaanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NavController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PekerjaanController;
@@ -77,5 +78,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('proses_pekerjaan/update_status', [ProsesPekerjaanController::class, 'updateStatus'])->name('proses_pekerjaan.update_status');
     Route::get('proses_pekerjaan/{id}/show', [ProsesPekerjaanController::class, 'show'])->name('proses_pekerjaan.show');
     Route::get('proses_pekerjaan/{id}/print', [ProsesPekerjaanController::class, 'print'])->name('proses_pekerjaan.print');
+
+    // laporan
+    Route::get('laporan/pekerjaan', [LaporanController::class, 'indexPekerjaan'])->name('laporan.index_pekerjaan');
 
 });

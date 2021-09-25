@@ -68,8 +68,7 @@
                             Laporan
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item border-bottom" href="#">Pesanan</a></li>
-                                <li><a class="dropdown-item" href="#">Pekerjaan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('laporan.index_pekerjaan') }}"><i class="fas fa-chevron-right"></i> Pekerjaan</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="jenis_pesanan" class="col-sm-4 col-form-label">Jenis Pesanan</label>
+                            <label for="jenis_pesanan" class="col-sm-4 col-form-label">Jenis Order</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control form-control-sm" name="jenis_pesanan">
                             </div>
