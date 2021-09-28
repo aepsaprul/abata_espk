@@ -41,7 +41,7 @@
                         <th>Nama Pesanan</th>
                         <th>Rencana Jadi</th>
                         <th>Penerima</th>
-                        <th>#</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

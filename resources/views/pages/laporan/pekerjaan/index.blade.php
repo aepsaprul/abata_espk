@@ -26,107 +26,106 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <div class="col-md-12 mb-4">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="tanggal_awal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control form-control-sm" id="tanggal_awal" name="tanggal_awal">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="sampai" class="form-label">Sampai</label>
-                            <input type="date" class="form-control form-control-sm" id="sampai" name="sampai">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="pelanggan" class="form-label">Pelanggan</label>
-                            <select id="pelanggan" class="form-select form-select-sm" name="pelanggan">
-                                <option value="">-- Pilih Pelanggan --</option>
-                                @foreach ($pelanggans as $pelanggan)
-                                    <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="judul" class="form-label">Judul</label>
-                            <input type="text" class="form-control form-control-sm" id="judul" name="judul">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="cabang_pemesan" class="form-label">Cabang Pemesan</label>
-                            <select id="cabang_pemasan" class="form-select form-select-sm" name="cabang_pemasan">
-                                <option value="">-- Pilih Cabang Pemesan --</option>
-                                @foreach ($cabangs as $cabang)
-                                    <option value="{{ $cabang->id }}">{{ $cabang->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="cabang_pelaksana" class="form-label">Cabang Pelaksana</label>
-                            <select id="cabang_pelaksan" class="form-select form-select-sm" name="cabang_pelaksan">
-                                <option value="">-- Pilih Cabang Pelaksana --</option>
-                                @foreach ($cabangs as $cabang)
-                                    <option value="{{ $cabang->id }}">{{ $cabang->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="status_pekerjaan" class="form-label">Status Pekerjaan</label>
-                            <select id="status_pekerjaan" class="form-select form-select-sm" name="status_pekerjaan">
-                                <option value="">-- Pilih Status --</option>
-                                @foreach ($status as $status)
-                                    <option value="{{ $status->id }}">{{ $status->nama_status }}</option>
-                                @endforeach
-                            </select>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-filter"></i> Filter
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12 mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="tanggal_awal" class="form-label">Tanggal</label>
+                                    <input type="date" class="form-control form-control-sm" id="tanggal_awal" name="tanggal_awal">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="tanggal_akhir" class="form-label">Sampai</label>
+                                    <input type="date" class="form-control form-control-sm" id="tanggal_akhir" name="tanggal_akhir">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="pelanggan_id" class="form-label">Pelanggan</label>
+                                    <select id="pelanggan_id" class="form-select form-select-sm" name="pelanggan_id">
+                                        <option value="">-- Pilih Pelanggan --</option>
+                                        @foreach ($pelanggans as $pelanggan)
+                                            <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="nama_pesanan" class="form-label">Nama Pesanan</label>
+                                    <input type="text" class="form-control form-control-sm" id="nama_pesanan" name="nama_pesanan">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="cabang_pemesan_id" class="form-label">Cabang Pemesan</label>
+                                    <select id="cabang_pemesan_id" class="form-select form-select-sm" name="cabang_pemesan_id">
+                                        <option value="">-- Pilih Cabang Pemesan --</option>
+                                        @foreach ($cabangs as $cabang)
+                                            <option value="{{ $cabang->id }}">{{ $cabang->nama_cabang }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="cabang_pelaksana_id" class="form-label">Cabang Pelaksana</label>
+                                    <select id="cabang_pelaksana_id" class="form-select form-select-sm" name="cabang_pelaksana_id">
+                                        <option value="">-- Pilih Cabang Pelaksana --</option>
+                                        @foreach ($cabangs as $cabang)
+                                            <option value="{{ $cabang->id }}">{{ $cabang->nama_cabang }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="status_id" class="form-label">Status Pekerjaan</label>
+                                    <select id="status_id" class="form-select form-select-sm" name="status_id">
+                                        <option value="">-- Pilih Status --</option>
+                                        @foreach ($status as $status)
+                                            <option value="{{ $status->id }}">{{ $status->nama_status }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
+                <div class="card-footer">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-primary btn_cari btn-sm" style="width: 100px;">Cari</button>
+                        <button type="button" class="btn btn-primary btn_reset btn-sm mx-3" style="width: 100px;">Reset</button>
+                    </div>
+                </div>
             </div>
-            <table id="table_satu" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr class="text-center bg-secondary text-white">
-                        <th>No</th>
-                        <th>Pemesan</th>
-                        <th>Nama Pekerjaan</th>
-                        <th>No Nota</th>
-                        <th>Rencana Jadi</th>
-                        <th>Pelaksana</th>
-                        <th>Status</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pekerjaans as $key => $pekerjaan)
-                    <tr>
-                        <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
-                        <td>{{ $pekerjaan->nama_pesanan }}</td>
-                        <td>{{ $pekerjaan->nomor_nota }}</td>
-                        <td>{{ $pekerjaan->rencana_jadi }}</td>
-                        <td>{{ $pekerjaan->cabangPelaksana->nama_cabang }}</td>
-                        <td>{{ $pekerjaan->status->nama_status }}</td>
-                        <td class="text-center">
-                            <button data-id="{{ $pekerjaan->id }}" class="border-0 bg-white btn_edit" title="Ubah">
-                                <span class="border border-primary border-1 px-2 py-1"><i class="fas fa-edit"></i></span>
-                            </button> |
-                            <button data-id="{{ $pekerjaan->id }}" class="border-0 bg-white btn_delete" title="Hapus">
-                                <span class="border border-primary border-1 px-2 py-1"><i class="fas fa-trash"></i></span>
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-list"></i> Data Laporan
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered yajra-datatable">
+                        <thead class="bg-secondary">
+                            <tr>
+                                <th class="text-white text-center fw-bold">No</th>
+                                <th class="text-white text-center fw-bold">Pemesan</th>
+                                <th class="text-white text-center fw-bold">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -235,9 +234,66 @@
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        $('#table_satu').DataTable({
-            "ordering": false
+        $('.btn_cari').on('click', function() {
+            var tanggal_awal = $('#tanggal_awal').val();
+            var tanggal_akhir = $('#tanggal_akhir').val();
+
+            if (tanggal_awal == "" || tanggal_akhir == "") {
+                alert('tanggal harap diisi terlebih dahulu');
+            } else {
+                $('.yajra-datatable').DataTable().draw(true);
+            }
         });
+
+        $('.btn_reset').on('click', function() {
+            $('#tanggal_awal').val("");
+            $('#tanggal_akhir').val("");
+            $('#pelanggan_id').val("");
+            $('#nama_pesanan').val("");
+            $('#cabang_pemesan_id').val("");
+            $('#cabang_pelaksana_id').val("");
+        })
+
+        $(function () {
+            var table = $('.yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('laporan.get_data_pekerjaan') }}",
+                    data: function (d) {
+                        d.tanggal_awal = $('#tanggal_awal').val(),
+                        d.tanggal_akhir = $('#tanggal_akhir').val(),
+                        d.pelanggan_id = $('#pelanggan_id').val(),
+                        d.nama_pesanan = $('#nama_pesanan').val(),
+                        d.cabang_pemesan_id = $('#cabang_pemesan_id').val(),
+                        d.cabang_pelaksana_id = $('#cabang_pelaksana_id').val(),
+                        d.status_id = $('#status_id').val()
+                    }
+                },
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'nama_pesanan', name: 'nama_pesanan'},
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                ],
+                'columnDefs': [
+                    {
+                        "targets": 0, // your case first column
+                        "className": "text-center",
+                        "width": "4%"
+                    },
+                    {
+                        "targets": 2,
+                        "className": "text-center",
+                    }
+                ]
+            });
+        });
+
     } );
 </script>
 @endsection
