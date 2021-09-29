@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EspkPelanggan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PelangganController extends Controller
 {
@@ -41,6 +42,7 @@ class PelangganController extends Controller
         $pelanggan->nama = $request->nama;
         $pelanggan->telp = $request->telp;
         $pelanggan->alamat = $request->alamat;
+        $pelanggan->cabang_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pelanggan->save();
 
         return response()->json([

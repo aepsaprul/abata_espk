@@ -37,8 +37,8 @@ class PekerjaanController extends Controller
         $pelanggan = EspkPelanggan::get();
         $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23'])->get();
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
-        $cabang_cetak = MasterCabang::get();
-        $cabang_finishing = MasterCabang::get();
+        $cabang_cetak = MasterCabang::where('id', 7)->get();
+        $cabang_finishing = MasterCabang::where('id', 7)->get();
         $jenis_pekerjaan = EspkJenisPekerjaan::with('tipePekerjaan')->get();
         $tipe_pekerjaan = EspkTipePekerjaan::get();
 
@@ -230,7 +230,7 @@ class PekerjaanController extends Controller
     public function publish(Request $request)
     {
         $pekerjaan = EspkPekerjaan::find($request->id);
-        $pelaksana = MasterCabang::get();
+        $pelaksana = MasterCabang::where('id', 7)->get();
 
         return response()->json([
             'id' => $pekerjaan->id,

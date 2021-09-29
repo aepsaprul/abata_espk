@@ -42,7 +42,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Dashboard</a>
+                                <a class="nav-link" aria-current="page" href="{{ route('home') }}">Dashboard</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,7 +74,7 @@
                             @foreach (Auth::user()->masterKaryawan->karyawanMenuUtama as $item)
                                 @if ($item->menuUtama->subMenu->isEmpty())
                                     <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="{{ $item->menuUtama->link }}">{{ $item->menuUtama->nama_menu }}</a>
+                                        <a class="nav-link" aria-current="page" href="{{ url($item->menuUtama->link) }}">{{ $item->menuUtama->nama_menu }}</a>
                                     </li>
                                 @else
                                     <li class="nav-item dropdown">
@@ -84,81 +84,13 @@
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             @foreach (Auth::user()->masterKaryawan->karyawanMenuSub as $sub_menu)
                                                 @if ($item->menu_utama_id == $sub_menu->menuSub->menu_utama_id)
-                                                    <li><a class="dropdown-item" href="{{ $sub_menu->menuSub->link }}">- {{ $sub_menu->menuSub->nama_menu }}</a></li>
+                                                    <li><a class="dropdown-item" href="{{ url($sub_menu->menuSub->link) }}">- {{ $sub_menu->menuSub->nama_menu }}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>
                                     </li>
                                 @endif
                             @endforeach
-                            {{-- @foreach (Auth::user()->masterKaryawan->karyawanMenuSub as $item)
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ $item->menuSub->menuUtama->nama_menu }}
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> --}}
-                                    {{-- @foreach ($navigasi->subMenu as $sub_menu) --}}
-                                        {{-- <li><a class="dropdown-item" href="{{ $item->menuSub->id }}">- {{ $item->menuSub->nama_menu }}</a></li> --}}
-                                    {{-- @endforeach --}}
-                                {{-- </ul>
-                            </li>
-                            @endforeach --}}
-                            {{-- @foreach ($navigasis as $navigasi)
-                                @if ($navigasi->subMenu->isEmpty())
-                                    <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="{{ $navigasi->link }}">{{ $navigasi->nama_menu }}</a>
-                                    </li>
-                                @else
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {{ $navigasi->nama_menu }}
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            @foreach ($navigasi->subMenu as $sub_menu)
-                                                <li><a class="dropdown-item" href="{{ $sub_menu->link }}">- {{ $sub_menu->nama_menu }}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endif
-                            @endforeach --}}
-                            {{-- <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
-                                    <li><a class="dropdown-item border-top" href="{{ route('karyawan.index') }}">Karyawan</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Dashboard</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Data Primer
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item border-bottom" href="{{ route('pelanggan.index') }}"><i class="fas fa-chevron-right"></i> Pelanggan</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('jenis_pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Jenis Pekerjaan</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Pekerjaan
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item border-bottom" href="{{ route('pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Pesanan</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('proses_pekerjaan.index') }}"><i class="fas fa-chevron-right"></i> Pekerjaan</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Laporan
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('laporan.index_pekerjaan') }}"><i class="fas fa-chevron-right"></i> Pekerjaan</a></li>
-                                </ul>
-                            </li> --}}
                         @endif
                     </ul>
                     <div class="btn-group d-flex">
@@ -166,7 +98,7 @@
                             {{ Auth::user()->name }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><button class="dropdown-item text-uppercase" type="button">Profile</button></li>
+                            {{-- <li><button class="dropdown-item text-uppercase" type="button">Profile</button></li> --}}
                             <li>
                                 <a class="dropdown-item text-uppercase"
                                     href="{{ route('logout') }}"

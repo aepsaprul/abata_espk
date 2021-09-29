@@ -50,7 +50,7 @@
                 </tbody>
             </table>
             <div class="mt-5"></div>
-            <h6 class="text-uppercase text-center">Menu Tombol</h6>
+            {{-- <h6 class="text-uppercase text-center">Menu Tombol</h6>
             <div class="row mb-2">
                 <div class="col-md-4">
                     <button id="menu_button_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>
@@ -82,7 +82,7 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>
+            </table> --}}
         </div>
         <div class="col-md-6">
             <h6 class="text-uppercase text-center">Menu Sub</h6>
