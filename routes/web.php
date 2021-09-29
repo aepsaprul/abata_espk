@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     // karyawan
     Route::get('karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
     Route::get('karyawan/{id}/akses', [KaryawanController::class, 'akses'])->name('karyawan.akses');
+    Route::put('karyawan/{id}/akses_simpan', [KaryawanController::class, 'aksesSimpan'])->name('karyawan.akses_simpan');
 
     // navigasi
     Route::get('navigasi', [NavController::class, 'index'])->name('navigasi.index');

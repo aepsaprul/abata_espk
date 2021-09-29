@@ -44,6 +44,14 @@ class MasterKaryawan extends Model
         'status'
     ];
 
+    public function karyawanMenuUtama() {
+        return $this->hasMany(EspkKaryawanMenuUtama::class, 'karyawan_id', 'id');
+    }
+
+    public function karyawanMenuSub() {
+        return $this->hasMany(EspkKaryawanMenuSub::class, 'karyawan_id', 'id');
+    }
+
     public function masterCabang() {
         return $this->belongsTo(MasterCabang::class);
     }
