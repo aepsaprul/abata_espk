@@ -79,9 +79,14 @@ class PekerjaanController extends Controller
         $pekerjaan->warna = $request->warna;
         $pekerjaan->keterangan = $request->keterangan;
 
+        // if ($request->file('file')) {
+        //     $file = $request->file('file')->store('file', 'public');
+        //     $pekerjaan->file = $file;
+        // }
         if ($request->file('file')) {
-            $file = $request->file('file')->store('file', 'public');
-            $pekerjaan->file = $file;
+            $file_name = $request->file('file')->getClientOriginalName();
+            $request->file('file')->storeAs('file', $file_name);
+            $pekerjaan->file = $file_name;
         }
 
         $pekerjaan->save();
@@ -178,11 +183,18 @@ class PekerjaanController extends Controller
         $pekerjaan->keterangan = $request->keterangan;
 
         if ($request->file('file')) {
-            if($pekerjaan->file && file_exists(storage_path('app/public/' . $pekerjaan->file))) {
-                Storage::delete('public/' . $pekerjaan->file);
+            // if($pekerjaan->file && file_exists(storage_path('app/public/' . $pekerjaan->file))) {
+            //     Storage::delete('public/' . $pekerjaan->file);
+            // }
+            // $file = $request->file('file')->store('file', 'public');
+            // $pekerjaan->file = $file;
+            if($pekerjaan->file && file_exists(storage_path('app/file/' . $pekerjaan->file))) {
+                Storage::delete('file/' . $pekerjaan->file);
             }
-            $file = $request->file('file')->store('file', 'public');
-            $pekerjaan->file = $file;
+
+            $file_name = $request->file('file')->getClientOriginalName();
+            $request->file('file')->storeAs('file', $file_name);
+            $pekerjaan->file = $file_name;
         }
 
         $pekerjaan->save();
@@ -209,8 +221,11 @@ class PekerjaanController extends Controller
         $pekerjaan = EspkPekerjaan::find($id);
         $pekerjaan->delete();
 
-        if($pekerjaan->file && file_exists(storage_path('app/public/' . $pekerjaan->file))) {
-            Storage::delete('public/' . $pekerjaan->file);
+        // if($pekerjaan->file && file_exists(storage_path('app/public/' . $pekerjaan->file))) {
+        //     Storage::delete('public/' . $pekerjaan->file);
+        // }
+        if($pekerjaan->file && file_exists(storage_path('app/file/' . $pekerjaan->file))) {
+            Storage::delete('file/' . $pekerjaan->file);
         }
 
         $pekerjaan_proses_db = EspkPekerjaanProses::where('pekerjaan_id', $id)->get();
@@ -224,7 +239,7 @@ class PekerjaanController extends Controller
 
     public function download(Request $request, $file)
     {
-        return response()->download(storage_path('app/public/file/'. $file));
+        return response()->download(storage_path('app/file/'. $file));
     }
 
     public function publish(Request $request)
