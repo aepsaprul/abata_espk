@@ -118,6 +118,11 @@
                             <tr>
                                 <th class="text-white text-center fw-bold">No</th>
                                 <th class="text-white text-center fw-bold">Pemesan</th>
+                                <th class="text-white text-center fw-bold">Nama Pekerjaan</th>
+                                <th class="text-white text-center fw-bold">No Nota</th>
+                                <th class="text-white text-center fw-bold">Rencana Jadi</th>
+                                <th class="text-white text-center fw-bold">Pelaksana</th>
+                                <th class="text-white text-center fw-bold">Status</th>
                                 <th class="text-white text-center fw-bold">Aksi</th>
                             </tr>
                         </thead>
@@ -256,6 +261,11 @@
 
         $(function () {
             var table = $('.yajra-datatable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excelHtml5',
+                    'pdf'
+                ],
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -272,7 +282,12 @@
                 },
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'cabangPemesan', name: 'cabangPemesan.nama_cabang'},
                     {data: 'nama_pesanan', name: 'nama_pesanan'},
+                    {data: 'nomor_nota', name: 'nomor_nota'},
+                    {data: 'rencana_jadi', name: 'rencana_jadi'},
+                    {data: 'cabangPelaksana', name: 'cabangPelaksana.nama_cabang'},
+                    {data: 'status', name: 'status.nama_status'},
                     {
                         data: 'action',
                         name: 'action',
@@ -287,13 +302,21 @@
                         "width": "4%"
                     },
                     {
-                        "targets": 2,
+                        "targets": 3,
+                        "className": "text-center",
+                    },
+                    {
+                        "targets": 7,
                         "className": "text-center",
                     }
                 ]
             });
         });
 
+        function lihat(id) {
+            e.preventDefault();
+            alert('lihat');
+        }
     } );
 </script>
 @endsection
