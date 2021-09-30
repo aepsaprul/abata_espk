@@ -83,7 +83,7 @@
                                         </ul>
                                       </div> |
                                     <a href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Lihat"><i class="fas fa-eye"></i></a> |
-                                    <a href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}" class="text-dark mx-2" title="Print"><i class="fas fa-print"></i></a>
+                                    <a href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}" class="text-dark mx-2" title="Print" target="_blank"><i class="fas fa-print"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -109,7 +109,7 @@
                                 <th>No Nota</th>
                                 <th>Rencana Jadi</th>
                                 <th>Status</th>
-                                <th>#</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -141,7 +141,7 @@
                                         <ul class="dropdown-menu">
                                             <li class="border-bottom">
                                                 @php $modul = explode('/', $pesanan->file); @endphp
-                                                <a class="dropdown-item" href="{{ route('pekerjaan.download', [$modul[1], $pesanan->nama_pesanan]) }}">Download</a>
+                                                <a class="dropdown-item" href="{{ route('pekerjaan.download', [$pesanan->file]) }}">Download</a>
                                             </li>
                                             <li>
                                                 <a class="dropdown-item status {{ $hide }}" href="#" data-status="{{ $pesanan->status_id }}" data-pesanan="{{ $pesanan->nama_pesanan }}" data-id="{{ $pesanan->id }}">Status</a>
@@ -149,7 +149,7 @@
                                         </ul>
                                       </div> |
                                     <a href="{{ route('proses_pekerjaan.show', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Lihat"><i class="fas fa-eye"></i></a> |
-                                    <a href="{{ route('proses_pekerjaan.print', [$pesanan->id]) }}" class="text-dark mx-2" title="Print"><i class="fas fa-print"></i></a>
+                                    <a href="{{ route('proses_pekerjaan.print', [$pesanan->id]) }}" class="text-dark mx-2" title="Print" target="_blank"><i class="fas fa-print"></i></a>
                                 </td>
                             </tr>
                             @endforeach

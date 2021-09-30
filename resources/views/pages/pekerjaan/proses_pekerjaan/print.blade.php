@@ -28,11 +28,11 @@
 </head>
 <body>
     <div id="app">
-        <main class="py-4">
+        <main class="py-1">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-6 border border-3">
-                        <h1 class="text-center fw-bold text-uppercase my-5">spk</h1>
+                        <h1 class="text-center fw-bold text-uppercase my-2">spk</h1>
                         <table class="table table-bordered" style="border: 2px solid #d0d0d0;">
                             <tr style="border: 2px solid #d0d0d0;">
                                 <th class="text-uppercase text-center">pemesan</th>
@@ -83,10 +83,37 @@
 
                         <table class="table table-bordered" style="border: 2px solid #d0d0d0;">
                             <tr style="border: 2px solid #d0d0d0;">
-                                <th class="text-uppercase text-center">cetak</th>
-                            </tr>
-                            <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase">1. offset</td>
+                                <td>
+                                    <ol class="list-group">
+                                        @foreach ($proses_pekerjaans as $proses_pekerjaan)
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                <div class="ms-2 me-auto">
+                                                    <div class="fw-bold">
+                                                        {{ $proses_pekerjaan->jenisPekerjaan->tipePekerjaan->tipe }}
+                                                    </div>
+                                                    {{ $proses_pekerjaan->jenisPekerjaan->jenis }} {{ "( " . $proses_pekerjaan->keterangan . " )" }}
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ol>
+                                    {{-- <ol class="list-group">
+                                        @foreach ($tipe_pekerjaans as $tipe_pekerjaan)
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="fw-bold">{{ $tipe_pekerjaan->tipe }}</div>
+                                                @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
+                                                    @if (!$jenis_pekerjaan->pekerjaanProses->isEmpty())
+                                                        {{ $jenis_pekerjaan->jenis }}
+                                                        @foreach ($jenis_pekerjaan->pekerjaanProses as $item)
+                                                            : {{ $item->keterangan}}
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    </ol> --}}
+                                </td>
                             </tr>
                         </table>
 
@@ -112,7 +139,7 @@
                             <tr style="border: 2px solid #d0d0d0;">
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->pegawaiDesain->nama_lengkap }}</td>
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->cabangCetak->nama_cabang }}</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->cabangFinishing->nama_cabang }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->cabang_finishing_id !=null ? $pekerjaan->cabangFinishing->nama_cabang : '-' }}</td>
                             </tr>
                         </table>
 
@@ -124,7 +151,6 @@
                                 <td class="text-uppercase">{{ $pekerjaan->keterangan }}</td>
                             </tr>
                         </table>
-                        <button onclick="window.print()">Print this page</button>
                     </div>
                 </div>
             </div>
@@ -136,5 +162,8 @@
     <script src="{{ asset('lib/datatables/js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('lib/fontawesome-5/js/fontawesome.min.js') }}"></script>
 
+    <script>
+        window.print();
+    </script>
 </body>
 </html>

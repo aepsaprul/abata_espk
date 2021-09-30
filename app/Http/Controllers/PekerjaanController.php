@@ -22,7 +22,7 @@ class PekerjaanController extends Controller
      */
     public function index()
     {
-        $pekerjaan = EspkPekerjaan::whereNull('cabang_pelaksana_id')->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)->get();
+        $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)->get();
 
         return view('pages.pekerjaan.pesanan.index', ['pesanans' => $pekerjaan]);
     }
@@ -38,7 +38,7 @@ class PekerjaanController extends Controller
         $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23'])->get();
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
         $cabang_cetak = MasterCabang::where('id', 7)->get();
-        $cabang_finishing = MasterCabang::where('id', 7)->get();
+        $cabang_finishing = MasterCabang::whereIn('id', ['2', '7'])->get();
         $jenis_pekerjaan = EspkJenisPekerjaan::with('tipePekerjaan')->get();
         $tipe_pekerjaan = EspkTipePekerjaan::get();
 

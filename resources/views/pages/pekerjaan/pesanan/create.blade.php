@@ -134,8 +134,9 @@
                             <label for="cabang_finishing_id" class="col-sm-4 col-form-label">Finishing</label>
                             <div class="col-sm-8">
                                 <select class="form-select form-select-sm" name="cabang_finishing_id">
+                                    <option value="">--Tanpa Finishing--</option>
                                     @foreach ($cabang_finishings as $cabang_finishing)
-                                        <option value="{{ $cabang_finishing->id }}" {{ $cabang_finishing->id == Auth::user()->masterKaryawan->masterCabang->id ? 'hidden' : '' }}>{{ $cabang_finishing->nama_cabang }}</option>
+                                        <option value="{{ $cabang_finishing->id }}">{{ $cabang_finishing->nama_cabang }}</option>
                                     @endforeach
                                 </select>
                             </div>

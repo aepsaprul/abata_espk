@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EspkPekerjaan;
+use App\Models\EspkPekerjaanProses;
 use App\Models\EspkStatusPekerjaan;
 use App\Models\EspkTipePekerjaan;
 use Illuminate\Http\Request;
@@ -73,6 +74,18 @@ class ProsesPekerjaanController extends Controller
     public function print($id)
     {
         $pekerjaan = EspkPekerjaan::find($id);
-        return view('pages.pekerjaan.proses_pekerjaan.print', ['pekerjaan' => $pekerjaan]);
+        $proses_pekerjaan = EspkPekerjaanProses::where('pekerjaan_id', $pekerjaan->id)->get();
+        $tipe_pekerjaan = EspkTipePekerjaan::with([
+            'jenisPekerjaan',
+            'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
+                $query->where('pekerjaan_id', $id);
+            }
+        ])->get();
+
+        return view('pages.pekerjaan.proses_pekerjaan.print', [
+            'pekerjaan' => $pekerjaan,
+            'proses_pekerjaans' => $proses_pekerjaan,
+            'tipe_pekerjaans' => $tipe_pekerjaan
+        ]);
     }
 }

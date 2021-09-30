@@ -32,7 +32,7 @@
                         <th>No</th>
                         <th>Nama Karyawan</th>
                         <th>Jabatan</th>
-                        <th>#</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

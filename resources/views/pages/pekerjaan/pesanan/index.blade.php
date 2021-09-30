@@ -41,6 +41,7 @@
                         <th>Nama Pesanan</th>
                         <th>Rencana Jadi</th>
                         <th>Penerima</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -52,6 +53,13 @@
                         <td>{{ $pesanan->nama_pesanan }}</td>
                         <td>{{ $pesanan->rencana_jadi }}</td>
                         <td>{{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
+                        <td>
+                            @if ($pesanan->status_id != null)
+                                {{ $pesanan->status->nama_status }}
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td class="text-center">
                             <button class="border-0 bg-white text-dark mx-1 publish" data-id="{{ $pesanan->id }}" title="Publish"><i class="fas fa-rocket"></i></button> |
                             <a href="{{ route('pekerjaan.edit', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Ubah"><i class="fas fa-edit"></i></a> |
