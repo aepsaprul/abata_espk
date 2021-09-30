@@ -184,7 +184,7 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="modal_keterangan" class="form-label">Keterangan</label>
+                        <label for="modal_keterangan" class="form-label">Keterangan <span class="notif-keterangan text-danger fst-italic"></span></label>
                         <input type="text" class="form-control modal_keterangan" id="modal_keterangan" name="modal_keterangan">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -246,6 +246,7 @@
             } else {
                 status_val += "" +
                     "<option value=\"2\">Dibatalkan</option>" +
+                    "<option value=\"8\">Revisi</option>" +
                     "<option value=\"1\">Disetujui</option>";
             }
 
@@ -253,16 +254,32 @@
             $('#modal_ubah_status').modal('show');
         });
 
-        $('#modal_status').on('change', function() {
-            if($('#modal_status').val() == 2 || $('#modal_status').val() == 7) {
-                $('#modal_keterangan').prop('required', true);
-            } else {
-                $('#modal_keterangan').prop('required', false);
-            }
-        });
+        // $('#modal_status').on('change', function() {
+        //     if($('#modal_status').val() == 2 || $('#modal_status').val() == 7) {
+        //         $('#modal_keterangan').prop('required', true);
+        //     } else {
+        //         $('#modal_keterangan').prop('required', false);
+        //     }
+        // });
 
         $('#form_ubah_status').submit(function(e) {
             e.preventDefault();
+            $('.notif-keterangan').empty();
+
+            if ($('#modal_status').val() == 2 && $('#modal_keterangan').val() == "") {
+                $('.notif-keterangan').append("Keterangan harus diisi !!!");
+                return false;
+            }
+
+            if ($('#modal_status').val() == 7 && $('#modal_keterangan').val() == "") {
+                $('.notif-keterangan').append("Keterangan harus diisi !!!");
+                return false;
+            }
+
+            if ($('#modal_status').val() == 8 && $('#modal_keterangan').val() == "") {
+                $('.notif-keterangan').append("Keterangan harus diisi !!!");
+                return false;
+            }
 
             var formData = {
                 id: $('#modal_id').val(),

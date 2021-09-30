@@ -33,97 +33,97 @@
                         <div class="mb-3 row">
                             <label for="pelanggan" class="col-sm-4 col-form-label">Pelanggan</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="pelanggan_id" value="{{ $pekerjaan->pelanggan->nama }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="pelanggan_id" value="{{ $pekerjaan->pelanggan->nama }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="nama_pesanan" class="col-sm-4 col-form-label">Nama Pesanan</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="nomor_nota" class="col-sm-4 col-form-label">No Nota</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}">
+                                <input disabled type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="tanggal_pesanan" class="col-sm-4 col-form-label">Tanggal Pesanan</label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control form-control-sm" name="tanggal_pesanan" value="{{ $pekerjaan->tanggal_pesanan }}">
+                                <input disabled type="date" class="form-control form-control-sm" name="tanggal_pesanan" value="{{ $pekerjaan->tanggal_pesanan }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="rencana_jadi" class="col-sm-4 col-form-label">Rencana Jadi</label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control form-control-sm" name="rencana_jadi" value="{{ $pekerjaan->rencana_jadi }}">
+                                <input disabled type="date" class="form-control form-control-sm" name="rencana_jadi" value="{{ $pekerjaan->rencana_jadi }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jenis_pesanan" class="col-sm-4 col-form-label">Jenis Pesanan</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jumlah" value="{{ $pekerjaan->jumlah }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="jumlah" value="{{ $pekerjaan->jumlah }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="ukuran" class="col-sm-4 col-form-label">Ukuran</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="ukuran" value="{{ $pekerjaan->ukuran }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="ukuran" value="{{ $pekerjaan->ukuran }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jenis_kertas" class="col-sm-4 col-form-label">Jenis Kertas</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_kertas" value="{{ $pekerjaan->jenis_kertas }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="jenis_kertas" value="{{ $pekerjaan->jenis_kertas }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="warna" class="col-sm-4 col-form-label">Warna Tinta</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="warna" value="{{ $pekerjaan->warna }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="warna" value="{{ $pekerjaan->warna }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="keterangan" class="col-sm-4 col-form-label">Keterangan</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="keterangan" value="{{ $pekerjaan->keterangan }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="keterangan" value="{{ $pekerjaan->keterangan }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="penerima_pesanan" class="col-sm-4 col-form-label">Penerima Pesanan</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="pegawai_penerima_pesanan_id" value="{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="pegawai_penerima_pesanan_id" value="{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="pegawai_desain_id" class="col-sm-4 col-form-label">Desain</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="pegawai_desain_id" value="{{ $pekerjaan->pegawaiDesain->nama_lengkap }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="pegawai_desain_id" value="{{ $pekerjaan->pegawaiDesain->nama_lengkap }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="cabang_cetak_id" class="col-sm-4 col-form-label">Cetak</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="cabang_cetak_id" value="{{ $pekerjaan->cabangCetak->nama_cabang }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="cabang_cetak_id" value="{{ $pekerjaan->cabangCetak->nama_cabang }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="cabang_finishing_id" class="col-sm-4 col-form-label">Finishing</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="cabang_finishing_id" value="{{ $pekerjaan->cabangFinishing->nama_cabang }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="cabang_finishing_id" value="{{ $pekerjaan->cabangFinishing->nama_cabang }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="desain" class="col-sm-4 col-form-label">File</label>
                             <div class="col-sm-8">
-                                <input class="form-control form-control-sm mb-3" id="file" type="file" name="file">
+                                <input disabled class="form-control form-control-sm mb-3" id="file" type="file" name="file">
                                 <div>
                                     @php $modul = explode('/', $pekerjaan->file); @endphp
                                     <a href="{{ route('pekerjaan.download', [$modul[1], $pekerjaan->nama_pesanan]) }}" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
@@ -147,14 +147,14 @@
                                     @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
                                     @php if (!$jenis_pekerjaan->pekerjaanProses->isEmpty()) { @endphp
                                         <div class="form-check">
-                                            <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}" checked>
+                                            <input disabled class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}" checked>
                                             <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
                                                 {{ $jenis_pekerjaan->jenis }}
                                             </label>
                                         </div>
                                         @foreach ($jenis_pekerjaan->pekerjaanProses as $item)
-                                            <input type="hidden" name="pekerjaan_proses_id[]" value="{{ $item->id }}">
-                                            <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]" value="{{ $item->keterangan}}">
+                                            <input disabled type="hidden" name="pekerjaan_proses_id[]" value="{{ $item->id }}">
+                                            <input disabled type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]" value="{{ $item->keterangan}}">
                                             @endforeach
                                     @php } else {}  @endphp
 
