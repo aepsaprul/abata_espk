@@ -313,10 +313,16 @@
             });
         });
 
-        function lihat(id) {
-            e.preventDefault();
-            alert('lihat');
-        }
+        $('body').on('click', '.lihat', function () {
+            // alert($(this).attr('data-id'));
+
+            var id = $(this).attr('data-id');
+            var url = '{{ route("proses_pekerjaan.show", ":id") }}';
+            url = url.replace(':id', id );
+
+            var id = $(this).attr('data-id');
+            window.open(url, '_blank');
+        });
     } );
 </script>
 @endsection

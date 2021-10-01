@@ -149,29 +149,33 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row">
-                            @foreach ($tipe_pekerjaans as $tipe_pekerjaan)
-                                <div class="col-md-6">
-                                    <p>{{ $tipe_pekerjaan->tipe }}</p>
-                                    @if ($tipe_pekerjaan->tipe == "Cetak" )
-                                        @php $type = "radio"; @endphp
-                                    @else
-                                        @php $type = "checkbox"; @endphp
-                                    @endif
+                        @foreach ($tipe_pekerjaans as $tipe_pekerjaan)
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>{{ $tipe_pekerjaan->tipe }}</p>
+                                        @if ($tipe_pekerjaan->tipe == "Cetak" )
+                                            @php $type = "radio"; @endphp
+                                        @else
+                                            @php $type = "checkbox"; @endphp
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6">
+                                        @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}">
+                                                <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
+                                                    {{ $jenis_pekerjaan->jenis }}
+                                                </label>
+                                            </div>
+                                            <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}">
-                                            <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
-                                                {{ $jenis_pekerjaan->jenis }}
-                                            </label>
-                                        </div>
-                                        <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
-                                    @endforeach
-                                </div>
-                            @endforeach
+                            </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
                 <hr>

@@ -70,6 +70,19 @@
                                     <li><a class="dropdown-item" href="{{ route('laporan.index_pekerjaan') }}"><i class="fas fa-chevron-right"></i> Pekerjaan</a></li>
                                 </ul>
                             </li>
+                        @elseif (Auth::user()->roles == "admin")
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
+                                    <li><a class="dropdown-item border-top" href="{{ route('karyawan.index') }}">Karyawan</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ route('home') }}">Dashboard</a>
+                            </li>
                         @else
                             @foreach (Auth::user()->masterKaryawan->karyawanMenuUtama as $item)
                                 @if ($item->menuUtama->subMenu->isEmpty())

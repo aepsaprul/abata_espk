@@ -257,7 +257,12 @@ class PekerjaanController extends Controller
     public function publishStore(Request $request)
     {
         $pekerjaan = EspkPekerjaan::find($request->id);
-        $pekerjaan->cabang_pelaksana_id = $request->cabang_pelaksana_id;
+
+        if ($pekerjaan->status_id == 8) {
+            $pekerjaan->status_id = null;
+        } else {
+            $pekerjaan->cabang_pelaksana_id = $request->cabang_pelaksana_id;
+        }
         $pekerjaan->save();
 
         return response()->json([

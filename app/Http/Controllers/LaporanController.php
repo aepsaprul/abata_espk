@@ -59,8 +59,11 @@ class LaporanController extends Controller
                     }
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" onClick="lihat(1)" class="border-0 bg-white text-dark mx-2 lihat" title="Lihat"><i class="fas fa-eye"></i></a>';
-                    return $actionBtn;
+                    // $actionBtn = '<a href="javascript:void(0)" onClick="lihat(1)" class="border-0 bg-white text-dark mx-2 lihat" title="Lihat"><i class="fas fa-eye"></i></a>';
+                    // return $actionBtn;
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit lihat border-0 bg-white text-dark mx-2"><i class="fas fa-eye"></i></a>';
+
+                    return $btn;
                 })
                 ->addColumn('cabangPemesan', function(EspkPekerjaan $espkPekerjaan){
                     return $espkPekerjaan->cabangPemesan->nama_cabang;
