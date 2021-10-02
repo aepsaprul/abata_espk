@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <strong>In Development (Sedang dalam pengembangan)</strong>
                 </div>
             </div>
         </div>

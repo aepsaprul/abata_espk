@@ -5,7 +5,7 @@
 
 <style>
     .col-md-10 {
-        font-size: 14px;
+        font-size: 12px;
     }
     .fas {
         font-size: 14px;
@@ -208,13 +208,9 @@
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        $('#table_satu').DataTable({
-            "ordering": false
-        });
+        $('#table_satu').DataTable();
 
-        $('#table_dua').DataTable({
-            "ordering": false
-        });
+        $('#table_dua').DataTable();
 
         $('.status').on('click', function() {
             $('.modal_status').empty();

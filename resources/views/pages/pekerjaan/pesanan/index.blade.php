@@ -39,7 +39,7 @@
                         <th>No</th>
                         <th>Pemesan</th>
                         <th>Nama Pesanan</th>
-                        <th>Rencana Jadi</th>
+                        <th>Tanggal Order</th>
                         <th>Penerima</th>
                         <th>Status</th>
                         <th>Aksi</th>
@@ -51,7 +51,7 @@
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
                         <td>{{ $pesanan->nama_pesanan }}</td>
-                        <td>{{ $pesanan->rencana_jadi }}</td>
+                        <td>{{ $pesanan->tanggal_pesanan }}</td>
                         <td>{{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
                         <td>
                             @if ($pesanan->status_id != null)
@@ -61,15 +61,42 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <button class="border-0 bg-white text-dark mx-1 publish" data-id="{{ $pesanan->id }}" title="Publish"><i class="fas fa-rocket"></i></button> |
-                            <a href="{{ route('pekerjaan.edit', [$pesanan->id]) }}" class="border-0 bg-white text-dark mx-2" title="Ubah"><i class="fas fa-edit"></i></a> |
-                            <form action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}" method="POST" class="d-inline">
-                                @method('delete')
-                                @csrf
-                                <button class="border-0 bg-white" onclick="return confirm('Yakin akan dihapus?')" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            <div class="btn-group">
+                                @if ($pesanan->status_id == null || $pesanan->status_id == 8)
+                                    <button
+                                        class="border-0 bg-white text-dark mx-1 publish"
+                                        data-id="{{ $pesanan->id }}"
+                                        title="Publish">
+                                        <i class="fas fa-rocket"></i>
+                                    </button> |
+                                    <a
+                                        href="{{ route('pekerjaan.edit', [$pesanan->id]) }}"
+                                        class="border-0 bg-white text-dark mx-2"
+                                        title="Ubah">
+                                        <i class="fas fa-edit"></i>
+                                    </a> |
+                                    <form
+                                        action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}"
+                                        method="POST"
+                                        class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                                <button
+                                                    class="border-0 bg-white"
+                                                    onclick="return confirm('Yakin akan dihapus?')"
+                                                    title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                    </form>
+                                @else
+                                    <a
+                                        href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
+                                        class="border-0 bg-white text-dark mx-2"
+                                        title="Lihat">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -120,9 +147,7 @@
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        $('#table_satu').DataTable({
-            "ordering": false
-        });
+        $('#table_satu').DataTable();
 
         $('.publish').on('click', function() {
             var id = $(this).attr('data-id');
