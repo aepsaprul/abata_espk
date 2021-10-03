@@ -17,10 +17,12 @@ class ProsesPekerjaanController extends Controller
         ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
         ->whereNotNull('status_id')
         ->whereNotIn('status_id', [2])
+        ->orderBy('id', 'desc')
         ->get();
 
         $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
         ->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
+        ->orderBy('id', 'desc')
         ->get();
 
         return view('pages.pekerjaan.proses_pekerjaan.index', ['pekerjaans' => $pekerjaan, 'pesanans' => $pesanan]);

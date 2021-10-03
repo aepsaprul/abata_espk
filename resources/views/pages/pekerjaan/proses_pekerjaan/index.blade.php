@@ -77,7 +77,7 @@
                                         <ul class="dropdown-menu">
                                             <li class="border-bottom">
                                                 @php $modul = explode('/', $pekerjaan->file); @endphp
-                                                <a class="dropdown-item" href="{{ route('pekerjaan.download', [$modul[1], $pekerjaan->nama_pesanan]) }}">Download</a>
+                                                <a class="dropdown-item" href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}">Download</a>
                                             </li>
                                             <li><a class="dropdown-item status {{ $hide }}" href="#" data-status="{{ $pekerjaan->status_id }}" data-pesanan="{{ $pekerjaan->nama_pesanan }}" data-id="{{ $pekerjaan->id }}">Status</a></li>
                                         </ul>

@@ -32,6 +32,8 @@
                         <th>No</th>
                         <th>Nama Karyawan</th>
                         <th>Jabatan</th>
+                        <th>Email</th>
+                        <th>Cabang</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -41,8 +43,20 @@
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $karyawan->nama_lengkap }}</td>
                         <td>{{ $karyawan->masterJabatan->nama_jabatan }}</td>
+                        <td>{{ $karyawan->email }}</td>
+                        <td>{{ $karyawan->masterCabang->nama_cabang }}</td>
                         <td class="text-center">
-                            <a href="{{ route('karyawan.akses', [$karyawan->id]) }}" class="text-dark mx-2" title="Akses"><i class="fas fa-key"></i></a>
+                            <div class="btn-group" style="width: 50px;">
+                                <a href="{{ route('karyawan.akses', [$karyawan->id]) }}" class="text-dark mx-2" title="Akses"><i class="fas fa-key"></i></a>
+                                <span class="text-primary">
+                                    @php
+                                        $count = count($karyawan->karyawanMenuSub);
+                                        if ($count != 0) {
+                                            echo $count;
+                                        }
+                                    @endphp
+                                </span>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
