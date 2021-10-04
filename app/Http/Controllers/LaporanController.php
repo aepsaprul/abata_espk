@@ -29,7 +29,7 @@ class LaporanController extends Controller
 
     public function getDataPekerjaan(Request $request) {
         if ($request->ajax()) {
-            $data = EspkPekerjaan::with(['cabangPemesan', 'statusPekerjaan'])->whereNotNull('cabang_pelaksana_id')->whereBetween('tanggal_pesanan', [$request->get('tanggal_awal'), $request->get('tanggal_akhir')])->get();
+            $data = EspkPekerjaan::with('cabangPemesan')->whereNotNull('cabang_pelaksana_id')->whereBetween('tanggal_pesanan', [$request->get('tanggal_awal'), $request->get('tanggal_akhir')])->get();
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->filter(function ($instance) use ($request) {
@@ -59,15 +59,12 @@ class LaporanController extends Controller
                         });
                     }
                 })
-                ->editColumn('tanggal_selesai', function ($contact){
-                    if ($contact->tanggal_selesai) {
-                        # code...
-                        return date('d-m-Y', strtotime($contact->tanggal_selesai) );
+                ->editColumn('tanggal_selesai', function ($request){
+                    if ($request->tanggal_selesai) {
+                        return date('d-m-Y', strtotime($request->tanggal_selesai) );
                     }
                 })
                 ->addColumn('action', function($row){
-                    // $actionBtn = '<a href="javascript:void(0)" onClick="lihat(1)" class="border-0 bg-white text-dark mx-2 lihat" title="Lihat"><i class="fas fa-eye"></i></a>';
-                    // return $actionBtn;
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit lihat border-0 bg-white text-dark mx-2"><i class="fas fa-eye"></i></a>';
 
                     return $btn;
