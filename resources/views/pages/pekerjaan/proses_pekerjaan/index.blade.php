@@ -45,7 +45,8 @@
                                 <th>No Nota</th>
                                 <th>Rencana Jadi</th>
                                 <th>Status</th>
-                                <th>#</th>
+                                <th>Tanggal Selesai</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,6 +68,11 @@
                                     @else
                                         -
                                         @php $hide = ""; @endphp
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($pekerjaan->tanggal_selesai != null)
+                                        {{ date('d-m-Y', strtotime($pekerjaan->tanggal_selesai)); }}
                                     @endif
                                 </td>
                                 <td class="text-center">

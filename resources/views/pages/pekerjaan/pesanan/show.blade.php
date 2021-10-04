@@ -25,7 +25,7 @@
                 <h6 class="text-uppercase text-center">Lihat Pesanan</h6>
                 <div class="row mb-2">
                     <div class="col-md-4">
-                        <a href="{{ url('proses_pekerjaan') }}" class="mb-4 btn btn-outline-primary"><i class="fas fa-arrow-left"></i></a>
+                        <a href="{{ url('pekerjaan') }}" class="mb-4 btn btn-outline-primary"><i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
                 <div class="row">

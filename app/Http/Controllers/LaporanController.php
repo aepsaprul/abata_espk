@@ -6,6 +6,7 @@ use App\Models\EspkPekerjaan;
 use App\Models\EspkPelanggan;
 use App\Models\EspkStatus;
 use App\Models\MasterCabang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -28,7 +29,7 @@ class LaporanController extends Controller
 
     public function getDataPekerjaan(Request $request) {
         if ($request->ajax()) {
-            $data = EspkPekerjaan::with('cabangPemesan')->whereNotNull('cabang_pelaksana_id')->whereBetween('tanggal_pesanan', [$request->get('tanggal_awal'), $request->get('tanggal_akhir')])->get();
+            $data = EspkPekerjaan::with(['cabangPemesan', 'statusPekerjaan'])->whereNotNull('cabang_pelaksana_id')->whereBetween('tanggal_pesanan', [$request->get('tanggal_awal'), $request->get('tanggal_akhir')])->get();
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->filter(function ($instance) use ($request) {
@@ -58,6 +59,12 @@ class LaporanController extends Controller
                         });
                     }
                 })
+                ->editColumn('tanggal_selesai', function ($contact){
+                    if ($contact->tanggal_selesai) {
+                        # code...
+                        return date('d-m-Y', strtotime($contact->tanggal_selesai) );
+                    }
+                })
                 ->addColumn('action', function($row){
                     // $actionBtn = '<a href="javascript:void(0)" onClick="lihat(1)" class="border-0 bg-white text-dark mx-2 lihat" title="Lihat"><i class="fas fa-eye"></i></a>';
                     // return $actionBtn;
@@ -73,6 +80,9 @@ class LaporanController extends Controller
                 })
                 ->addColumn('status', function(EspkPekerjaan $espkPekerjaan){
                     return $espkPekerjaan->status->nama_status;
+                })
+                ->addColumn('pegawaiPenerimaPesanan', function(EspkPekerjaan $espkPekerjaan){
+                    return $espkPekerjaan->pegawaiPenerimaPesanan->nama_panggilan;
                 })
                 ->rawColumns(['action'])
                 ->make(true);

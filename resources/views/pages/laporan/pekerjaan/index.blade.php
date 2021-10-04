@@ -4,7 +4,7 @@
 <link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
 <style>
-    .col-md-10 {
+    .col-md-12 {
         font-size: 12px;
     }
     .fas {
@@ -19,7 +19,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <h6 class="text-uppercase text-center">Data Laporan</h6>
             @if (session('status'))
                 <div class="alert alert-success">
@@ -120,10 +120,12 @@
                                 <th class="text-white text-center fw-bold">Pemesan</th>
                                 <th class="text-white text-center fw-bold">Nama Pekerjaan</th>
                                 <th class="text-white text-center fw-bold">No Nota</th>
+                                <th class="text-white text-center fw-bold">Tanggal Order</th>
                                 <th class="text-white text-center fw-bold">Rencana Jadi</th>
                                 <th class="text-white text-center fw-bold">Pelaksana</th>
                                 <th class="text-white text-center fw-bold">Status</th>
-                                <th class="text-white text-center fw-bold">Aksi</th>
+                                <th class="text-white text-center fw-bold">Tanggal Selesai</th>
+                                <th class="text-white text-center fw-bold">Penerima Pesanan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -285,15 +287,12 @@
                     {data: 'cabangPemesan', name: 'cabangPemesan.nama_cabang'},
                     {data: 'nama_pesanan', name: 'nama_pesanan'},
                     {data: 'nomor_nota', name: 'nomor_nota'},
+                    {data: 'tanggal_pesanan', name: 'tanggal_pesanan'},
                     {data: 'rencana_jadi', name: 'rencana_jadi'},
                     {data: 'cabangPelaksana', name: 'cabangPelaksana.nama_cabang'},
                     {data: 'status', name: 'status.nama_status'},
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: true,
-                        searchable: true
-                    },
+                    {data: 'tanggal_selesai', name: 'tanggal_selesai'},
+                    {data: 'pegawaiPenerimaPesanan', name: 'pegawaiPenerimaPesanan.nama_panggilan'},
                 ],
                 'columnDefs': [
                     {
@@ -303,10 +302,6 @@
                     },
                     {
                         "targets": 3,
-                        "className": "text-center",
-                    },
-                    {
-                        "targets": 7,
                         "className": "text-center",
                     }
                 ]

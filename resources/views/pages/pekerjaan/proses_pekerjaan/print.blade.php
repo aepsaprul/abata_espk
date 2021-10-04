@@ -137,7 +137,7 @@
 
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col">
-                                <div class="d-flex justify-content-end"><img src="{{ asset('asset/acc.png') }}" style="max-width: 60px;"></div>
+                                <div class="d-flex justify-content-end"><img src="{{ asset('asset/acc2.png') }}" class="p-2 mb-2" style="max-width: 60px; border: 1px solid #202020"></div>
                             </div>
                         </div>
                     </div>

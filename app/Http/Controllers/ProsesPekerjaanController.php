@@ -39,6 +39,11 @@ class ProsesPekerjaanController extends Controller
     public function updateStatus(Request $request)
     {
         $pekerjaan = EspkPekerjaan::where('id', $request->id)->first();
+
+        if ($request->status_id == 6) {
+            $pekerjaan->tanggal_selesai = date('Y-m-d H:i:s');
+        }
+
         $pekerjaan->status_id = $request->status_id;
         $pekerjaan->save();
 
