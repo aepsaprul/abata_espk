@@ -276,7 +276,7 @@ class PekerjaanController extends Controller
         $pekerjaan = EspkPekerjaan::find($request->id);
 
         if ($pekerjaan->status_id == 8) {
-            $pekerjaan->status_id = null;
+            $pekerjaan->status_id = 9;
         } else {
             $pekerjaan->cabang_pelaksana_id = $request->cabang_pelaksana_id;
             $pekerjaan->status_id = 9;
