@@ -279,6 +279,7 @@ class PekerjaanController extends Controller
             $pekerjaan->status_id = null;
         } else {
             $pekerjaan->cabang_pelaksana_id = $request->cabang_pelaksana_id;
+            $pekerjaan->status_id = 9;
         }
         $pekerjaan->save();
 

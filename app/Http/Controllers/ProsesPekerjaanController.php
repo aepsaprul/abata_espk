@@ -16,7 +16,7 @@ class ProsesPekerjaanController extends Controller
         $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
         ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
         ->whereNotNull('status_id')
-        ->whereNotIn('status_id', [2])
+        ->whereNotIn('status_id', [2,8,9])
         ->orderBy('id', 'desc')
         ->get();
 
