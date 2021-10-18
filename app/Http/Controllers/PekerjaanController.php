@@ -42,7 +42,10 @@ class PekerjaanController extends Controller
         $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23'])->get();
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
         $cabang_cetak = MasterCabang::where('id', 7)->get();
-        $cabang_finishing = MasterCabang::whereIn('id', ['2', '7'])->get();
+
+        $cabang_id = Auth::user()->masterKaryawan->masterCabang->id;
+        $cabang_finishing = MasterCabang::whereIn('id', [$cabang_id, '7'])->get();
+
         $jenis_pekerjaan = EspkJenisPekerjaan::with('tipePekerjaan')->get();
         $tipe_pekerjaan = EspkTipePekerjaan::get();
 

@@ -43,7 +43,7 @@
                                 <th>Pemesan</th>
                                 <th>Nama Pesanan</th>
                                 <th>No Nota</th>
-                                <th>Rencana Jadi</th>
+                                <th>Tanggal Order</th>
                                 <th>Status</th>
                                 <th>Tanggal Selesai</th>
                                 <th>Aksi</th>
@@ -56,7 +56,7 @@
                                 <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
                                 <td>{{ $pekerjaan->nama_pesanan }}</td>
                                 <td>{{ $pekerjaan->nomor_nota }}</td>
-                                <td>{{ $pekerjaan->rencana_jadi }}</td>
+                                <td>{{ $pekerjaan->tanggal_pesanan }}</td>
                                 <td>
                                     @if ($pekerjaan->status_id != null)
                                         {{ $pekerjaan->status->nama_status }}
@@ -113,7 +113,7 @@
                                 <th>Pelaksana</th>
                                 <th>Nama Pekerjaan</th>
                                 <th>No Nota</th>
-                                <th>Rencana Jadi</th>
+                                <th>Tanggal Order</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -125,7 +125,7 @@
                                 <td>{{ $pesanan->cabangPelaksana->nama_cabang }}</td>
                                 <td>{{ $pesanan->nama_pesanan }}</td>
                                 <td>{{ $pesanan->nomor_nota }}</td>
-                                <td>{{ $pesanan->rencana_jadi }}</td>
+                                <td>{{ $pesanan->tanggal_pesanan }}</td>
                                 <td>
                                     @if ($pesanan->status_id != null)
                                         {{ $pesanan->status->nama_status }}
