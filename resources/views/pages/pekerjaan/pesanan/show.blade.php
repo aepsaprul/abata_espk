@@ -117,7 +117,11 @@
                         <div class="mb-3 row">
                             <label for="cabang_finishing_id" class="col-sm-4 col-form-label">Finishing</label>
                             <div class="col-sm-8">
-                                <input disabled type="text" class="form-control form-control-sm" name="cabang_finishing_id" value="{{ $pekerjaan->cabangFinishing->nama_cabang }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="cabang_finishing_id"
+                                @if ($pekerjaan->cabangFinishing)
+                                    value="{{ $pekerjaan->cabangFinishing->nama_cabang }}"
+                                @endif
+                                >
                             </div>
                         </div>
                         <div class="mb-3 row">

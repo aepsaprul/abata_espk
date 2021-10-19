@@ -119,10 +119,8 @@
                             <div class="col-sm-8">
                                 <input disabled type="text" class="form-control form-control-sm" name="cabang_finishing_id"
                                 @if ($pekerjaan->cabangFinishing)
-                                value="{{ $pekerjaan->cabangFinishing->nama_cabang }}"
-
+                                    value="{{ $pekerjaan->cabangFinishing->nama_cabang }}"
                                 @endif
-
                                 >
                             </div>
                         </div>

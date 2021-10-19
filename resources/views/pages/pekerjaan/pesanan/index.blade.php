@@ -88,6 +88,12 @@
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                     </form>
+                                    <a
+                                        href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
+                                        class="border-0 bg-white text-dark mx-2"
+                                        title="Lihat">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                 @else
                                     <a
                                         href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
