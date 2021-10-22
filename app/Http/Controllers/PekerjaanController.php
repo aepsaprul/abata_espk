@@ -39,7 +39,7 @@ class PekerjaanController extends Controller
     public function create()
     {
         $pelanggan = EspkPelanggan::get();
-        $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23'])->get();
+        $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23', '35'])->get();
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
         $cabang_cetak = MasterCabang::where('id', 7)->get();
 

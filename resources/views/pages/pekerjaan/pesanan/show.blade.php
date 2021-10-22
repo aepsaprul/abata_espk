@@ -33,7 +33,11 @@
                         <div class="mb-3 row">
                             <label for="pelanggan" class="col-sm-4 col-form-label">Pelanggan</label>
                             <div class="col-sm-8">
-                                <input disabled type="text" class="form-control form-control-sm" name="pelanggan_id" value="{{ $pekerjaan->pelanggan->nama }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="pelanggan_id"
+                                @if ($pekerjaan->pelanggan)
+                                    value="{{ $pekerjaan->pelanggan->nama }}"
+                                @endif
+                                >
                             </div>
                         </div>
                         <div class="mb-3 row">
