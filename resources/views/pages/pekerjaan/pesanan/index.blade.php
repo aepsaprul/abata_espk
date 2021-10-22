@@ -52,7 +52,13 @@
                         <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
                         <td>{{ $pesanan->nama_pesanan }}</td>
                         <td>{{ $pesanan->tanggal_pesanan }}</td>
-                        <td>{{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
+                        <td>
+                            @if ($pesanan->pegawaiPenerimaPesanan)
+                                {{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}
+                            @else
+                                Kosong
+                            @endif
+                        </td>
                         <td>
                             @if ($pesanan->status_id != null)
                                 {{ $pesanan->status->nama_status }}
