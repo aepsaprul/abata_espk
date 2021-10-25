@@ -219,12 +219,15 @@ class PekerjaanController extends Controller
 
         $pekerjaan->save();
 
-        foreach ($request->pekerjaan_proses_id as $key => $pekerjaan_proses) {
-            $pekerjaan_proses = EspkPekerjaanProses::find($pekerjaan_proses);
-            $pekerjaan_proses->jenis_pekerjaan_id = $request->jenis_pekerjaan_id[$key];
-            $pekerjaan_proses->pekerjaan_id = $pekerjaan->id;
-            $pekerjaan_proses->keterangan = $request->jenis_pekerjaan_keterangan[$key];
-            $pekerjaan_proses->save();
+        $pekerjaan_proses = EspkPekerjaanProses::where('pekerjaan_id', $id);
+        $pekerjaan_proses->delete();
+
+        foreach ($request->jenis_pekerjaan_id as $key => $jenis_pekerjaan) {
+            $jenis_pekerjaans = new EspkPekerjaanProses();
+            $jenis_pekerjaans->jenis_pekerjaan_id = $jenis_pekerjaan;
+            $jenis_pekerjaans->pekerjaan_id = $pekerjaan->id;
+            $jenis_pekerjaans->keterangan = $request->jenis_pekerjaan_keterangan[$key];
+            $jenis_pekerjaans->save();
         }
 
         return redirect()->route('pekerjaan.index')->with('status', 'Data berhasil disimpan');
