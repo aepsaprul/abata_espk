@@ -129,7 +129,7 @@
                                 <td>
                                     @if ($pesanan->status_id != null)
                                         {{ $pesanan->status->nama_status }}
-                                        @if ($pesanan->status_id == 6 || $pesanan->status_id == 7)
+                                        @if ($pesanan->status_id != null && $pesanan->status_id != 9)
                                             @php $hide = "d-none"; @endphp
                                         @else
                                             @php $hide = ""; @endphp
