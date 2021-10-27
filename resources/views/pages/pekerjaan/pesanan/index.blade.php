@@ -161,7 +161,7 @@
 
         $('#table_satu').DataTable();
 
-        $('.publish').on('click', function() {
+        $('body').on('click', '.publish', function() {
             var id = $(this).attr('data-id');
 
             var formData = {
@@ -202,12 +202,14 @@
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                    setTimeout(function() {
-                        window.location.reload(1);
-                    }, 100);
+                    $('#modal_create').modal('hide');
                 }
             });
         });
+
+        setInterval( function () {
+            $('#table_satu').ajax.reload();
+        }, 3000 );
     } );
 </script>
 @endsection

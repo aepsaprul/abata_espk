@@ -218,7 +218,7 @@
 
         $('#table_dua').DataTable();
 
-        $('.status').on('click', function() {
+        $('body').on('click', '.status', function() {
             $('.modal_status').empty();
 
             $('#modal_keterangan').val("");

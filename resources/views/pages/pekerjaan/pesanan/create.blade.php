@@ -43,13 +43,13 @@
                         <div class="mb-3 row">
                             <label for="nama_pesanan" class="col-sm-4 col-form-label">Nama Pesanan</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="nama_pesanan">
+                                <input type="text" class="form-control form-control-sm" name="nama_pesanan" maxlength="50">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="nomor_nota" class="col-sm-4 col-form-label">No Nota</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control form-control-sm" name="nomor_nota">
+                                <input type="number" class="form-control form-control-sm" name="nomor_nota" maxlength="11">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -67,31 +67,31 @@
                         <div class="mb-3 row">
                             <label for="jenis_pesanan" class="col-sm-4 col-form-label">Jenis Order</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_pesanan">
+                                <input type="text" class="form-control form-control-sm" name="jenis_pesanan" maxlength="30">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jumlah">
+                                <input type="text" class="form-control form-control-sm" name="jumlah" maxlength="30">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="ukuran" class="col-sm-4 col-form-label">Ukuran</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="ukuran">
+                                <input type="text" class="form-control form-control-sm" name="ukuran" maxlength="100">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jenis_kertas" class="col-sm-4 col-form-label">Jenis Kertas</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_kertas">
+                                <input type="text" class="form-control form-control-sm" name="jenis_kertas" maxlength="30">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="warna" class="col-sm-4 col-form-label">Warna Tinta</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="warna">
+                                <input type="text" class="form-control form-control-sm" name="warna" maxlength="30">
                             </div>
                         </div>
                         <div class="mb-3 row">

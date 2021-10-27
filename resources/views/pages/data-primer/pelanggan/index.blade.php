@@ -76,7 +76,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="pelanggan_create_telp" class="form-label">Telepon</label>
-                        <input type="text" class="form-control" id="pelanggan_create_telp" name="pelanggan_create_telp">
+                        <input type="text" class="form-control" id="pelanggan_create_telp" name="pelanggan_create_telp" maxlength="15">
                     </div>
                     <div class="mb-3">
                         <label for="pelanggan_create_alamat" class="form-label">Alamat</label>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="pelanggan_edit_telp" class="form-label">Telepon</label>
-                        <input type="text" class="form-control" id="pelanggan_edit_telp" name="pelanggan_edit_telp">
+                        <input type="text" class="form-control" id="pelanggan_edit_telp" name="pelanggan_edit_telp" maxlength="15">
                     </div>
                     <div class="mb-3">
                         <label for="pelanggan_edit_alamat" class="form-label">Alamat</label>
