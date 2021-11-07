@@ -13,6 +13,16 @@
     .btn {
         padding: .2rem .6rem;
     }
+    table tr td,
+    table tr th{
+        border-bottom: none;
+    }
+    table {
+        border-bottom: 1px solid #000;
+    }
+    table .active {
+        background-color: rgb(227, 237, 245);
+    }
 </style>
 @endsection
 
@@ -21,7 +31,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <h6 class="text-uppercase text-center">Data Pesanan</h6>
-            <div style="height: 50px;">
+            <div>
             @if (session('status'))
                 <div class="text-success fst-italic">
                     {{ session('status') }}
@@ -30,12 +40,12 @@
             </div>
             <div class="row mb-2">
                 <div class="col-md-4">
-                    <a href="{{ route('pekerjaan.create') }}" class="mb-4 btn btn-outline-primary" title="Tambah"><i class="fas fa-plus"></i></a>
+                    <a href="{{ route('pekerjaan.create') }}" class="mb-4 btn btn-outline-dark text-dark" title="Tambah"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
             <table id="table_satu" class="table table-bordered" style="width:100%">
                 <thead>
-                    <tr class="text-center bg-secondary text-white">
+                    <tr class="text-center text-light" style="background-color: #004da9;">
                         <th>No</th>
                         <th>Pemesan</th>
                         <th>Nama Pesanan</th>
@@ -47,7 +57,11 @@
                 </thead>
                 <tbody>
                     @foreach ($pesanans as $key => $pesanan)
-                    <tr>
+                    <tr
+                    @if ($key % 2 == 1)
+                       echo class="active";
+                    @endif
+                    >
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
                         <td>{{ $pesanan->nama_pesanan }}</td>
@@ -70,14 +84,14 @@
                             <div class="btn-group">
                                 @if ($pesanan->status_id == null || $pesanan->status_id == 8)
                                     <button
-                                        class="border-0 bg-white text-dark mx-1 publish"
+                                        class="border-0 bg-transparent text-dark mx-1 publish"
                                         data-id="{{ $pesanan->id }}"
                                         title="Publish">
                                         <i class="fas fa-rocket"></i>
                                     </button> |
                                     <a
                                         href="{{ route('pekerjaan.edit', [$pesanan->id]) }}"
-                                        class="border-0 bg-white text-dark mx-2"
+                                        class="border-0 bg-transparent text-dark mx-2"
                                         title="Ubah">
                                         <i class="fas fa-edit"></i>
                                     </a> |
@@ -88,7 +102,7 @@
                                             @method('delete')
                                             @csrf
                                                 <button
-                                                    class="border-0 bg-white"
+                                                    class="border-0 bg-transparent"
                                                     onclick="return confirm('Yakin akan dihapus?')"
                                                     title="Hapus">
                                                     <i class="fas fa-trash"></i>
@@ -96,14 +110,14 @@
                                     </form>
                                     <a
                                         href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
-                                        class="border-0 bg-white text-dark mx-2"
+                                        class="border-0 bg-transparent text-dark mx-2"
                                         title="Lihat">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 @else
                                     <a
                                         href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
-                                        class="border-0 bg-white text-dark mx-2"
+                                        class="border-0 bg-transparent text-dark mx-2"
                                         title="Lihat">
                                         <i class="fas fa-eye"></i>
                                     </a>
@@ -161,6 +175,9 @@
 
         $('#table_satu').DataTable();
 
+        var objRow= $('table tbody tr:last');
+        $(objRow).addClass('borderbawah');
+
         $('body').on('click', '.publish', function() {
             var id = $(this).attr('data-id');
 
@@ -206,10 +223,6 @@
                 }
             });
         });
-
-        setInterval( function () {
-            $('#table_satu').ajax.reload();
-        }, 3000 );
     } );
 </script>
 @endsection

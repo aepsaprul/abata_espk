@@ -86,10 +86,6 @@ class PekerjaanController extends Controller
         $pekerjaan->warna = $request->warna;
         $pekerjaan->keterangan = $request->keterangan;
 
-        // if ($request->file('file')) {
-        //     $file = $request->file('file')->store('file', 'public');
-        //     $pekerjaan->file = $file;
-        // }
         if ($request->file('file')) {
             $file_name = $request->file('file')->getClientOriginalName();
             $request->file('file')->storeAs('file', $file_name);
@@ -105,6 +101,13 @@ class PekerjaanController extends Controller
             $jenis_pekerjaans->keterangan = $request->jenis_pekerjaan_keterangan[$key];
             $jenis_pekerjaans->save();
         }
+
+        $status_pekerjaan = new EspkStatusPekerjaan;
+        $status_pekerjaan->pekerjaan_id = $pekerjaan->id;
+        $status_pekerjaan->status_id = 10;
+        $status_pekerjaan->pegawai_id = Auth::user()->masterKaryawan->id;
+        $status_pekerjaan->waktu = date('Y-m-d H:i:s');
+        $status_pekerjaan->save();
 
         return redirect()->route('pekerjaan.index')->with('status', 'Data berhasil disimpan');
     }

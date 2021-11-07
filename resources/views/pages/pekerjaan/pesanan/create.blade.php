@@ -32,7 +32,7 @@
                         <div class="mb-3 row">
                             <label for="pelanggan" class="col-sm-4 col-form-label">Pelanggan</label>
                             <div class="col-sm-8">
-                                <select class="form-select form-select-sm" name="pelanggan_id">
+                                <select class="form-select form-select-sm" name="pelanggan_id" required>
                                     <option value="">--Pilih Pelanggan--</option>
                                     @foreach ($pelanggans as $pelanggan)
                                         <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
@@ -43,55 +43,55 @@
                         <div class="mb-3 row">
                             <label for="nama_pesanan" class="col-sm-4 col-form-label">Nama Pesanan</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="nama_pesanan" maxlength="50">
+                                <input type="text" class="form-control form-control-sm" name="nama_pesanan" maxlength="50" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="nomor_nota" class="col-sm-4 col-form-label">No Nota</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control form-control-sm" name="nomor_nota" maxlength="11">
+                                <input type="number" class="form-control form-control-sm" name="nomor_nota" maxlength="11" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="tanggal_pesanan" class="col-sm-4 col-form-label">Tanggal Pesanan</label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control form-control-sm" name="tanggal_pesanan">
+                                <input type="date" class="form-control form-control-sm" id="tanggal_pesanan" name="tanggal_pesanan" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="rencana_jadi" class="col-sm-4 col-form-label">Rencana Jadi</label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control form-control-sm" name="rencana_jadi">
+                                <input type="date" class="form-control form-control-sm" id="rencana_jadi" name="rencana_jadi" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jenis_pesanan" class="col-sm-4 col-form-label">Jenis Order</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_pesanan" maxlength="30">
+                                <input type="text" class="form-control form-control-sm" name="jenis_pesanan" maxlength="30" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jumlah" maxlength="30">
+                                <input type="text" class="form-control form-control-sm" name="jumlah" maxlength="30" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="ukuran" class="col-sm-4 col-form-label">Ukuran</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="ukuran" maxlength="100">
+                                <input type="text" class="form-control form-control-sm" name="ukuran" maxlength="100" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="jenis_kertas" class="col-sm-4 col-form-label">Jenis Kertas</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_kertas" maxlength="30">
+                                <input type="text" class="form-control form-control-sm" name="jenis_kertas" maxlength="30" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="warna" class="col-sm-4 col-form-label">Warna Tinta</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="warna" maxlength="30">
+                                <input type="text" class="form-control form-control-sm" name="warna" maxlength="30" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -144,7 +144,7 @@
                         <div class="mb-3 row">
                             <label for="desain" class="col-sm-4 col-form-label">File</label>
                             <div class="col-sm-8">
-                                <input class="form-control form-control-sm" id="file" type="file" name="file">
+                                <input class="form-control form-control-sm" id="file" type="file" name="file" required>
                             </div>
                         </div>
                     </div>
@@ -193,6 +193,26 @@
 
 @section('script')
 <script>
+    $(function(){
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+                month = '0' + month.toString();
+        if(day < 10)
+                day = '0' + day.toString();
+
+        var maxDate = year + '-' + month + '-' + day;
+
+        // or instead:
+        // var maxDate = dtToday.toISOString().substr(0, 10);
+
+        $('#tanggal_pesanan').attr('min', maxDate);
+        $('#rencana_jadi').attr('min', maxDate);
+    });
+
     $(document).ready(function() {
         $('input[id="jenis_pekerjaan_keterangan_radio"]').prop("disabled", true);
         $('input[id="jenis_pekerjaan_keterangan_checkbox"]').prop("disabled", true);
