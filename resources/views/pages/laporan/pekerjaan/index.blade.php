@@ -13,6 +13,12 @@
     .btn {
         padding: .2rem .6rem;
     }
+    .strip1 {
+        background-color: rgb(255, 255, 255);
+    }
+    .strip2 {
+        background-color: rgb(227, 237, 245);
+    }
 </style>
 @endsection
 
@@ -113,9 +119,9 @@
                     <i class="fas fa-list"></i> Data Laporan
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered yajra-datatable">
+                    <table class="table table-bordered stripe yajra-datatable">
                         <thead class="bg-secondary">
-                            <tr>
+                            <tr class="text-center text-light" style="background-color: #004da9;">
                                 <th class="text-white text-center fw-bold">No</th>
                                 <th class="text-white text-center fw-bold">Pemesan</th>
                                 <th class="text-white text-center fw-bold">Nama Pekerjaan</th>
@@ -136,97 +142,6 @@
         </div>
     </div>
 </div>
-
-{{-- modal create  --}}
-{{-- <div class="modal fade" tabindex="-1" id="modal_create">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Navigasi</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="form_create">
-                    <div class="mb-3">
-                        <label for="create_nama_nav" class="form-label">Nama Navigasi</label>
-                        <input type="text" class="form-control" id="create_nama_nav" name="create_nama_nav">
-                    </div>
-                    <div class="mb-3">
-                        <label for="create_level_nav" class="form-label">Level Navigasi</label>
-                        <select class="form-control" id="create_level_nav" name="create_level_nav">
-                            <option value="main_nav">Main Navigasi</option>
-                            <option value="sub_nav">Sub Navigasi</option>
-                        </select>
-                    </div>
-                    <div class="mb-3" id="form_root_nav" style="display: none;">
-                        <label for="create_root_nav" class="form-label">Root Navigasi</label>
-                        <select id="create_root_nav" class="form-control" name="create_root_nav">
-                            <option value="">--Pilih Root Navigasi--</option>
-                            @foreach ($root_navs as $root_nav)
-                                    <option value="{{ $root_nav->id }}">{{ $root_nav->nama_nav }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="create_link" class="form-label">Link</label>
-                        <input type="text" class="form-control" id="create_link" name="create_link">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-{{-- modal edit  --}}
-{{-- <div class="modal fade" tabindex="-1" id="modal_edit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ubah Navigasi</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="form_edit">
-                    <input type="hidden" class="form-control" id="edit_id" name="edit_id">
-                    <div class="mb-3">
-                        <label for="edit_nama_nav" class="form-label">Nama Navigasi</label>
-                        <input type="text" class="form-control" id="edit_nama_nav" name="edit_nama_nav">
-                    </div>
-                    <div id="level_nav">
-
-                    </div>
-                    <div id="root_nav">
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit_link" class="form-label">Link</label>
-                        <input type="text" class="form-control" id="edit_link" name="edit_link">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Perbaharui</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-{{-- modal delete  --}}
-{{-- <div class="modal fade" tabindex="-1" id="modal_delete">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="form_delete">
-                <div class="modal-header">
-                    <h5 class="modal-title">Yakin akan dihapus <span class="title_delete text-decoration-underline"></span> ?</h5>
-                </div>
-                <input type="hidden" class="form-control" id="delete_id" name="delete_id">
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-secondary text-center" data-bs-dismiss="modal" style="width: 100px;">Tidak</button>
-                    <button type="submit" class="btn btn-primary text-center" style="width: 100px;">Ya</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> --}}
 
 @endsection
 
@@ -263,6 +178,7 @@
 
         $(function () {
             var table = $('.yajra-datatable').DataTable({
+                "stripeClasses": [ 'strip1', 'strip2' ],
                 dom: 'Bfrtip',
                 buttons: [
                     'excelHtml5',

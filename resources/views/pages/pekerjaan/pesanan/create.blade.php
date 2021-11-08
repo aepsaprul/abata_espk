@@ -49,7 +49,7 @@
                         <div class="mb-3 row">
                             <label for="nomor_nota" class="col-sm-4 col-form-label">No Nota</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control form-control-sm" name="nomor_nota" maxlength="11" required>
+                                <input type="number" class="form-control form-control-sm" name="nomor_nota" min="0" maxlength="11" required>
                             </div>
                         </div>
                         <div class="mb-3 row">

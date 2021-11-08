@@ -4,7 +4,7 @@
 <link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
 <style>
-    .col-md-10 {
+    .col-md-11 {
         font-size: 12px;
     }
     .fas {
@@ -13,13 +13,23 @@
     .btn {
         padding: .2rem .6rem;
     }
+    table tr td,
+    table tr th{
+        border-bottom: none;
+    }
+    table {
+        border-bottom: 1px solid #000;
+    }
+    table .active {
+        background-color: rgb(227, 237, 245);
+    }
 </style>
 @endsection
 
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-11">
             <h6 class="text-uppercase text-center">Data Pelanggan</h6>
             @if (session('status'))
                 <div class="alert alert-success">
@@ -28,29 +38,45 @@
             @endif
             <div class="row mb-2">
                 <div class="col-md-4">
-                    <button id="pelanggan_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>
+                    <button
+                        id="pelanggan_btn_create"
+                        class="mb-4 btn btn-outline-dark text-dark">
+                            <i class="fas fa-plus"></i>
+                    </button>
                 </div>
             </div>
             <table id="table_satu" class="table table-bordered" style="width:100%">
                 <thead>
-                    <tr class="text-center bg-secondary text-white">
+                    <tr class="text-center text-light" style="background-color: #004da9;">
                         <th>No</th>
                         <th>Nama Pelanggan</th>
                         <th>Telepon</th>
                         <th>Alamat</th>
-                        <th>#</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($pelanggans as $key => $pelanggan)
-                    <tr>
+                    <tr
+                    @if ($key % 2 == 1)
+                       echo class="active";
+                    @endif
+                    >
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $pelanggan->nama }}</td>
                         <td>{{ $pelanggan->telp }}</td>
                         <td>{{ $pelanggan->alamat }}</td>
                         <td class="text-center">
-                            <button data-id="{{ $pelanggan->id }}" class="border-0 bg-white pelanggan_btn_edit"><i class="fas fa-edit"></i></button> |
-                            <button data-id="{{ $pelanggan->id }}" class="border-0 bg-white pelanggan_btn_delete"><i class="fas fa-trash"></i></button>
+                            <button
+                                data-id="{{ $pelanggan->id }}"
+                                class="border-0 bg-transparent pelanggan_btn_edit">
+                                    <i class="fas fa-edit"></i>
+                            </button> |
+                            <button
+                                data-id="{{ $pelanggan->id }}"
+                                class="border-0 bg-transparent pelanggan_btn_delete">
+                                    <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                     @endforeach

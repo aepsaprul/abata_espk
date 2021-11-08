@@ -40,6 +40,10 @@ class ProsesPekerjaanController extends Controller
     {
         $pekerjaan = EspkPekerjaan::where('id', $request->id)->first();
 
+        if ($request->status_id == 1) {
+            $pekerjaan->tanggal_disetujui = date('Y-m-d H:i:s');
+        }
+
         if ($request->status_id == 6) {
             $pekerjaan->tanggal_selesai = date('Y-m-d H:i:s');
         }

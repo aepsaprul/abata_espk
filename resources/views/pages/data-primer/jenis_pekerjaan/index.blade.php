@@ -13,6 +13,16 @@
     .btn {
         padding: .2rem .6rem;
     }
+    table tr td,
+    table tr th{
+        border-bottom: none;
+    }
+    table {
+        border-bottom: 1px solid #000;
+    }
+    table .active {
+        background-color: rgb(227, 237, 245);
+    }
 </style>
 @endsection
 
@@ -23,25 +33,41 @@
             <h6 class="text-uppercase text-center">Tipe Pekerjaan</h6>
             <div class="row mb-2">
                 <div class="col-md-4">
-                    <button id="tipe_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>
+                    <button
+                        id="tipe_btn_create"
+                        class="mb-4 btn btn-outline-dark text-dark">
+                            <i class="fas fa-plus"></i>
+                    </button>
                 </div>
             </div>
             <table id="table_satu" class="table table-bordered" style="width:100%">
                 <thead>
-                    <tr class="text-center bg-secondary text-white">
+                    <tr class="text-center text-light" style="background-color: #004da9;">
                         <th>No</th>
                         <th>Tipe Pekerjaan</th>
-                        <th>#</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($tipes as $key => $tipe)
-                    <tr>
+                    <tr
+                    @if ($key % 2 == 1)
+                       echo class="active";
+                    @endif
+                    >
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $tipe->tipe }}</td>
                         <td class="text-center">
-                            <button data-id="{{ $tipe->id }}" class="border-0 bg-white tipe_btn_edit"><i class="fas fa-edit"></i></button> |
-                            <button data-id="{{ $tipe->id }}" class="border-0 bg-white tipe_btn_delete"><i class="fas fa-trash"></i></button>
+                            <button
+                                data-id="{{ $tipe->id }}"
+                                class="border-0 bg-transparent tipe_btn_edit">
+                                    <i class="fas fa-edit"></i>
+                            </button> |
+                            <button
+                                data-id="{{ $tipe->id }}"
+                                class="border-0 bg-transparent tipe_btn_delete">
+                                    <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                     @endforeach
@@ -52,27 +78,43 @@
             <h6 class="text-uppercase text-center">Jenis Pekerjaan</h6>
             <div class="row mb-2">
                 <div class="col-md-4">
-                    <button id="jenis_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>
+                    <button
+                        id="jenis_btn_create"
+                        class="mb-4 btn btn-outline-dark text-dark">
+                            <i class="fas fa-plus"></i>
+                    </button>
                 </div>
             </div>
             <table id="table_dua" class="table table-bordered" style="width:100%">
                 <thead>
-                    <tr class="text-center bg-secondary text-white">
+                    <tr class="text-center text-light" style="background-color: #004da9;">
                         <th>No</th>
                         <th>Jenis Pekerjaan</th>
                         <th>Tipe Pekerjaan</th>
-                        <th>#</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($jenis as $key => $jenis)
-                    <tr>
+                    <tr
+                    @if ($key % 2 == 1)
+                       echo class="active";
+                    @endif
+                    >
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $jenis->jenis }}</td>
                         <td>{{ $jenis->tipePekerjaan->tipe }}</td>
                         <td class="text-center">
-                            <button data-id="{{ $jenis->id }}" class="border-0 bg-white jenis_btn_edit"><i class="fas fa-edit"></i></button> |
-                            <button data-id="{{ $jenis->id }}" class="border-0 bg-white jenis_btn_delete"><i class="fas fa-trash"></i></button>
+                            <button
+                                data-id="{{ $jenis->id }}"
+                                class="border-0 bg-transparent jenis_btn_edit">
+                                    <i class="fas fa-edit"></i>
+                            </button> |
+                            <button
+                                data-id="{{ $jenis->id }}"
+                                class="border-0 bg-transparent jenis_btn_delete">
+                                    <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                     @endforeach

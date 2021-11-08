@@ -4,7 +4,7 @@
 <link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
 <style>
-    .col-md-10 {
+    .col-md-11 {
         font-size: 12px;
     }
     .fas {
@@ -29,7 +29,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-11">
             <h6 class="text-uppercase text-center">Data Pesanan</h6>
             <div>
             @if (session('status'))
@@ -49,8 +49,9 @@
                         <th>No</th>
                         <th>Pemesan</th>
                         <th>Nama Pesanan</th>
-                        <th>Tanggal Order</th>
+                        <th>Tgl Dibuat SPK</th>
                         <th>Penerima</th>
+                        <th>Tanggal Disetujui</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -65,12 +66,22 @@
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
                         <td>{{ $pesanan->nama_pesanan }}</td>
-                        <td>{{ $pesanan->tanggal_pesanan }}</td>
+                        <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
                         <td>
                             @if ($pesanan->pegawaiPenerimaPesanan)
                                 {{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}
                             @else
                                 Kosong
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @php
+                                $tanggal_disetujui = explode(" ", $pesanan->tanggal_disetujui);
+                            @endphp
+                            @if ($pesanan->tanggal_disetujui)
+                                {{ tgl_indo($tanggal_disetujui[0]) }}
+                            @else
+                                -
                             @endif
                         </td>
                         <td>
@@ -175,9 +186,6 @@
 
         $('#table_satu').DataTable();
 
-        var objRow= $('table tbody tr:last');
-        $(objRow).addClass('borderbawah');
-
         $('body').on('click', '.publish', function() {
             var id = $(this).attr('data-id');
 
@@ -220,6 +228,9 @@
                 data: formData,
                 success: function(response) {
                     $('#modal_create').modal('hide');
+                    setTimeout(() => {
+                        window.location.reload(1);
+                    }, 500);
                 }
             });
         });

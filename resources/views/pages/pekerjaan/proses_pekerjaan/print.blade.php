@@ -54,8 +54,8 @@
                         <table class="table table-bordered" style="border: 2px solid #d0d0d0;">
                             <tr style="border: 2px solid #d0d0d0;">
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">no nota</th>
-                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">tgl order</th>
-                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">rencana cetak</th>
+                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">tgl spk dibuat</th>
+                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">rencana tgl disetujui/tgl order</th>
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">rencana jadi</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
