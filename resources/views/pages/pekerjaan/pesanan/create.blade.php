@@ -103,7 +103,7 @@
                         <div class="mb-3 row">
                             <label for="penerima_pesanan" class="col-sm-4 col-form-label">Penerima Pesanan</label>
                             <div class="col-sm-8">
-                                <select class="form-select form-select-sm" name="pegawai_penerima_pesanan_id">
+                                <select class="form-select form-select-sm" name="pegawai_penerima_pesanan_id" required>
                                     @foreach ($penerima_pesanans as $penerima_pesanan)
                                         <option value="{{ $penerima_pesanan->id }}">{{ $penerima_pesanan->nama_lengkap }}</option>
                                     @endforeach

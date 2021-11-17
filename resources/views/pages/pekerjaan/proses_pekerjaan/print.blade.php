@@ -108,8 +108,20 @@
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->jenis_kertas }}</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">
+                                    @if ($pekerjaan->pegawaiPenerimaPesanan)
+                                        {{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}
+                                    @else
+                                        kosong
+                                    @endif
+                                </td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">
+                                    @if ($pekerjaan->pegawaiPenerimaPesanan)
+                                        {{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}
+                                    @else
+                                        kosong
+                                    @endif
+                                </td>
                             </tr>
                         </table>
 

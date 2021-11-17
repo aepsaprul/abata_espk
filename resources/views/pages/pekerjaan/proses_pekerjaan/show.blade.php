@@ -99,7 +99,13 @@
                         <div class="mb-3 row">
                             <label for="penerima_pesanan" class="col-sm-4 col-form-label">Penerima Pesanan</label>
                             <div class="col-sm-8">
-                                <input disabled type="text" class="form-control form-control-sm" name="pegawai_penerima_pesanan_id" value="{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}">
+                                <input disabled type="text" class="form-control form-control-sm" name="pegawai_penerima_pesanan_id"
+                                @if ($pekerjaan->pegawaiPenerimaPesanan)
+                                    value="{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}"
+                                @else
+                                    value="kosong"
+                                @endif
+                                >
                             </div>
                         </div>
                         <div class="mb-3 row">

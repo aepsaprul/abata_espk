@@ -68,6 +68,10 @@ class PekerjaanController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'pegawai_penerima_pesanan_id' => 'required'
+        ]);
+
         $pekerjaan = new EspkPekerjaan;
         $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
