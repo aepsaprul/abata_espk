@@ -139,9 +139,11 @@
                             <div class="col-sm-8">
                                 <input disabled class="form-control form-control-sm mb-3" id="file" type="file" name="file">
                                 <div>
-                                    {{-- @php $modul = explode('/', $pekerjaan->file); @endphp --}}
-                                    <a href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
-                                    {{-- <button id="ganti" class="btn btn-warning"><i class="fas fa-exchange-alt"></i> Ganti</button> --}}
+                                    @if (file_exists(storage_path('app/file/' . $pekerjaan->file)))
+                                        <a href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                                    @else
+                                        File Tidak Ada
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -68,18 +68,18 @@ Route::middleware(['auth'])->group(function () {
 
     // data pekerjaan
         // pesanan
-    Route::resource('pekerjaan', PekerjaanController::class);
-    Route::get('pekerjaan/{id}/show', [PekerjaanController::class, 'show'])->name('pekerjaan.show');
-    Route::get('pekerjaan/{file}/download', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
-    Route::post('pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');
-    Route::post('pekerjaan/publish_store', [PekerjaanController::class, 'publishStore'])->name('pekerjaan.publish_store');
+        Route::resource('pekerjaan', PekerjaanController::class);
+        Route::get('pekerjaan/{id}/show', [PekerjaanController::class, 'show'])->name('pekerjaan.show');
+        Route::get('pekerjaan/{file}/download', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
+        Route::post('pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');
+        Route::post('pekerjaan/publish_store', [PekerjaanController::class, 'publishStore'])->name('pekerjaan.publish_store');
 
-    // proses pekerjaan
-    Route::get('proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');
-    Route::get('proses_pekerjaan/{id}/edit_status', [ProsesPekerjaanController::class, 'editStatus'])->name('proses_pekerjaan.edit_status');
-    Route::post('proses_pekerjaan/update_status', [ProsesPekerjaanController::class, 'updateStatus'])->name('proses_pekerjaan.update_status');
-    Route::get('proses_pekerjaan/{id}/show', [ProsesPekerjaanController::class, 'show'])->name('proses_pekerjaan.show');
-    Route::get('proses_pekerjaan/{id}/print', [ProsesPekerjaanController::class, 'print'])->name('proses_pekerjaan.print');
+        // proses pekerjaan
+        Route::get('proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');
+        Route::get('proses_pekerjaan/{id}/edit_status', [ProsesPekerjaanController::class, 'editStatus'])->name('proses_pekerjaan.edit_status');
+        Route::post('proses_pekerjaan/update_status', [ProsesPekerjaanController::class, 'updateStatus'])->name('proses_pekerjaan.update_status');
+        Route::get('proses_pekerjaan/{id}/show', [ProsesPekerjaanController::class, 'show'])->name('proses_pekerjaan.show');
+        Route::get('proses_pekerjaan/{id}/print', [ProsesPekerjaanController::class, 'print'])->name('proses_pekerjaan.print');
 
     // laporan
     Route::get('laporan/pekerjaan', [LaporanController::class, 'indexPekerjaan'])->name('laporan.index_pekerjaan');

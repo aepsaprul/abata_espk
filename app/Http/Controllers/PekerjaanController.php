@@ -69,7 +69,8 @@ class PekerjaanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'pegawai_penerima_pesanan_id' => 'required'
+            'pegawai_penerima_pesanan_id' => 'required',
+            'file' => 'max:5000'
         ]);
 
         $pekerjaan = new EspkPekerjaan;
@@ -191,6 +192,11 @@ class PekerjaanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'pegawai_penerima_pesanan_id' => 'required',
+            'file' => 'max:5000'
+        ]);
+
         $pekerjaan = EspkPekerjaan::find($id);
         $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pekerjaan->pelanggan_id = $request->pelanggan_id;

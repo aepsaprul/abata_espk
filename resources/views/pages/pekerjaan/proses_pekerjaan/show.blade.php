@@ -135,9 +135,11 @@
                             <div class="col-sm-8">
                                 <input disabled class="form-control form-control-sm mb-3" id="file" type="file" name="file">
                                 <div>
-                                    {{-- @php $modul = explode('/', $pekerjaan->file); @endphp --}}
-                                    <a href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
-                                    {{-- <button id="ganti" class="btn btn-warning"><i class="fas fa-exchange-alt"></i> Ganti</button> --}}
+                                    @if (file_exists(storage_path('app/file/' . $pekerjaan->file)))
+                                        <a href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                                    @else
+                                        File Tidak Ada
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -210,26 +212,7 @@
             e.preventDefault();
 
             $('#file').show();
-        })
-
-        // $('input[type="radio"]').on('change', function() {
-        //     var id = $(this).attr('data-id');
-        //     $('input[id="jenis_pekerjaan_keterangan_radio"]').prop("disabled", true);
-        //     $('input[id="jenis_pekerjaan_keterangan_radio"]').val("");
-        //     if($('#jenis_pekerjaan_' + id).prop("checked", true)) {
-        //         $('.jenis_pekerjaan_keterangan_' + id).prop("disabled", false);
-        //     }
-        // });
-
-        // $('input[type="checkbox"]').on('change', function() {
-        //     var id = $(this).attr('data-id');
-        //     $('.jenis_pekerjaan_keterangan_' + id).val("");
-        //     if($('#jenis_pekerjaan_' + id).is(":checked")) {
-        //         $('.jenis_pekerjaan_keterangan_' + id).prop("disabled", false);
-        //     } else {
-        //         $('.jenis_pekerjaan_keterangan_' + id).prop("disabled", true);
-        //     }
-        // });
+        });
     });
 </script>
 @endsection

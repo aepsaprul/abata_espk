@@ -144,8 +144,12 @@
                         <div class="mb-3 row">
                             <label for="desain" class="col-sm-4 col-form-label">File</label>
                             <div class="col-sm-8">
-                                <input class="form-control form-control-sm" id="file" type="file" name="file" required>
+                                <input class="form-control form-control-sm @error('file') is-invalid @enderror" id="file" type="file" name="file" required>
+                                @error('file')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                         </div>
                     </div>
                     <div class="col-md-6">

@@ -144,7 +144,10 @@
                         <div class="mb-3 row">
                             <label for="desain" class="col-sm-4 col-form-label">File</label>
                             <div class="col-sm-8">
-                                <input class="form-control form-control-sm mb-3" id="file" type="file" name="file">
+                                <input class="form-control form-control-sm mb-3 @error('file') is-invalid @enderror" id="file" type="file" name="file">
+                                @error('file')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                                 <div>
                                     <a href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
                                     <button id="ganti" class="btn btn-warning"><i class="fas fa-exchange-alt"></i> Ganti</button>
