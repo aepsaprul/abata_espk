@@ -79,7 +79,11 @@ class LaporanController extends Controller
                     return $espkPekerjaan->status->nama_status;
                 })
                 ->addColumn('pegawaiPenerimaPesanan', function(EspkPekerjaan $espkPekerjaan){
-                    return $espkPekerjaan->pegawaiPenerimaPesanan->nama_panggilan;
+                    if ($espkPekerjaan->pegawaiPenerimaPesanan) {
+                        return $espkPekerjaan->pegawaiPenerimaPesanan->nama_panggilan;
+                    } else {
+                        return "kosong";
+                    }
                 })
                 ->rawColumns(['action'])
                 ->make(true);
