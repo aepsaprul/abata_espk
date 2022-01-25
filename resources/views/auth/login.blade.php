@@ -74,12 +74,12 @@
                 </div>
                 <!-- /.social-auth-links -->
 
-                <div class="mb-1">
-                    <a href="#">Lupa password</a>
+                <div class="mt-5">
+                    <a href="#" style="font-size: 14px;">Lupa password</a>
                 </div>
+                <hr>
+                <div class="text-center mb-2 text-secondary" style="font-size: 14px;">©2022 All Rights Reserved - AdminLTE</div>
             </div>
-            <hr>
-            <div class="text-center mb-2 text-secondary" style="font-size: 14px;">©2022 All Rights Reserved - AdminLTE</div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->

@@ -30,21 +30,22 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    // menu
-    Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
-    Route::get('menu/create/menu_sub', [MenuController::class, 'createMenuSub'])->name('menu.create.menu_sub');
-    Route::get('menu/create/menu_tombol', [MenuController::class, 'createMenuTombol'])->name('menu.create.menu_tombol');
-    Route::post('menu/store', [MenuController::class, 'store'])->name('menu.store');
-    Route::post('menu/edit/menu_utama', [MenuController::class, 'editMenuUtama'])->name('menu.edit.menu_utama');
-    Route::post('menu/edit/menu_sub', [MenuController::class, 'editMenuSub'])->name('menu.edit.menu_sub');
-    Route::post('menu/update', [MenuController::class, 'update'])->name('menu.update');
-    Route::post('menu/delete/btn', [MenuController::class, 'deleteBtn'])->name('menu.delete.btn');
-    Route::post('menu/delete', [MenuController::class, 'delete'])->name('menu.delete');
+    // admin
+        // menu
+        Route::get('admin/menu', [MenuController::class, 'index'])->name('menu.index');
+        Route::get('admin/menu/create/menu_sub', [MenuController::class, 'createMenuSub'])->name('menu.create.menu_sub');
+        Route::get('admin/menu/create/menu_tombol', [MenuController::class, 'createMenuTombol'])->name('menu.create.menu_tombol');
+        Route::post('admin/menu/store', [MenuController::class, 'store'])->name('menu.store');
+        Route::post('admin/menu/edit/menu_utama', [MenuController::class, 'editMenuUtama'])->name('menu.edit.menu_utama');
+        Route::post('admin/menu/edit/menu_sub', [MenuController::class, 'editMenuSub'])->name('menu.edit.menu_sub');
+        Route::post('admin/menu/update', [MenuController::class, 'update'])->name('menu.update');
+        Route::post('admin/menu/delete/btn', [MenuController::class, 'deleteBtn'])->name('menu.delete.btn');
+        Route::post('admin/menu/delete', [MenuController::class, 'delete'])->name('menu.delete');
 
-    // karyawan
-    Route::get('karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-    Route::get('karyawan/{id}/akses', [KaryawanController::class, 'akses'])->name('karyawan.akses');
-    Route::put('karyawan/{id}/akses_simpan', [KaryawanController::class, 'aksesSimpan'])->name('karyawan.akses_simpan');
+        // karyawan
+        Route::get('admin/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+        Route::get('admin/karyawan/{id}/akses', [KaryawanController::class, 'akses'])->name('karyawan.akses');
+        Route::put('admin/karyawan/{id}/akses_simpan', [KaryawanController::class, 'aksesSimpan'])->name('karyawan.akses_simpan');
 
     // navigasi
     Route::get('navigasi', [NavController::class, 'index'])->name('navigasi.index');
@@ -55,24 +56,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('navigasi/{id}/delete_btn', [NavController::class, 'deleteBtn'])->name('navigasi.delete_btn');
     Route::get('navigasi/{id}/delete', [NavController::class, 'delete'])->name('navigasi.delete');
 
-    // data primer pelanggan
-    Route::resource('pelanggan', PelangganController::class);
-    Route::get('pelanggan/{id}/delete/btn', [PelangganController::class, 'deleteBtn'])->name('pelanggan.delete.btn');
-    Route::get('pelanggan/{id}/delete', [PelangganController::class, 'delete'])->name('pelanggan.delete');
+    // data primer
+        // pelanggan
+        Route::resource('data_primer/pelanggan', PelangganController::class);
+        Route::get('data_primer/pelanggan/{id}/delete/btn', [PelangganController::class, 'deleteBtn'])->name('pelanggan.delete.btn');
+        Route::get('data_primer/pelanggan/{id}/delete', [PelangganController::class, 'delete'])->name('pelanggan.delete');
 
-    // data primer jenis pekerjaan
-    Route::resource('jenis_pekerjaan', JenisPekerjaanController::class);
-    Route::get('jenis_pekerjaan/{id}/edit_jenis', [JenisPekerjaanController::class, 'editJenis'])->name('jenis_pekerjaan.edit.jenis');
-    Route::post('jenis_pekerjaan/delete/btn', [JenisPekerjaanController::class, 'deleteBtn'])->name('jenis_pekerjaan.delete.btn');
-    Route::post('jenis_pekerjaan/delete', [JenisPekerjaanController::class, 'delete'])->name('jenis_pekerjaan.delete');
+        // jenis pekerjaan
+        Route::resource('data_primer/jenis_pekerjaan', JenisPekerjaanController::class);
+        Route::get('data_primer/jenis_pekerjaan/{id}/edit_jenis', [JenisPekerjaanController::class, 'editJenis'])->name('jenis_pekerjaan.edit.jenis');
+        Route::post('data_primer/jenis_pekerjaan/delete/btn', [JenisPekerjaanController::class, 'deleteBtn'])->name('jenis_pekerjaan.delete.btn');
+        Route::post('data_primer/jenis_pekerjaan/delete', [JenisPekerjaanController::class, 'delete'])->name('jenis_pekerjaan.delete');
 
     // data pekerjaan
         // pesanan
-        Route::resource('pekerjaan', PekerjaanController::class);
-        Route::get('pekerjaan/{id}/show', [PekerjaanController::class, 'show'])->name('pekerjaan.show');
-        Route::get('pekerjaan/{file}/download', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
-        Route::post('pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');
-        Route::post('pekerjaan/publish_store', [PekerjaanController::class, 'publishStore'])->name('pekerjaan.publish_store');
+        Route::resource('data_pekerjaan/pekerjaan', PekerjaanController::class);
+        Route::get('data_pekerjaan/pekerjaan/{id}/show', [PekerjaanController::class, 'show'])->name('pekerjaan.show');
+        Route::get('data_pekerjaan/pekerjaan/{file}/download', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
+        Route::post('data_pekerjaan/pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');
+        Route::post('data_pekerjaan/pekerjaan/publish_store', [PekerjaanController::class, 'publishStore'])->name('pekerjaan.publish_store');
 
         // proses pekerjaan
         Route::get('proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');
