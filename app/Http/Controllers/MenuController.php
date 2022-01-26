@@ -5,158 +5,165 @@ namespace App\Http\Controllers;
 use App\Models\EspkMenuButton;
 use App\Models\EspkMenuSub;
 use App\Models\EspkMenuUtama;
+use App\Models\EspkNavMain;
+use App\Models\EspkNavSub;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
     public function index()
     {
-        $menu_utama = EspkMenuUtama::orderBy('nama_menu', 'asc')->get();
-        $menu_sub = EspkMenuSub::with('menuUtama')->get();
-        $menu_btn = EspkMenuButton::get();
+        $nav_main = EspkNavMain::get();
+        $nav_sub = EspkNavSub::orderBy('main_id', 'asc')->get();
 
-        return view('pages.admin.menu.index', ['menu_utamas' => $menu_utama, 'menu_subs' => $menu_sub, 'menu_btns' => $menu_btn]);
+        return view('pages.admin.menu.index', ['nav_mains' => $nav_main, 'nav_subs' => $nav_sub]);
     }
 
-    public function createMenuSub()
+    public function mainStore(Request $request)
     {
-        $menu_utama = EspkMenuUtama::get();
+        $nav_main = new EspkNavMain;
+        $nav_main->title = $request->title;
+        $nav_main->link = $request->link;
+        $nav_main->icon = $request->icon;
+        $nav_main->save();
 
         return response()->json([
-            'menu_utama' => $menu_utama
+            'status' => 'true'
         ]);
     }
 
-    public function store(Request $request)
+    public function subCreate()
     {
-        if ($request->button == "menu_utama_btn_store") {
-
-            $menu_utama = new EspkMenuUtama;
-            $menu_utama->nama_menu = $request->nama_menu;
-            $menu_utama->link = $request->link;
-            $menu_utama->save();
-
-            $response = "Menu utama berhasil ditambah";
-
-        } if ($request->button == "menu_sub_btn_store") {
-
-            $menu_sub = new EspkMenuSub;
-            $menu_sub->nama_menu = $request->nama_menu;
-            $menu_sub->link = $request->link;
-            $menu_sub->menu_utama_id = $request->menu_utama_id;
-            $menu_sub->save();
-
-            $response = "Menu sub berhasil ditambah";
-
-        } else {
-            $response = "kosong";
-        }
+        $nav_main = EspkNavMain::get();
 
         return response()->json([
-            'data' => $response
+            'nav_mains' => $nav_main
         ]);
     }
 
-    public function editMenuUtama(Request $request)
+    public function subStore(Request $request)
     {
-        $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
+        $nav_sub = new EspkNavSub;
+        $nav_sub->title = $request->title;
+        $nav_sub->link = $request->link;
+        $nav_sub->main_id = $request->main_id;
+        $nav_sub->save();
 
         return response()->json([
-            'id' => $menu_utama->id,
-            'nama_menu' => $menu_utama->nama_menu,
-            'link' => $menu_utama->link
+            'status' => 'Data menu sub berhasil ditambah'
         ]);
     }
 
-    public function editMenuSub(Request $request)
+    public function mainEdit($id)
     {
-        $menu_sub = EspkMenuSub::where('id', $request->id)->first();
-        $menu_utama = EspkMenuUtama::get();
+        $nav_main = EspkNavMain::find($id);
 
         return response()->json([
-            'id' => $menu_sub->id,
-            'nama_menu' => $menu_sub->nama_menu,
-            'link' => $menu_sub->link,
-            'menu_utama_id' => $menu_sub->menu_utama_id,
-            'menu_utama' => $menu_utama
+            'id' => $nav_main->id,
+            'title' => $nav_main->title,
+            'link' => $nav_main->link,
+            'icon' => $nav_main->icon
         ]);
     }
 
-    public function update(Request $request)
+    public function subEdit($id)
     {
-        if ($request->button == "menu_utama_btn_update") {
-
-            $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
-            $menu_utama->nama_menu = $request->nama_menu;
-            $menu_utama->link = $request->link;
-            $menu_utama->save();
-
-            $response = "Menu utama berhasil diperbaharui";
-
-        } if ($request->button == "menu_sub_btn_update") {
-
-            $menu_sub = EspkMenuSub::where('id', $request->id)->first();
-            $menu_sub->nama_menu = $request->nama_menu;
-            $menu_sub->link = $request->link;
-            $menu_sub->menu_utama_id = $request->menu_utama_id;
-            $menu_sub->save();
-
-            $response = "Menu sub berhasil diperbaharui";
-
-        } else {
-            $response = "kosong";
-        }
+        $nav_sub = EspkNavSub::find($id);
+        $nav_main = EspkNavMain::get();
 
         return response()->json([
-            'data' => $response
+            'id' => $nav_sub->id,
+            'title' => $nav_sub->title,
+            'link' => $nav_sub->link,
+            'main_id' => $nav_sub->main_id,
+            'nav_mains' => $nav_main
         ]);
     }
 
-    public function deleteBtn(Request $request)
+    public function mainUpdate(Request $request)
     {
-        if ($request->button == "menu_utama_btn_delete") {
-
-            $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
-            $value = $menu_utama->nama_menu;
-
-        } if ($request->button == "menu_sub_btn_delete") {
-
-            $menu_sub = EspkMenuSub::where('id', $request->id)->first();
-            $value = $menu_sub->nama_menu;
-
-        } else {
-            $value = "kosong";
-        }
+        $nav_main = EspkNavMain::find($request->id);
+        $nav_main->title = $request->title;
+        $nav_main->link = $request->link;
+        $nav_main->icon = $request->icon;
+        $nav_main->save();
 
         return response()->json([
             'id' => $request->id,
-            'value' => $value
+            'status' => 'true',
+            'title' => $request->title,
+            'link' => $request->link,
+            'icon' => $request->icon
         ]);
     }
 
-    public function delete(Request $request)
+    public function subUpdate(Request $request)
     {
-        if ($request->button == "menu_utama_btn_delete") {
+        $nav_sub = EspkNavSub::find($request->id);
+        $nav_sub->title = $request->title;
+        $nav_sub->link = $request->link;
+        $nav_sub->main_id = $request->main_id;
+        $nav_sub->save();
 
-            $menu_utama = EspkMenuUtama::where('id', $request->id)->first();
-            $menu_utama->delete();
+        $nav_main = EspkNavMain::find($request->main_id);
 
-            $response = "Menu utama berhasil dihapus";
 
-        } if ($request->button == "menu_sub_btn_delete") {
+        return response()->json([
+            'id' => $request->id,
+            'status' => 'Data menu sub berhasil diperbaharui',
+            'title' => $request->title,
+            'link' => $request->link,
+            'main_title' => $nav_main->title
+        ]);
+    }
 
-            $menu_sub = EspkMenuSub::where('id', $request->id)->first();
-            $menu_sub->delete();
+    public function mainDeleteBtn($id)
+    {
+        $nav_main = EspkNavMain::find($id);
 
-            $response = "Menu sub berhasil dihapus";
+        return response()->json([
+            'id' => $nav_main->id,
+            'title' => $nav_main->title
+        ]);
+    }
+
+    public function mainDelete(Request $request)
+    {
+        $nav_main = EspkNavMain::find($request->id);
+
+        $nav_sub = EspkNavSub::where('main_id', $request->id)->first();
+
+        if ($nav_sub) {
+            $status = "false";
         } else {
+            $nav_main->delete();
 
-            $response = "kosong";
-
+            $status = "true";
         }
 
         return response()->json([
-            'data' => $response
+            'status' => $status,
+            'title' => $nav_main->title
+        ]);
+    }
+
+    public function subDeleteBtn($id)
+    {
+        $nav_sub = EspkNavSub::find($id);
+
+        return response()->json([
+            'id' => $nav_sub->id,
+            'title' => $nav_sub->title
+        ]);
+    }
+
+    public function subDelete(Request $request)
+    {
+        $nav_sub = EspkNavSub::find($request->id);
+        $nav_sub->delete();
+
+        return response()->json([
+            'status' => 'Data berhasil dihapus'
         ]);
     }
 }

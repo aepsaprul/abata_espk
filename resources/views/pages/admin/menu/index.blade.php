@@ -1,265 +1,455 @@
 @extends('layouts.app')
 
 @section('style')
-<link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
-<style>
-    .col-md-6 {
-        font-size: 12px;
-    }
-    .fas {
-        font-size: 14px;
-    }
-    .btn {
-        padding: .2rem .6rem;
-    }
-</style>
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-start">
-        <div class="col-md-6">
-            <h6 class="text-uppercase text-center">Menu Utama</h6>
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <button id="menu_utama_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-            <table id="table_satu" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr class="text-center bg-secondary text-white">
-                        <th>No</th>
-                        <th>Nama Menu</th>
-                        <th>Link</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($menu_utamas as $key => $menu_utama)
-                    <tr>
-                        <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $menu_utama->nama_menu }}</td>
-                        <td>{{ $menu_utama->link }}</td>
-                        <td class="text-center">
-                            <button data-id="{{ $menu_utama->id }}" class="border-0 bg-white menu_utama_btn_edit"><i class="fas fa-edit"></i></button> |
-                            <button data-id="{{ $menu_utama->id }}" class="border-0 bg-white menu_utama_btn_delete"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="mt-5"></div>
-            {{-- <h6 class="text-uppercase text-center">Menu Tombol</h6>
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <button id="menu_button_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-            <table id="table_dua" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr class="text-center bg-secondary text-white">
-                        <th>No</th>
-                        <th>Menu Utama</th>
-                        <th>Menu Sub</th>
-                        <th>Nama Tombol</th>
-                        <th>Link</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($menu_btns as $key => $menu_btn)
-                    <tr>
-                        <td>{{ $key + 1 }}</td>
-                        <td>{{ $menu_btn->menu_utama_id }}</td>
-                        <td>{{ $menu_btn->menu_sub_id }}</td>
-                        <td>{{ $menu_btn->nama_button }}</td>
-                        <td>{{ $menu_btn->link }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('menu.edit', [$menu_btn->id]) }}"><i class="fas fa-edit"></i></a> |
-                            <a href="{{ route('menu.edit', [$menu_btn->id]) }}"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table> --}}
-        </div>
-        <div class="col-md-6">
-            <h6 class="text-uppercase text-center">Menu Sub</h6>
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <button id="menu_sub_btn_create" class="mb-4 btn btn-outline-primary"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-            <table id="table_tiga" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr class="text-center bg-secondary text-white">
-                        <th>No</th>
-                        <th>Nama Menu</th>
-                        <th>Menu Utama</th>
-                        <th>Link</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($menu_subs as $key => $menu_sub)
-                    <tr>
-                        <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $menu_sub->nama_menu }}</td>
-                        <td>{{ $menu_sub->menuUtama->nama_menu }}</td>
-                        <td>{{ $menu_sub->link }}</td>
-                        <td class="text-center">
-                            <button data-id="{{ $menu_sub->id }}" class="border-0 bg-white menu_sub_btn_edit"><i class="fas fa-edit"></i></button> |
-                            <button data-id="{{ $menu_sub->id }}" class="border-0 bg-white menu_sub_btn_delete"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
-{{-- menu utama modal create  --}}
-<div class="modal fade" tabindex="-1" id="menu_utama_modal_create">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Menu Utama</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="menu_utama_form_create">
-                    <div class="mb-3">
-                      <label for="menu_utama_create_nama_menu" class="form-label">Nama Menu</label>
-                      <input type="text" class="form-control" id="menu_utama_create_nama_menu" name="menu_utama_create_nama_menu">
-                    </div>
-                    <div class="mb-3">
-                      <label for="menu_utama_create_link" class="form-label">Link</label>
-                      <input type="text" class="form-control" id="menu_utama_create_link" name="menu_utama_create_link">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+				    <h1>Navigasi</h1>
+				</div>
+				<div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Navigasi</li>
+                    </ol>
+				</div>
+			</div>
+		</div><!-- /.container-fluid -->
+	</section>
 
-{{-- menu utama modal edit  --}}
-<div class="modal fade" tabindex="-1" id="menu_utama_modal_edit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ubah Menu Utama</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="menu_utama_form_edit">
-                    <input type="hidden" class="form-control" id="menu_utama_edit_id" name="menu_utama_edit_id">
-                    <div class="mb-3">
-                      <label for="menu_utama_edit_nama_menu" class="form-label">Nama Menu</label>
-                      <input type="text" class="form-control" id="menu_utama_edit_nama_menu" name="menu_utama_edit_nama_menu">
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card card-primary card-outline card-outline-tabs">
+                                <div class="card-header p-0 border-bottom-0">
+                                    <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="custom-tabs-four-sub-tab" data-toggle="pill" href="#custom-tabs-four-sub" role="tab" aria-controls="custom-tabs-four-sub" aria-selected="true">Navigasi Sub</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="custom-tabs-four-main-tab" data-toggle="pill" href="#custom-tabs-four-main" role="tab" aria-controls="custom-tabs-four-main" aria-selected="false">Navigasi Utama</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content" id="custom-tabs-four-tabContent">
+                                        <div class="tab-pane fade show active" id="custom-tabs-four-sub" role="tabpanel" aria-labelledby="custom-tabs-four-sub-tab">
+                                            <button id="sub-button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3 mb-4"><i class="fa fa-plus"></i> Tambah</button>
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">No</th>
+                                                        <th class="text-center">Title</th>
+                                                        <th class="text-center">Link</th>
+                                                        <th class="text-center">Navigasi Utama</th>
+                                                        <th class="text-center">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($nav_subs as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center">{{ $key + 1 }}</td>
+                                                        <td class="sub_title_{{ $item->id }}">{{ $item->title }}</td>
+                                                        <td class="sub_link_{{ $item->id }}">{{ $item->link }}</td>
+                                                        <td class="sub_main_{{ $item->id }}">
+                                                            @if ($item->navMain)
+                                                                {{ $item->navMain->title }}
+                                                            @else
+                                                                Navigasi utama kosong
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="btn-group">
+                                                                <a
+                                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                                    data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                        <i class="fa fa-cog"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a
+                                                                        class="dropdown-item sub-btn-edit"
+                                                                        href="#"
+                                                                        data-id="{{ $item->id }}">
+                                                                            <i class="fa fa-pencil-alt px-2"></i> Ubah
+                                                                    </a>
+                                                                    <a
+                                                                        class="dropdown-item sub-btn-delete"
+                                                                        href="#"
+                                                                        data-id="{{ $item->id }}">
+                                                                            <i class="fa fa-trash-alt px-2"></i> Hapus
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="custom-tabs-four-main" role="tabpanel" aria-labelledby="custom-tabs-four-main-tab">
+                                            <button id="main-button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3 mb-4"><i class="fa fa-plus"></i> Tambah</button>
+                                            <table id="example2" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">No</th>
+                                                        <th class="text-center">Title</th>
+                                                        <th class="text-center">link</th>
+                                                        <th class="text-center">Icon</th>
+                                                        <th class="text-center">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($nav_mains as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center">{{ $key + 1 }}</td>
+                                                        <td class="main_title_{{ $item->id }}">{{ $item->title }}</td>
+                                                        <td class="main_link_{{ $item->id }}">{{ $item->link }}</td>
+                                                        <td class="main_icon_{{ $item->id }}">{{ $item->icon }}</td>
+                                                        <td class="text-center">
+                                                            <div class="btn-group">
+                                                                <a
+                                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                                    data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                        <i class="fa fa-cog"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a
+                                                                        class="dropdown-item main-btn-edit"
+                                                                        href="#"
+                                                                        data-id="{{ $item->id }}">
+                                                                            <i class="fa fa-pencil-alt px-2"></i> Ubah
+                                                                    </a>
+                                                                    <a
+                                                                        class="dropdown-item main-btn-delete"
+                                                                        href="#"
+                                                                        data-id="{{ $item->id }}">
+                                                                            <i class="fa fa-trash-alt px-2"></i> Hapus
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="mb-3">
-                      <label for="menu_utama_edit_link" class="form-label">Link</label>
-                      <input type="text" class="form-control" id="menu_utama_edit_link" name="menu_utama_edit_link">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Ubah</button>
-                </form>
-            </div>
-        </div>
-    </div>
+				    <!-- /.card -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
 </div>
+<!-- ./wrapper -->
 
-{{-- menu utama modal delete  --}}
-<div class="modal fade" tabindex="-1" id="menu_utama_modal_delete">
-    <div class="modal-dialog">
+{{-- main modal create  --}}
+<div class="modal fade main-modal-create" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="menu_utama_form_delete">
+            <form id="main_form_create">
                 <div class="modal-header">
-                    <h5 class="modal-title">Yakin akan dihapus <span class="menu_utama_title_delete text-decoration-underline"></span> ?</h5>
+                    <h5 class="modal-title">Tambah Navigasi Utama</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
                 </div>
-                <input type="hidden" class="form-control" id="menu_utama_delete_id" name="menu_utama_delete_id">
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-secondary text-center" data-bs-dismiss="modal" style="width: 100px;">Tidak</button>
-                    <button type="submit" class="btn btn-primary text-center" style="width: 100px;">Ya</button>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="main_create_title" class="form-label">Title</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="main_create_title"
+                            name="main_create_title"
+                            maxlength="30" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="main_create_link" class="form-label">Link</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="main_create_link"
+                            name="main_create_link"
+                            maxlength="100" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="main_create_icon" class="form-label">Icon</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="main_create_icon"
+                            name="main_create_icon"
+                            maxlength="100" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary main-btn-create-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary main-btn-create-save" style="width: 120px;"><i class="fa fa-save"></i> Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-{{-- menu sub modal create  --}}
-<div class="modal fade" tabindex="-1" id="menu_sub_modal_create">
-    <div class="modal-dialog">
+{{-- sub modal create  --}}
+<div class="modal fade sub-modal-create" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Menu Sub</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="menu_sub_form_create">
-                    <div class="mb-3">
-                        <label for="menu_sub_create_nama_menu" class="form-label">Nama Menu</label>
-                        <input type="text" class="form-control" id="menu_sub_create_nama_menu" name="menu_sub_create_nama_menu">
-                    </div>
-                    <div class="mb-3">
-                        <label for="menu_sub_create_link" class="form-label">Link</label>
-                        <input type="text" class="form-control" id="menu_sub_create_link" name="menu_sub_create_link">
-                    </div>
-                    <div class="mb-3">
-                        <label for="menu_sub_create_menu_utama_id" class="form-label">Menu Utama</label>
-                        <div class="menu_sub_create_menu_utama_id"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- menu sub modal edit  --}}
-<div class="modal fade" tabindex="-1" id="menu_sub_modal_edit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ubah Menu Sub</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="menu_sub_form_edit">
-                    <input type="hidden" class="form-control" id="menu_sub_edit_id" name="menu_sub_edit_id">
-                    <div class="mb-3">
-                      <label for="menu_sub_edit_nama_menu" class="form-label">Nama Menu</label>
-                      <input type="text" class="form-control" id="menu_sub_edit_nama_menu" name="menu_sub_edit_nama_menu">
-                    </div>
-                    <div class="mb-3">
-                      <label for="menu_sub_edit_link" class="form-label">Link</label>
-                      <input type="text" class="form-control" id="menu_sub_edit_link" name="menu_sub_edit_link">
-                    </div>
-                    <div class="mb-3">
-                      <label for="menu_sub_edit_menu_utam_id" class="form-label">Menu Utama</label>
-                      <div class="menu_sub_edit_menu_utama_id"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Perbaharui</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- menu sub modal delete --}}
-<div class="modal fade" tabindex="-1" id="menu_sub_modal_delete">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="menu_sub_form_delete">
+            <form id="sub_form_create">
                 <div class="modal-header">
-                    <h5 class="modal-title">Yakin akan dihapus <span class="menu_sub_title_delete text-decoration-underline"></span> ?</h5>
+                    <h5 class="modal-title">Tambah Menu Sub</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
                 </div>
-                <input type="hidden" class="form-control" id="menu_sub_delete_id" name="menu_sub_delete_id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="sub_create_title" class="form-label">Title</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="sub_create_title"
+                            name="sub_create_title"
+                            maxlength="30" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sub_create_link" class="form-label">Link</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="sub_create_link"
+                            name="sub_create_link"
+                            maxlength="100" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sub_create_main_id" class="form-label">Menu Utama</label>
+                        <select name="sub_create_main_id" id="sub_create_main_id" class="form-control form-control-sm" required>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary sub-btn-create-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary sub-btn-create-save" style="width: 120px;"><i class="fa fa-save"></i> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- main modal edit  --}}
+<div class="modal fade main-modal-edit" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="main_form_edit">
+
+                {{-- id  --}}
+                <input
+                    type="hidden"
+                    id="main_edit_id"
+                    name="main_edit_id">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Ubah Menu Utama</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="main_edit_title" class="form-label">Title</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="main_edit_title"
+                            name="main_edit_title"
+                            maxlength="30"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="main_edit_link" class="form-label">Link</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="main_edit_link"
+                            name="main_edit_link"
+                            maxlength="100"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="main_edit_icon" class="form-label">Icon</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="main_edit_icon"
+                            name="main_edit_icon"
+                            maxlength="100"
+                            required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary main-btn-edit-spinner" disabled style="width: 130px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary main-btn-edit-save" style="width: 130px;"><i class="fa fa-save"></i> Perbaharui</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- sub modal edit  --}}
+<div class="modal fade sub-modal-edit" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="sub_form_edit">
+
+                {{-- id  --}}
+                <input
+                    type="hidden"
+                    id="sub_edit_id"
+                    name="sub_edit_id">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Ubah Menu Sub</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="sub_edit_title" class="form-label">Title</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="sub_edit_title"
+                            name="sub_edit_title"
+                            maxlength="30"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sub_edit_link" class="form-label">Link</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="sub_edit_link"
+                            name="sub_edit_link"
+                            maxlength="100"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sub_edit_main_id" class="form-label">Navigasi Utama</label>
+                        <select class="form-control form-control-sm" name="sub_edit_main_id" id="sub_edit_main_id">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary sub-btn-edit-spinner" disabled style="width: 130px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary sub-btn-edit-save" style="width: 130px;"><i class="fa fa-save"></i> Perbaharui</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- main modal delete  --}}
+<div class="modal fade main-modal-delete" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="main_form_delete">
+
+                {{-- id  --}}
+                <input type="hidden" id="main_delete_id" name="main_delete_id">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Yakin akan dihapus <span class="main_delete_title text-decoration-underline"></span> ?</h5>
+                </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-secondary text-center" data-bs-dismiss="modal" style="width: 100px;">Tidak</button>
-                    <button type="submit" class="btn btn-primary text-center" style="width: 100px;">Ya</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 120px;"><span aria-hidden="true">Tidak</span></button>
+                    <button class="btn btn-primary main-btn-delete-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary main-btn-delete-yes text-center" style="width: 120px;">Ya</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- sub modal delete  --}}
+<div class="modal fade sub-modal-delete" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="sub_form_delete">
+
+                {{-- id  --}}
+                <input type="hidden" id="sub_delete_id" name="sub_delete_id">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Yakin akan dihapus <span class="sub_delete_title text-decoration-underline"></span> ?</h5>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 120px;"><span aria-hidden="true">Tidak</span></button>
+                    <button class="btn btn-primary sub-btn-delete-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary sub-btn-delete-yes text-center" style="width: 120px;">Ya</button>
                 </div>
             </form>
         </div>
@@ -269,286 +459,455 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('lib/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/dataTables.bootstrap5.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/jszip.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/buttons.html5.min.js') }}"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('themes/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('themes/dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('themes/dist/js/demo.js') }}"></script>
+<!-- Page specific script -->
 
 <script>
-    $(document).ready(function() {
+  $(function () {
+    $("#example1").DataTable();
+
+    $("#example2").DataTable();
+  });
+
+  $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        $('#table_satu').DataTable({
-            "ordering": false
-        });
-        $('#table_dua').DataTable({
-            "ordering": false
-        });
-        $('#table_tiga').DataTable({
-            "ordering": false
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
         });
 
-        $('#menu_utama_btn_create').on('click', function() {
-            $('#menu_utama_modal_create').modal('show');
+        // main create
+        $('#main-button-create').on('click', function() {
+            $('.main-modal-create').modal('show');
         });
 
-        $('#menu_utama_form_create').submit(function(e) {
+        $(document).on('shown.bs.modal', '.main-modal-create', function() {
+            $('#main_create_title').focus();
+        });
+
+        $('#main_form_create').submit(function(e) {
             e.preventDefault();
 
             var formData = {
-                nama_menu: $('#menu_utama_create_nama_menu').val(),
-                link: $('#menu_utama_create_link').val(),
-                button: 'menu_utama_btn_store',
+                title: $('#main_create_title').val(),
+                link: $('#main_create_link').val(),
+                icon: $('#main_create_icon').val(),
                 _token: CSRF_TOKEN
-            };
+            }
 
             $.ajax({
-                url: '{{ URL::route('menu.store') }}',
+                url: '{{ URL::route('navigasi.main_store') }} ',
                 type: 'POST',
                 data: formData,
+                beforeSend: function() {
+                    $('.main-btn-create-spinner').css("display", "block");
+                    $('.main-btn-create-save').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil disimpan.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
             });
         });
 
-        $('.menu_utama_btn_edit').on('click', function(e) {
-            e.preventDefault();
-
-            var formData = {
-                id: $(this).attr('data-id'),
-                _token: CSRF_TOKEN
-            }
+        // sub create
+        $('#sub-button-create').on('click', function() {
+            $('#sub_create_main_id').empty();
 
             $.ajax({
-                url: '{{ URL::route('menu.edit.menu_utama') }}',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    $('#menu_utama_edit_id').val(response.id);
-                    $('#menu_utama_edit_nama_menu').val(response.nama_menu);
-                    $('#menu_utama_edit_link').val(response.link);
-                    $('#menu_utama_modal_edit').modal('show');
-                }
-            });
-
-        });
-
-        $('#menu_utama_form_edit').submit(function(e) {
-            e.preventDefault();
-
-            var formData = {
-                id: $('#menu_utama_edit_id').val(),
-                nama_menu: $('#menu_utama_edit_nama_menu').val(),
-                link: $('#menu_utama_edit_link').val(),
-                button: "menu_utama_btn_update",
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: '{{ URL::route('menu.update') }}',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    setTimeout(function() {
-                        window.location.reload(1);
-                    }, 100);
-                }
-            });
-        });
-
-        $('.menu_utama_btn_delete').on('click', function() {
-
-            $('.menu_utama_title_delete').empty();
-            var formData = {
-                id: $(this).attr('data-id'),
-                button: "menu_utama_btn_delete",
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: '{{ URL::route('menu.delete.btn') }}',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    $('#menu_utama_delete_id').val(response.id);
-                    $('.menu_utama_title_delete').append(response.value);
-                    $('#menu_utama_modal_delete').modal('show');
-                }
-            });
-        });
-
-        $('#menu_utama_form_delete').submit(function(e) {
-            e.preventDefault();
-
-            var formData = {
-                id: $('#menu_utama_delete_id').val(),
-                button: "menu_utama_btn_delete",
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: '{{ URL::route('menu.delete') }}',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    setTimeout(function() {
-                        window.location.reload(1);
-                    }, 100);
-                }
-            });
-        });
-
-        $('#menu_sub_btn_create').on('click', function() {
-            $('.menu_sub_create_menu_utama_id').empty();
-
-            $.ajax({
-                url: '{{ URL::route('menu.create.menu_sub') }}',
+                url: '{{ URL::route('navigasi.sub_create') }}',
                 type: 'GET',
                 success: function(response) {
+                    var nav_main_value = "<option value=\"\">--Pilih Menu Utama--</option>";
 
-                    var val = "<select class=\"form-control\" id=\"menu_sub_create_menu_utama_id\" name=\"menu_sub_create_menu_utama_id\">" +
-                        "<option value=\"\">--Pilih Menu Utama--</option>";
-
-                    $.each(response.menu_utama, function(index, value) {
-                        val += "<option value=\"" + value.id + "\">"+ value.nama_menu +"</option>";
+                    $.each(response.nav_mains, function(index, value) {
+                        nav_main_value += "<option value=\"" + value.id + "\">" + value.title + "</option>";
                     });
 
-                    val += "</select>";
-
-                    $('.menu_sub_create_menu_utama_id').append(val);
-                    $('#menu_sub_modal_create').modal('show');
+                    $('#sub_create_main_id').append(nav_main_value);
+                    $('.sub-modal-create').modal('show');
                 }
             });
         });
 
-        $('#menu_sub_form_create').submit(function(e) {
+        $(document).on('shown.bs.modal', '.sub-modal-create', function() {
+            $('#sub_create_title').focus();
+        });
+
+        $('#sub_form_create').submit(function(e) {
             e.preventDefault();
 
             var formData = {
-                nama_menu: $('#menu_sub_create_nama_menu').val(),
-                link: $('#menu_sub_create_link').val(),
-                menu_utama_id: $('#menu_sub_create_menu_utama_id').val(),
-                button: "menu_sub_btn_store",
+                title: $('#sub_create_title').val(),
+                link: $('#sub_create_link').val(),
+                main_id: $('#sub_create_main_id').val(),
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.store') }}',
+                url: '{{ URL::route('navigasi.sub_store') }} ',
                 type: 'POST',
                 data: formData,
+                beforeSend: function() {
+                    $('.sub-btn-create-spinner').css("display", "block");
+                    $('.sub-btn-create-save').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil disimpan.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
             });
         });
 
-        $('.menu_sub_btn_edit').on('click', function() {
-            $('.menu_sub_edit_menu_utama_id').empty();
+        // main edit
+        $('body').on('click', '.main-btn-edit', function(e) {
+            e.preventDefault();
+
+            var id = $(this).attr('data-id');
+            var url = '{{ route("navigasi.main_edit", ":id") }}';
+            url = url.replace(':id', id );
 
             var formData = {
-                id: $(this).attr('data-id'),
+                id: id,
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.edit.menu_sub') }}',
-                type: 'POST',
+                url: url,
+                type: 'GET',
                 data: formData,
                 success: function(response) {
-                    $('#menu_sub_edit_id').val(response.id);
-                    $('#menu_sub_edit_nama_menu').val(response.nama_menu);
-                    $('#menu_sub_edit_link').val(response.link);
+                    $('#main_edit_id').val(response.id);
+                    $('#main_edit_title').val(response.title);
+                    $('#main_edit_link').val(response.link);
+                    $('#main_edit_icon').val(response.icon);
 
-                    var val = "<select class=\"form-control\" id=\"menu_sub_edit_menu_utama_id\" name=\"menu_sub_edit_menu_utama_id\">" +
-                        "<option value=\"\">--Pilih Menu Utama--</option>";
+                    $('.main-modal-edit').modal('show');
+                }
+            })
+        });
 
-                    $.each(response.menu_utama, function(index, value) {
-                        val += "<option value=\"" + value.id + "\"";
-                        if (response.menu_utama_id == value.id) {
-                            val += "selected";
+        $('#main_form_edit').submit(function(e) {
+            e.preventDefault();
+
+            $('.main_title_' + $('#main_edit_id').val()).empty();
+            $('.main_link_' + $('#main_edit_id').val()).empty();
+            $('.main_icon_' + $('#main_edit_id').val()).empty();
+
+            var formData = {
+                id: $('#main_edit_id').val(),
+                title: $('#main_edit_title').val(),
+                link: $('#main_edit_link').val(),
+                icon: $('#main_edit_icon').val(),
+                _token: CSRF_TOKEN
+            }
+
+            $.ajax({
+                url: '{{ URL::route('navigasi.main_update') }}',
+                type: 'POST',
+                data: formData,
+                beforeSend: function() {
+                    $('.main-btn-edit-spinner').css("display", "block");
+                    $('.main-btn-edit-save').css("display", "none");
+                },
+                success: function(response) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil diperbaharui.'
+                    });
+
+                    $('.main_title_' + response.id).append(response.title);
+                    $('.main_link_' + response.id).append(response.link);
+                    $('.main_icon_' + response.id).append(response.icon);
+
+                    setTimeout(() => {
+                        $('.main-modal-edit').modal('hide');
+                        $('.main-btn-edit-spinner').css("display", "none");
+                        $('.main-btn-edit-save').css("display", "block");
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
+                }
+            });
+        });
+
+        // sub edit
+        $('body').on('click', '.sub-btn-edit', function(e) {
+            e.preventDefault();
+            $('#sub_edit_main_id').empty();
+
+            var id = $(this).attr('data-id');
+            var url = '{{ route("navigasi.sub_edit", ":id") }}';
+            url = url.replace(':id', id );
+
+            var formData = {
+                id: id,
+                _token: CSRF_TOKEN
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: formData,
+                success: function(response) {
+                    $('#sub_edit_id').val(response.id);
+                    $('#sub_edit_title').val(response.title);
+                    $('#sub_edit_link').val(response.link);
+
+                    var nav_main_value = "<option value=\"\">--Pilih Navigasi Utama--</option>";
+
+                    $.each(response.nav_mains, function(index, value) {
+                        nav_main_value += "<option value=\"" + value.id + "\"";
+
+                        if (value.id == response.main_id) {
+                            nav_main_value += "selected";
                         }
-                        val += ">"+ value.nama_menu +"</option>";
+
+                        nav_main_value += ">" + value.title + "</option>";
                     });
 
-                    val += "</select>";
-
-                    $('.menu_sub_edit_menu_utama_id').append(val);
-                    $('#menu_sub_modal_edit').modal('show');
-                }
-            });
-        });
-
-        $('#menu_sub_form_edit').submit(function(e) {
-            e.preventDefault();
-
-            var formData = {
-                id: $('#menu_sub_edit_id').val(),
-                nama_menu: $('#menu_sub_edit_nama_menu').val(),
-                link: $('#menu_sub_edit_link').val(),
-                menu_utama_id: $('#menu_sub_edit_menu_utama_id').val(),
-                button: "menu_sub_btn_update",
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: '{{ URL::route('menu.update') }}',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    setTimeout(function() {
-                        window.location.reload(1);
-                    }, 100);
-                }
-            });
-        });
-
-        $('.menu_sub_btn_delete').on('click', function() {
-            $('.menu_sub_title_delete').empty();
-
-            var formData = {
-                id: $(this).attr('data-id'),
-                button: "menu_sub_btn_delete",
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: '{{ URL::route('menu.delete.btn') }}',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    $('#menu_sub_delete_id').val(response.id);
-                    $('.menu_sub_title_delete').append(response.value);
-                    $('#menu_sub_modal_delete').modal('show');
+                    $('#sub_edit_main_id').append(nav_main_value);
+                    $('.sub-modal-edit').modal('show');
                 }
             })
         });
 
-        $('#menu_sub_form_delete').submit( function(e) {
+        $('#sub_form_edit').submit(function(e) {
             e.preventDefault();
 
+            $('.sub_title_' + $('#sub_edit_id').val()).empty();
+            $('.sub_link_' + $('#sub_edit_id').val()).empty();
+            $('.sub_main_' + $('#sub_edit_id').val()).empty();
+
             var formData = {
-                id: $('#menu_sub_delete_id').val(),
-                button: "menu_sub_btn_delete",
+                id: $('#sub_edit_id').val(),
+                title: $('#sub_edit_title').val(),
+                link: $('#sub_edit_link').val(),
+                main_id: $('#sub_edit_main_id').val(),
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('menu.delete') }}',
+                url: '{{ URL::route('navigasi.sub_update') }}',
                 type: 'POST',
                 data: formData,
+                beforeSend: function() {
+                    $('.sub-btn-edit-spinner').css("display", "block");
+                    $('.sub-btn-edit-save').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
-                        window.location.reload(1);
-                    }, 100);
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil diperbaharui.'
+                    });
+
+                    $('.sub_title_' + response.id).append(response.title);
+                    $('.sub_link_' + response.id).append(response.link);
+                    $('.sub_main_' + response.id).append(response.main_title);
+
+                    setTimeout(() => {
+                        $('.sub-modal-edit').modal('hide');
+                        $('.sub-btn-edit-spinner').css("display", "none");
+                        $('.sub-btn-edit-save').css("display", "block");
+                        $('#sub_edit_main_id').empty();
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
-            })
+            });
         });
-    } );
+
+        // main delete
+        $('body').on('click', '.main-btn-delete', function(e) {
+            e.preventDefault();
+            $('.main_delete_title').empty();
+
+            var id = $(this).attr('data-id');
+            var url = '{{ route("navigasi.main_delete_btn", ":id") }}';
+            url = url.replace(':id', id );
+
+            var formData = {
+                id: id,
+                _token: CSRF_TOKEN
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: formData,
+                success: function(response) {
+                    $('.main_delete_title').append(response.title);
+                    $('#main_delete_id').val(response.id);
+                    $('.main-modal-delete').modal('show');
+                }
+            });
+        });
+
+        $('#main_form_delete').submit(function(e) {
+            e.preventDefault();
+
+            var formData = {
+                id: $('#main_delete_id').val(),
+                _token: CSRF_TOKEN
+            }
+
+            $.ajax({
+                url: '{{ URL::route('navigasi.main_delete') }}',
+                type: 'POST',
+                data: formData,
+                beforeSend: function() {
+                    $('.main-btn-delete-spinner').css("display", "block");
+                    $('.main-btn-delete-yes').css("display", "none");
+                },
+                success: function(response) {
+                    if (response.status == "false") {
+                        alert('Navigasi utama \"' + response.title + '\" terdapat di navigasi sub, hapus navigasi sub yg terdapat navigasi utama \"' + response.title + '\" terlebih dahulu ');
+                    } else {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Data berhasil dihapus.'
+                        });
+
+                        setTimeout(() => {
+                            window.location.reload(1);
+                        }, 1000);
+                    }
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
+                }
+            });
+        });
+
+        // sub delete
+        $('body').on('click', '.sub-btn-delete', function(e) {
+            e.preventDefault();
+            $('.sub_delete_title').empty();
+
+            var id = $(this).attr('data-id');
+            var url = '{{ route("navigasi.sub_delete_btn", ":id") }}';
+            url = url.replace(':id', id );
+
+            var formData = {
+                id: id,
+                _token: CSRF_TOKEN
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: formData,
+                success: function(response) {
+                    $('.sub_delete_title').append(response.title);
+                    $('#sub_delete_id').val(response.id);
+                    $('.sub-modal-delete').modal('show');
+                }
+            });
+        });
+
+        $('#sub_form_delete').submit(function(e) {
+            e.preventDefault();
+
+            $('.sub-modal-delete').modal('hide');
+
+            var formData = {
+                id: $('#sub_delete_id').val(),
+                _token: CSRF_TOKEN
+            }
+
+            $.ajax({
+                url: '{{ URL::route('navigasi.sub_delete') }}',
+                type: 'POST',
+                data: formData,
+                beforeSend: function() {
+                    $('.sub-btn-delete-spinner').css("display", "block");
+                    $('.sub-btn-delete-yes').css("display", "none");
+                },
+                success: function(response) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil dihapus.'
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload(1);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
+                }
+            });
+        });
+    });
 </script>
+
 @endsection

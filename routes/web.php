@@ -32,15 +32,31 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function () {
     // admin
         // menu
-        Route::get('admin/menu', [MenuController::class, 'index'])->name('menu.index');
-        Route::get('admin/menu/create/menu_sub', [MenuController::class, 'createMenuSub'])->name('menu.create.menu_sub');
-        Route::get('admin/menu/create/menu_tombol', [MenuController::class, 'createMenuTombol'])->name('menu.create.menu_tombol');
-        Route::post('admin/menu/store', [MenuController::class, 'store'])->name('menu.store');
-        Route::post('admin/menu/edit/menu_utama', [MenuController::class, 'editMenuUtama'])->name('menu.edit.menu_utama');
-        Route::post('admin/menu/edit/menu_sub', [MenuController::class, 'editMenuSub'])->name('menu.edit.menu_sub');
-        Route::post('admin/menu/update', [MenuController::class, 'update'])->name('menu.update');
-        Route::post('admin/menu/delete/btn', [MenuController::class, 'deleteBtn'])->name('menu.delete.btn');
-        Route::post('admin/menu/delete', [MenuController::class, 'delete'])->name('menu.delete');
+        // Route::get('admin/menu', [MenuController::class, 'index'])->name('menu.index');
+        // Route::get('admin/menu/create/menu_sub', [MenuController::class, 'createMenuSub'])->name('menu.create.menu_sub');
+        // Route::get('admin/menu/create/menu_tombol', [MenuController::class, 'createMenuTombol'])->name('menu.create.menu_tombol');
+        // Route::post('admin/menu/store', [MenuController::class, 'store'])->name('menu.store');
+        // Route::post('admin/menu/edit/menu_utama', [MenuController::class, 'editMenuUtama'])->name('menu.edit.menu_utama');
+        // Route::post('admin/menu/edit/menu_sub', [MenuController::class, 'editMenuSub'])->name('menu.edit.menu_sub');
+        // Route::post('admin/menu/update', [MenuController::class, 'update'])->name('menu.update');
+        // Route::post('admin/menu/delete/btn', [MenuController::class, 'deleteBtn'])->name('menu.delete.btn');
+        // Route::post('admin/menu/delete', [MenuController::class, 'delete'])->name('menu.delete');
+
+            Route::get('admin/navigasi', [MenuController::class, 'index'])->name('navigasi.index');
+            // navigasi main
+            Route::post('admin/navigasi/main_store', [MenuController::class, 'mainStore'])->name('navigasi.main_store');
+            Route::get('admin/navigasi/{id}/main_edit', [MenuController::class, 'mainEdit'])->name('navigasi.main_edit');
+            Route::post('admin/navigasi/main_update', [MenuController::class, 'mainUpdate'])->name('navigasi.main_update');
+            Route::get('admin/navigasi/{id}/main_delete_btn', [MenuController::class, 'mainDeleteBtn'])->name('navigasi.main_delete_btn');
+            Route::post('admin/navigasi/main_delete', [MenuController::class, 'mainDelete'])->name('navigasi.main_delete');
+
+            // navigasiigasi sub
+            Route::get('admin/navigasi/sub_create', [MenuController::class, 'subCreate'])->name('navigasi.sub_create');
+            Route::post('admin/navigasi/sub_store', [MenuController::class, 'subStore'])->name('navigasi.sub_store');
+            Route::get('admin/navigasi/{id}/sub_edit', [MenuController::class, 'subEdit'])->name('navigasi.sub_edit');
+            Route::post('admin/navigasi/sub_update', [MenuController::class, 'subUpdate'])->name('navigasi.sub_update');
+            Route::get('admin/navigasi/{id}/sub_delete_btn', [MenuController::class, 'subDeleteBtn'])->name('navigasi.sub_delete_btn');
+            Route::post('admin/navigasi/sub_delete', [MenuController::class, 'subDelete'])->name('navigasi.sub_delete');
 
         // karyawan
         Route::get('admin/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
@@ -48,13 +64,13 @@ Route::middleware(['auth'])->group(function () {
         Route::put('admin/karyawan/{id}/akses_simpan', [KaryawanController::class, 'aksesSimpan'])->name('karyawan.akses_simpan');
 
     // navigasi
-    Route::get('navigasi', [NavController::class, 'index'])->name('navigasi.index');
-    Route::get('navigasi/create', [NavController::class, 'create'])->name('navigasi.create');
-    Route::post('navigasi/store', [NavController::class, 'store'])->name('navigasi.store');
-    Route::get('navigasi/{id}/edit', [NavController::class, 'edit'])->name('navigasi.edit');
-    Route::put('navigasi/{id}/update', [NavController::class, 'update'])->name('navigasi.update');
-    Route::get('navigasi/{id}/delete_btn', [NavController::class, 'deleteBtn'])->name('navigasi.delete_btn');
-    Route::get('navigasi/{id}/delete', [NavController::class, 'delete'])->name('navigasi.delete');
+    // Route::get('navigasi', [NavController::class, 'index'])->name('navigasi.index');
+    // Route::get('navigasi/create', [NavController::class, 'create'])->name('navigasi.create');
+    // Route::post('navigasi/store', [NavController::class, 'store'])->name('navigasi.store');
+    // Route::get('navigasi/{id}/edit', [NavController::class, 'edit'])->name('navigasi.edit');
+    // Route::put('navigasi/{id}/update', [NavController::class, 'update'])->name('navigasi.update');
+    // Route::get('navigasi/{id}/delete_btn', [NavController::class, 'deleteBtn'])->name('navigasi.delete_btn');
+    // Route::get('navigasi/{id}/delete', [NavController::class, 'delete'])->name('navigasi.delete');
 
     // data primer
         // pelanggan
