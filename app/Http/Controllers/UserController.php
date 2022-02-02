@@ -3,17 +3,64 @@
 namespace App\Http\Controllers;
 
 use App\Models\EspkNavAccess;
+use App\Models\EspkNavSub;
 use App\Models\MasterKaryawan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class KaryawanController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        $karyawan = MasterKaryawan::orderBy('id', 'desc')->get();
+        $nav_access = EspkNavAccess::with('masterKaryawan')
+            ->select(DB::raw('count(*) as nav_access_count, user_id'))
+            ->groupBy('user_id')
+            ->get();
 
-        return view('pages.admin.karyawan.index', ['karyawans' => $karyawan]);
+        return view('pages.admin.user.index', ['users' => $nav_access]);
+    }
+
+    public function create()
+    {
+        $karyawan = MasterKaryawan::where('status', 'Aktif')
+            ->doesntHave('navAccess')
+            ->get();
+
+        return response()->json([
+            'karyawans' => $karyawan
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $nav_sub = EspkNavSub::get();
+
+        foreach ($nav_sub as $key => $item) {
+            $nav_access = new EspkNavAccess;
+            $nav_access->user_id = $request->karyawan_id;
+            $nav_access->main_id = $item->main_id;
+            $nav_access->sub_id = $item->id;
+            $nav_access->tampil = "n";
+            $nav_access->tambah = "n";
+            $nav_access->ubah = "n";
+            $nav_access->hapus = "n";
+            $nav_access->save();
+        }
+
+        return response()->json([
+            'status' => 'true'
+        ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $nav_access = EspkNavAccess::where('user_id', $request->id);
+        $nav_access->delete();
+
+        return response()->json([
+            'status' => 'true'
+        ]);
     }
 
     public function access($id)
@@ -36,7 +83,7 @@ class KaryawanController extends Controller
             ->whereNull('user_id')
             ->get();
 
-        return view('pages.admin.karyawan.akses', [
+        return view('pages.admin.user.access', [
             'karyawan' => $karyawan,
             'menus' => $menu,
             'subs' => $sub,

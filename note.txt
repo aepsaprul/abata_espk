@@ -1,0 +1,6 @@
+administrator espk
+- nama = Admin Espk
+- email = admin_espk@gmail.com
+- pass = 4dm1nE5pk
+- roles = admin_espk
+- master_karyawan_id = 0

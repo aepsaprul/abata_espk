@@ -44,14 +44,6 @@ class MasterKaryawan extends Model
         'status'
     ];
 
-    public function karyawanMenuUtama() {
-        return $this->hasMany(EspkKaryawanMenuUtama::class, 'karyawan_id', 'id');
-    }
-
-    public function karyawanMenuSub() {
-        return $this->hasMany(EspkKaryawanMenuSub::class, 'karyawan_id', 'id');
-    }
-
     public function masterCabang() {
         return $this->belongsTo(MasterCabang::class);
     }
@@ -60,27 +52,11 @@ class MasterKaryawan extends Model
         return $this->belongsTo(MasterJabatan::class);
     }
 
-    public function karyawanMenu() {
-        return $this->hasMany(KaryawanMenu::class);
+    public function navAccess() {
+        return $this->hasMany(EspkNavAccess::class, 'user_id', 'id');
     }
 
     public function user() {
         return $this->hasOne(User::class);
-    }
-
-    public function situmpurDesain() {
-        return $this->hasOne(SitumpurDesain::class);
-    }
-
-    public function situmpurCs() {
-        return $this->hasOne(SitumpurCs::class);
-    }
-
-    public function situmpurAntrianDesainNomor() {
-        return $this->hasMany(SitumpurAntrianDesainNomor::class);
-    }
-
-    public function cuti() {
-        return $this->hasMany(HcCuti::class);
     }
 }

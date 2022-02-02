@@ -17,12 +17,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Pelanggan</h1>
+                    <h1 class="m-0">User</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Pelanggan</li>
+                        <li class="breadcrumb-item active">User</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -38,30 +38,29 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            @if (Auth::user()->roles != "admin_espk")
-                                <button id="button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</button>
-                            @endif
+                            <button id="button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</button>
                         </div>
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped" style="font-size: 14px; width: 100%;">
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
-                                        <th class="text-center text-indigo">Nama Pelanggan</th>
-                                        <th class="text-center text-indigo">Telepon</th>
-                                        <th class="text-center text-indigo">Alamat</th>
+                                        <th class="text-center text-indigo">Nama Karyawan</th>
+                                        <th class="text-center text-indigo">Jabatan</th>
+                                        <th class="text-center text-indigo">Email</th>
+                                        <th class="text-center text-indigo">Cabang</th>
                                         <th class="text-center text-indigo">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pelanggans as $key => $item)
+                                    @foreach ($users as $key => $item)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td class="nama_{{ $item->id }}">{{ $item->nama }}</td>
-                                        <td class="telepon_{{ $item->id }}">{{ $item->telp }}</td>
-                                        <td class="alamat_{{ $item->id }}">{{ $item->alamat }}</td>
+                                        <td>{{ $item->masterKaryawan->nama_lengkap }}</td>
+                                        <td>{{ $item->masterKaryawan->masterJabatan->nama_jabatan }}</td>
+                                        <td>{{ $item->masterKaryawan->email }}</td>
+                                        <td style="width: 150px;">{{ $item->masterKaryawan->masterCabang->nama_cabang }}</td>
                                         <td class="text-center">
-                                            @if (Auth::user()->roles != "admin_espk")
                                             <div class="btn-group">
                                                 <a
                                                     class="dropdown-toggle btn bg-gradient-primary btn-sm"
@@ -72,21 +71,18 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a
-                                                        class="dropdown-item text-indigo btn-access"
-                                                        href="#">
-                                                            <i class="fa fa-pencil-alt px-2"></i> Ubah
+                                                        class="dropdown-item btn-access"
+                                                        href="{{ route('user.access', [$item->user_id]) }}">
+                                                            <i class="fa fa-key px-2"></i> Access
                                                     </a>
                                                     <a
-                                                        class="dropdown-item text-indigo btn-delete"
+                                                        class="dropdown-item btn-delete"
                                                         href="#"
                                                         data-id="{{ $item->user_id }}">
                                                             <i class="fa fa-trash-alt px-2"></i> Hapus
                                                     </a>
                                                 </div>
                                             </div>
-                                            @else
-                                                -
-                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -96,7 +92,7 @@
                     </div>
                 </div>
             </div>
-        <!-- /.row -->
+            <!-- /.row -->
         </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
@@ -109,7 +105,7 @@
         <div class="modal-content">
             <form id="form_create">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambah Pelanggan</h5>
+                    <h5 class="modal-title">Tambah User</h5>
                     <button
                         type="button"
                         class="close"
@@ -119,33 +115,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="create_nama" class="form-label">Nama</label>
-                        <input
-                            type="text"
-                            class="form-control form-control-sm"
-                            id="create_nama"
-                            name="create_nama"
-                            maxlength="30"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="create_telepon" class="form-label">Telepon</label>
-                        <input
-                            type="text"
-                            class="form-control form-control-sm"
-                            id="create_telepon"
-                            name="create_telepon"
-                            maxlength="15"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="create_alamat" class="form-label">Alamat</label>
-                        <textarea
-                            class="form-control form-control-sm"
-                            rows="3"
-                            id="create_alamat"
-                            name="create_alamat"
-                            required></textarea>
+                        <label for="create_karyawan_id" class="form-label">Nama Karyawan</label>
+                        <select name="create_karyawan_id" id="create_karyawan_id" class="form-control">
+
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -173,7 +146,7 @@
                     name="edit_id">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Ubah Pelanggan</h5>
+                    <h5 class="modal-title">Ubah Customer</h5>
                     <button
                         type="button"
                         class="close"
@@ -189,6 +162,16 @@
                             class="form-control form-control-sm"
                             id="edit_nama"
                             name="edit_nama"
+                            maxlength="30"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_email" class="form-label">Email</label>
+                        <input
+                            type="email"
+                            class="form-control form-control-sm"
+                            id="edit_email"
+                            name="edit_email"
                             maxlength="30"
                             required>
                     </div>
@@ -269,7 +252,9 @@
 
 <script>
     $(function () {
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+            'responsive': true
+        });
     });
 
     $(document).ready(function() {
@@ -284,25 +269,36 @@
 
         // create
         $('#button-create').on('click', function() {
-            $('.modal-create').modal('show');
+            $('#create_karyawan_id').empty();
+            $.ajax({
+                url: '{{ URL::route('user.create') }}',
+                type: 'GET',
+                success: function (response) {
+                    var value_karyawan = "<option value=\"0\">--Pilih Karyawan--</option>";
+                    $.each(response.karyawans, function (index, item) {
+                        value_karyawan += "<option value=\"" + item.id + "\">" + item.nama_lengkap + "</option>";
+                    });
+                    $('#create_karyawan_id').append(value_karyawan);
+
+                    $('.modal-create').modal('show');
+                }
+            });
         });
 
         $(document).on('shown.bs.modal', '.modal-create', function() {
-            $('#create_nama').focus();
+            $('#create_karyawan_id').focus();
         });
 
         $('#form_create').submit(function(e) {
             e.preventDefault();
 
             var formData = {
-                nama: $('#create_nama').val(),
-                telepon: $('#create_telepon').val(),
-                alamat: $('#create_alamat').val(),
+                karyawan_id: $('#create_karyawan_id').val(),
                 _token: CSRF_TOKEN
             }
 
             $.ajax({
-                url: '{{ URL::route('pelanggan.store') }} ',
+                url: '{{ URL::route('user.store') }} ',
                 type: 'POST',
                 data: formData,
                 beforeSend: function() {
@@ -329,110 +325,11 @@
             });
         });
 
-        // edit
-        $('body').on('click', '.btn-edit', function(e) {
-            e.preventDefault();
-
-            var id = $(this).attr('data-id');
-            var url = '{{ route("pelanggan.edit", ":id") }}';
-            url = url.replace(':id', id );
-
-            var formData = {
-                id: id,
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                data: formData,
-                success: function(response) {
-                    $('#edit_id').val(response.id);
-                    $('#edit_nama').val(response.nama);
-                    $('#edit_telepon').val(response.telepon);
-                    $('#edit_alamat').val(response.alamat);
-
-                    $('.modal-edit').modal('show');
-                }
-            })
-        });
-
-        $('#form_edit').submit(function(e) {
-            e.preventDefault();
-
-            $('.nama_' + $('#edit_id').val()).empty();
-            $('.telepon_' + $('#edit_id').val()).empty();
-            $('.alamat_' + $('#edit_id').val()).empty();
-
-            var formData = {
-                nama: $('#edit_nama').val(),
-                telepon: $('#edit_telepon').val(),
-                alamat: $('#edit_alamat').val(),
-                _token: CSRF_TOKEN
-            }
-
-            var id = $('#edit_id').val();
-            var url = '{{ route("pelanggan.update", ":id") }}';
-            url = url.replace(':id', id );
-
-            $.ajax({
-                url: url,
-                type: 'PUT',
-                data: formData,
-                beforeSend: function() {
-                    $('.btn-edit-spinner').css("display", "block");
-                    $('.btn-edit-save').css("display", "none");
-                },
-                success: function(response) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Data berhasil diperbaharui.'
-                    });
-
-                    $('.nama_' + response.id).append(response.nama);
-                    $('.telepon_' + response.id).append(response.telepon);
-                    $('.alamat_' + response.id).append(response.alamat);
-
-                    setTimeout(() => {
-                        $('.modal-edit').modal('hide');
-                        $('.btn-edit-spinner').css("display", "none");
-                        $('.btn-edit-save').css("display", "block");
-                    }, 1000);
-                },
-                error: function(xhr, status, error){
-                    var errorMessage = xhr.status + ': ' + xhr.statusText
-                    Toast.fire({
-                        icon: 'danger',
-                        title: 'Error - ' + errorMessage
-                    });
-                }
-            });
-        });
-
         // delete
         $('body').on('click', '.btn-delete', function(e) {
             e.preventDefault();
-            $('.delete_title').empty();
-
-            var id = $(this).attr('data-id');
-            var url = '{{ route("pelanggan.delete_btn", ":id") }}';
-            url = url.replace(':id', id );
-
-            var formData = {
-                id: id,
-                _token: CSRF_TOKEN
-            }
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                data: formData,
-                success: function(response) {
-                    $('.delete_title').append(response.title);
-                    $('#delete_id').val(response.id);
-                    $('.modal-delete').modal('show');
-                }
-            });
+            $('#delete_id').val($(this).attr('data-id'));
+            $('.modal-delete').modal('show');
         });
 
         $('#form_delete').submit(function(e) {
@@ -444,7 +341,7 @@
             }
 
             $.ajax({
-                url: '{{ URL::route('pelanggan.delete') }}',
+                url: '{{ URL::route('user.delete') }}',
                 type: 'POST',
                 data: formData,
                 beforeSend: function() {
@@ -472,4 +369,5 @@
         });
     });
 </script>
+
 @endsection

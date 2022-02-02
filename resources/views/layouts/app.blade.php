@@ -124,7 +124,7 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-                        @if (Auth::user()->roles == "administrator")
+                        @if (Auth::user()->roles == "admin_espk")
                             <li class="nav-item">
                                 <a href="{{ route('home') }}" class="nav-link {{ request()->is(['home', 'home/*']) ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
@@ -141,8 +141,8 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('karyawan.index') }}" class="nav-link {{ request()->is('admin/karyawan') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Karyawan</p>
+                                        <a href="{{ route('user.index') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i><p>User</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -196,7 +196,32 @@
                         @elseif (Auth::user()->roles == "admin")
 
                         @else
-
+                            @foreach ($current_nav_mains as $item)
+                                @if ($item->link == '#')
+                                    <li class="nav-item {{ request()->is(''.$item->request.'/*') ? 'menu-open' : '' }}">
+                                        <a href="#" class="nav-link {{ request()->is(''.$item->request.'/*') ? 'active' : '' }}">
+                                            <i class="{{ $item->icon }}"></i> <p>{{ $item->title }}<i class="right fas fa-angle-left"></i></p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            @foreach ($current_menus as $item_menu)
+                                                @if ($item_menu->main_id == $item->id)
+                                                    <li class="nav-item">
+                                                        <a href="{{ url($item_menu->navSub->link) }}" class="nav-link">
+                                                            <i class="far fa-circle nav-icon"></i> <p>{{ $item_menu->navSub->title }}</p>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a href="{{ url($item->link) }}" class="nav-link {{ request()->is([''.$item->request.'', ''.$item->request.'/*']) ? 'active' : '' }}">
+                                            <i class="{{ $item->icon }}"></i> <p>{{ $item->title }}</p>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
                         @endif
                     </ul>
                 </nav>

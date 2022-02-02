@@ -40,13 +40,13 @@ class PelangganController extends Controller
     {
         $pelanggan = new EspkPelanggan;
         $pelanggan->nama = $request->nama;
-        $pelanggan->telp = $request->telp;
+        $pelanggan->telp = $request->telepon;
         $pelanggan->alamat = $request->alamat;
         $pelanggan->cabang_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pelanggan->save();
 
         return response()->json([
-            'data' => "Data pelanggan berhasil disimpan"
+            'status' => 'true'
         ]);
     }
 
@@ -74,7 +74,7 @@ class PelangganController extends Controller
         return response()->json([
             'id' => $pelanggan->id,
             'nama' => $pelanggan->nama,
-            'telp' => $pelanggan->telp,
+            'telepon' => $pelanggan->telp,
             'alamat' => $pelanggan->alamat
         ]);
     }
@@ -90,24 +90,13 @@ class PelangganController extends Controller
     {
         $pelanggan = EspkPelanggan::find($id);
         $pelanggan->nama = $request->nama;
-        $pelanggan->telp = $request->telp;
+        $pelanggan->telp = $request->telepon;
         $pelanggan->alamat = $request->alamat;
         $pelanggan->save();
 
         return response()->json([
             'data' => "Data pelanggan berhasil diperbaharui"
         ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function deleteBtn($id)

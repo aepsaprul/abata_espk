@@ -10,6 +10,6 @@ class EspkNavSub extends Model
     use HasFactory;
 
     public function navMain() {
-        return $this->belongsTo(EspkNavSub::class, 'main_id', 'id');
+        return $this->belongsTo(EspkNavMain::class, 'main_id', 'id');
     }
 }

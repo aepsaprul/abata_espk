@@ -55,11 +55,11 @@
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">No</th>
-                                                        <th class="text-center">Title</th>
-                                                        <th class="text-center">Link</th>
-                                                        <th class="text-center">Navigasi Utama</th>
-                                                        <th class="text-center">Aksi</th>
+                                                        <th class="text-center text-indigo">No</th>
+                                                        <th class="text-center text-indigo">Title</th>
+                                                        <th class="text-center text-indigo">Link</th>
+                                                        <th class="text-center text-indigo">Navigasi Utama</th>
+                                                        <th class="text-center text-indigo">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -110,11 +110,11 @@
                                             <table id="example2" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">No</th>
-                                                        <th class="text-center">Title</th>
-                                                        <th class="text-center">link</th>
-                                                        <th class="text-center">Icon</th>
-                                                        <th class="text-center">Aksi</th>
+                                                        <th class="text-center text-indigo">No</th>
+                                                        <th class="text-center text-indigo">Title</th>
+                                                        <th class="text-center text-indigo">link</th>
+                                                        <th class="text-center text-indigo">Icon</th>
+                                                        <th class="text-center text-indigo">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -480,11 +480,11 @@
 <!-- Page specific script -->
 
 <script>
-  $(function () {
-    $("#example1").DataTable();
+    $(function () {
+        $("#example1").DataTable();
 
-    $("#example2").DataTable();
-  });
+        $("#example2").DataTable();
+    });
 
   $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
