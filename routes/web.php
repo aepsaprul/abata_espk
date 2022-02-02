@@ -8,6 +8,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NavController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PekerjaanController;
+use App\Http\Controllers\PesananPublishController;
 use App\Http\Controllers\ProsesPekerjaanController;
 use App\Http\Controllers\UserController;
 
@@ -80,6 +81,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('data_pekerjaan/pekerjaan/{file}/download', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
         Route::post('data_pekerjaan/pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');
         Route::post('data_pekerjaan/pekerjaan/publish_store', [PekerjaanController::class, 'publishStore'])->name('pekerjaan.publish_store');
+
+        // pesanan publish
+        Route::get('data_pekerjaan/pesanan_publish', [PesananPublishController::class, 'index'])->name('pesanan_publish.index');
 
         // proses pekerjaan
         Route::get('data_pekerjaan/proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');

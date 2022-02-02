@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="{{ asset('themes/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('themes/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
 @endsection
 
@@ -71,12 +74,12 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a
-                                                        class="dropdown-item btn-access"
+                                                        class="dropdown-item text-indigo border-bottom btn-access"
                                                         href="{{ route('user.access', [$item->user_id]) }}">
                                                             <i class="fa fa-key px-2"></i> Access
                                                     </a>
                                                     <a
-                                                        class="dropdown-item btn-delete"
+                                                        class="dropdown-item text-indigo btn-delete"
                                                         href="#"
                                                         data-id="{{ $item->user_id }}">
                                                             <i class="fa fa-trash-alt px-2"></i> Hapus
@@ -116,7 +119,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="create_karyawan_id" class="form-label">Nama Karyawan</label>
-                        <select name="create_karyawan_id" id="create_karyawan_id" class="form-control">
+                        <select name="create_karyawan_id" id="create_karyawan_id" class="form-control select2bs4">
 
                         </select>
                     </div>
@@ -249,6 +252,8 @@
 <script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('themes/plugins/select2/js/select2.full.min.js') }}"></script>
 
 <script>
     $(function () {
@@ -287,6 +292,11 @@
 
         $(document).on('shown.bs.modal', '.modal-create', function() {
             $('#create_karyawan_id').focus();
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4',
+                dropdownParent: $(".modal-create")
+            });
         });
 
         $('#form_create').submit(function(e) {

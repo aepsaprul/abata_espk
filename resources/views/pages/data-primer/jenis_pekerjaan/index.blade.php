@@ -1,184 +1,266 @@
 @extends('layouts.app')
 
 @section('style')
-<link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
-<style>
-    .col-md-6 {
-        font-size: 12px;
-    }
-    .fas {
-        font-size: 14px;
-    }
-    .btn {
-        padding: .2rem .6rem;
-    }
-    table tr td,
-    table tr th{
-        border-bottom: none;
-    }
-    table {
-        border-bottom: 1px solid #000;
-    }
-    table .active {
-        background-color: rgb(227, 237, 245);
-    }
-</style>
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-start">
-        <div class="col-md-6">
-            <h6 class="text-uppercase text-center">Tipe Pekerjaan</h6>
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <button
-                        id="tipe_btn_create"
-                        class="mb-4 btn btn-outline-dark text-dark">
-                            <i class="fas fa-plus"></i>
-                    </button>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+				    <h1>Jenis Pekerjaan</h1>
+				</div>
+				<div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Jenis Pekerjaan</li>
+                    </ol>
+				</div>
+			</div>
+		</div><!-- /.container-fluid -->
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card card-primary card-outline card-outline-tabs">
+                                <div class="card-header p-0 border-bottom-0">
+                                    <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="custom-tabs-four-tipe-tab" data-toggle="pill" href="#custom-tabs-four-tipe" role="tab" aria-controls="custom-tabs-four-tipe" aria-selected="true">Tipe Pekerjaan</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="custom-tabs-four-jenis-tab" data-toggle="pill" href="#custom-tabs-four-jenis" role="tab" aria-controls="custom-tabs-four-jenis" aria-selected="false">Jenis Pekerjaan</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content" id="custom-tabs-four-tabContent">
+                                        <div class="tab-pane fade show active" id="custom-tabs-four-tipe" role="tabpanel" aria-labelledby="custom-tabs-four-tipe-tab">
+                                            <button id="tipe-button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3 mb-4">
+                                                <i class="fa fa-plus"></i> Tambah
+                                            </button>
+                                            <table id="table_satu" class="table table-bordered table-striped" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center text-indigo">No</th>
+                                                        <th class="text-center text-indigo">Tipe Pekerjaan</th>
+                                                        <th class="text-center text-indigo">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($tipes as $key => $tipe)
+                                                    <tr>
+                                                        <td class="text-center">{{ $key + 1 }}</td>
+                                                        <td class="tipe_{{ $tipe->id }}">{{ $tipe->tipe }}</td>
+                                                        <td class="text-center">
+                                                            <div class="btn-group">
+                                                                <a
+                                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                                    data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                        <i class="fa fa-cog"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <button
+                                                                        data-id="{{ $tipe->id }}"
+                                                                        class="dropdown-item text-indigo border-bottom tipe-btn-edit">
+                                                                            <i class="fas fa-pencil-alt" style="width: 20px;"></i> Ubah
+                                                                    </button>
+                                                                    <button
+                                                                        data-id="{{ $tipe->id }}"
+                                                                        class="dropdown-item text-indigo tipe-btn-delete">
+                                                                            <i class="fas fa-minus-circle" style="width: 20px;"></i> Hapus
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="custom-tabs-four-jenis" role="tabpanel" aria-labelledby="custom-tabs-four-jenis-tab">
+                                            <button id="jenis-button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3 mb-4">
+                                                <i class="fa fa-plus"></i> Tambah
+                                            </button>
+                                            <table id="table_dua" class="table table-bordered table-striped" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center text-indigo">No</th>
+                                                        <th class="text-center text-indigo">Jenis Pekerjaan</th>
+                                                        <th class="text-center text-indigo">Tipe Pekerjaan</th>
+                                                        <th class="text-center text-indigo">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($jenis as $key => $jenis)
+                                                    <tr>
+                                                        <td class="text-center">{{ $key + 1 }}</td>
+                                                        <td>{{ $jenis->jenis }}</td>
+                                                        <td>{{ $jenis->tipePekerjaan->tipe }}</td>
+                                                        <td class="text-center">
+                                                            <div class="btn-group">
+                                                                <a
+                                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                                    data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                        <i class="fa fa-cog"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <button
+                                                                        data-id="{{ $jenis->id }}"
+                                                                        class="dropdown-item text-indigo border-bottom jenis-btn-edit">
+                                                                            <i class="fas fa-pencil-alt" style="width: 20px;"></i> Ubah
+                                                                    </button>
+                                                                    <button
+                                                                        data-id="{{ $jenis->id }}"
+                                                                        class="dropdown-item text-indigo jenis-btn-delete">
+                                                                            <i class="fas fa-minus-circle" style="width: 20px;"></i> Hapus
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.card -->
+                                </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col -->
             </div>
-            <table id="table_satu" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr class="text-center text-light" style="background-color: #004da9;">
-                        <th>No</th>
-                        <th>Tipe Pekerjaan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($tipes as $key => $tipe)
-                    <tr
-                    @if ($key % 2 == 1)
-                       echo class="active";
-                    @endif
-                    >
-                        <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $tipe->tipe }}</td>
-                        <td class="text-center">
-                            <button
-                                data-id="{{ $tipe->id }}"
-                                class="border-0 bg-transparent tipe_btn_edit">
-                                    <i class="fas fa-edit"></i>
-                            </button> |
-                            <button
-                                data-id="{{ $tipe->id }}"
-                                class="border-0 bg-transparent tipe_btn_delete">
-                                    <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <!-- /.row -->
         </div>
-        <div class="col-md-6">
-            <h6 class="text-uppercase text-center">Jenis Pekerjaan</h6>
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <button
-                        id="jenis_btn_create"
-                        class="mb-4 btn btn-outline-dark text-dark">
-                            <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-            <table id="table_dua" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr class="text-center text-light" style="background-color: #004da9;">
-                        <th>No</th>
-                        <th>Jenis Pekerjaan</th>
-                        <th>Tipe Pekerjaan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($jenis as $key => $jenis)
-                    <tr
-                    @if ($key % 2 == 1)
-                       echo class="active";
-                    @endif
-                    >
-                        <td class="text-center">{{ $key + 1 }}</td>
-                        <td>{{ $jenis->jenis }}</td>
-                        <td>{{ $jenis->tipePekerjaan->tipe }}</td>
-                        <td class="text-center">
-                            <button
-                                data-id="{{ $jenis->id }}"
-                                class="border-0 bg-transparent jenis_btn_edit">
-                                    <i class="fas fa-edit"></i>
-                            </button> |
-                            <button
-                                data-id="{{ $jenis->id }}"
-                                class="border-0 bg-transparent jenis_btn_delete">
-                                    <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
+<!-- ./wrapper -->
 
 {{-- tipe modal create  --}}
-<div class="modal fade" tabindex="-1" id="tipe_modal_create">
-    <div class="modal-dialog">
+<div class="modal fade tipe-modal-create" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Tipe Pekerjaan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="tipe_form_create">
+            <form id="tipe_form_create">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Tipe Pekerjaan</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
-                      <label for="tipe_create_tipe" class="form-label">Tipe Pekerjaan</label>
-                      <input type="text" class="form-control" id="tipe_create_tipe" name="tipe_create_tipe">
+                        <label for="tipe_create_tipe" class="form-label">Tipe Pekerjaan</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="tipe_create_tipe"
+                            name="tipe_create_tipe"
+                            maxlength="30" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary tipe-btn-create-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary tipe-btn-create-save" style="width: 120px;"><i class="fa fa-save"></i> Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+
 {{-- tipe modal edit  --}}
-<div class="modal fade" tabindex="-1" id="tipe_modal_edit">
-    <div class="modal-dialog">
+<div class="modal fade tipe-modal-edit" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ubah Tipe Pekerjaan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="tipe_form_edit">
-                    <input type="hidden" class="form-control" id="tipe_edit_id" name="tipe_edit_id">
+            <form id="tipe_form_edit">
+
+                {{-- id  --}}
+                <input
+                    type="hidden"
+                    id="tipe_edit_id"
+                    name="tipe_edit_id">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Ubah Tipe Pekerjaan</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
-                      <label for="tipe_edit_tipe" class="form-label">Tipe Pekerjaan</label>
-                      <input type="text" class="form-control" id="tipe_edit_tipe" name="tipe_edit_tipe">
+                        <label for="tipe_edit_tipe" class="form-label">Tipe Pekerjaan</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="tipe_edit_tipe"
+                            name="tipe_edit_tipe"
+                            maxlength="30"
+                            required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Ubah</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary tipe-btn-edit-spinner" disabled style="width: 130px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary tipe-btn-edit-save" style="width: 130px;"><i class="fa fa-save"></i> Perbaharui</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 {{-- tipe modal delete  --}}
-<div class="modal fade" tabindex="-1" id="tipe_modal_delete">
-    <div class="modal-dialog">
+<div class="modal fade tipe-modal-delete" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form id="tipe_form_delete">
+
+                {{-- id  --}}
+                <input type="hidden" id="tipe_delete_id" name="tipe_delete_id">
+
                 <div class="modal-header">
-                    <h5 class="modal-title">Yakin akan dihapus <span class="tipe_title_delete text-decoration-underline"></span> ?</h5>
+                    <h5 class="modal-title">Yakin akan dihapus <span class="tipe_delete_title text-decoration-underline"></span> ?</h5>
                 </div>
-                <input type="hidden" class="form-control" id="tipe_delete_id" name="tipe_delete_id">
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-secondary text-center" data-bs-dismiss="modal" style="width: 100px;">Tidak</button>
-                    <button type="submit" class="btn btn-primary text-center" style="width: 100px;">Ya</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 120px;"><span aria-hidden="true">Tidak</span></button>
+                    <button class="btn btn-primary tipe-btn-delete-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary tipe-btn-delete-yes text-center" style="width: 120px;">Ya</button>
                 </div>
             </form>
         </div>
@@ -186,68 +268,118 @@
 </div>
 
 {{-- jenis modal create  --}}
-<div class="modal fade" tabindex="-1" id="jenis_modal_create">
-    <div class="modal-dialog">
+<div class="modal fade jenis-modal-create" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Jenis Pekerjaan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="jenis_form_create">
+            <form id="jenis_form_create">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Jenis Pekerjaan</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
                         <label for="jenis_create_jenis" class="form-label">Jenis Pekerjaan</label>
-                        <input type="text" class="form-control" id="jenis_create_jenis" name="jenis_create_jenis">
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="jenis_create_jenis"
+                            name="jenis_create_jenis"
+                            maxlength="30" required>
                     </div>
                     <div class="mb-3">
                         <label for="jenis_create_tipe_pekerjaan_id" class="form-label">Tipe Pekerjaan</label>
-                        <div class="jenis_create_tipe_pekerjaan_id"></div>
+                        <select name="jenis_create_tipe_pekerjaan_id" id="jenis_create_tipe_pekerjaan_id" class="form-control form-control-sm" required>
+
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary jenis-btn-create-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary jenis-btn-create-save" style="width: 120px;"><i class="fa fa-save"></i> Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 {{-- jenis modal edit  --}}
-<div class="modal fade" tabindex="-1" id="jenis_modal_edit">
-    <div class="modal-dialog">
+<div class="modal fade jenis-modal-edit" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ubah Jenis Pekerjaan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="jenis_form_edit">
-                    <input type="hidden" class="form-control" id="jenis_edit_id" name="jenis_edit_id">
+            <form id="jenis_form_edit">
+
+                {{-- id  --}}
+                <input
+                    type="hidden"
+                    id="jenis_edit_id"
+                    name="jenis_edit_id">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Ubah Jenis Pekerjaan</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
-                      <label for="jenis_edit_jenis" class="form-label">Jenis Pekerjaan</label>
-                      <input type="text" class="form-control" id="jenis_edit_jenis" name="jenis_edit_jenis">
+                        <label for="jenis_edit_jenis" class="form-label">Title</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="jenis_edit_jenis"
+                            name="jenis_edit_jenis"
+                            maxlength="30"
+                            required>
                     </div>
                     <div class="mb-3">
-                      <label for="jenis_edit_tipe_pekerjaan_id" class="form-label">Tipe Pekerjaan</label>
-                      <div class="jenis_edit_tipe_pekerjaan_id"></div>
+                        <label for="jenis_edit_tipe_pekerjaan_id" class="form-label">Navigasi Utama</label>
+                        <select class="form-control form-control-sm" name="jenis_edit_tipe_pekerjaan_id" id="jenis_edit_tipe_pekerjaan_id">
+
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Perbaharui</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary jenis-btn-edit-spinner" disabled style="width: 130px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary jenis-btn-edit-save" style="width: 130px;"><i class="fa fa-save"></i> Perbaharui</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-{{-- jenis modal delete --}}
-<div class="modal fade" tabindex="-1" id="jenis_modal_delete">
-    <div class="modal-dialog">
+{{-- jenis modal delete  --}}
+<div class="modal fade jenis-modal-delete" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form id="jenis_form_delete">
+
+                {{-- id  --}}
+                <input type="hidden" id="jenis_delete_id" name="jenis_delete_id">
+
                 <div class="modal-header">
-                    <h5 class="modal-title">Yakin akan dihapus <span class="jenis_title_delete text-decoration-underline"></span> ?</h5>
+                    <h5 class="modal-title">Yakin akan dihapus <span class="jenis_delete_title text-decoration-underline"></span> ?</h5>
                 </div>
-                <input type="hidden" class="form-control" id="jenis_delete_id" name="jenis_delete_id">
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-secondary text-center" data-bs-dismiss="modal" style="width: 100px;">Tidak</button>
-                    <button type="submit" class="btn btn-primary text-center" style="width: 100px;">Ya</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 120px;"><span aria-hidden="true">Tidak</span></button>
+                    <button class="btn btn-primary jenis-btn-delete-spinner" disabled style="width: 120px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary jenis-btn-delete-yes text-center" style="width: 120px;">Ya</button>
                 </div>
             </form>
         </div>
@@ -257,25 +389,45 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('lib/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/dataTables.bootstrap5.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/jszip.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/buttons.html5.min.js') }}"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('themes/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 <script>
+    $(function () {
+        $("#table_satu").DataTable();
+
+        $("#table_dua").DataTable();
+    });
+
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        $('#table_satu').DataTable({
-            "ordering": false
-        });
-        $('#table_dua').DataTable({
-            "ordering": false
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
         });
 
-        $('#tipe_btn_create').on('click', function() {
-            $('#tipe_modal_create').modal('show');
+        // tipe create
+        $('#tipe-button-create').on('click', function() {
+            $('.tipe-modal-create').modal('show');
+        });
+
+        $(document).on('shown.bs.modal', '.tipe-modal-create', function() {
+            $('#tipe_create_tipe').focus();
         });
 
         $('#tipe_form_create').submit(function(e) {
@@ -285,21 +437,39 @@
                 tipe: $('#tipe_create_tipe').val(),
                 button: 'tipe_btn_store',
                 _token: CSRF_TOKEN
-            };
+            }
 
             $.ajax({
-                url: '{{ URL::route('jenis_pekerjaan.store') }}',
+                url: '{{ URL::route('jenis_pekerjaan.store') }} ',
                 type: 'POST',
                 data: formData,
+                beforeSend: function() {
+                    $('.tipe-btn-create-spinner').css("display", "block");
+                    $('.tipe-btn-create-save').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil disimpan.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
             });
         });
 
-        $('.tipe_btn_edit').on('click', function(e) {
+        // tipe edit
+        $('body').on('click', '.tipe-btn-edit', function(e) {
             e.preventDefault();
 
             var id = $(this).attr('data-id');
@@ -318,10 +488,10 @@
                 success: function(response) {
                     $('#tipe_edit_id').val(response.id);
                     $('#tipe_edit_tipe').val(response.tipe);
-                    $('#tipe_modal_edit').modal('show');
-                }
-            });
 
+                    $('.tipe-modal-edit').modal('show');
+                }
+            })
         });
 
         $('#tipe_form_edit').submit(function(e) {
@@ -342,17 +512,36 @@
                 url: url,
                 type: 'PUT',
                 data: formData,
+                beforeSend: function() {
+                    $('.tipe-btn-edit-spinner').css("display", "block");
+                    $('.tipe-btn-edit-save').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil diperbaharui.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
             });
         });
 
-        $('.tipe_btn_delete').on('click', function() {
+        // tipe delete
+        $('body').on('click', '.tipe-btn-delete', function(e) {
+            e.preventDefault();
+            $('.tipe_delete_title').empty();
 
-            $('.tipe_title_delete').empty();
             var formData = {
                 id: $(this).attr('data-id'),
                 button: "tipe_btn_delete",
@@ -364,9 +553,9 @@
                 type: 'POST',
                 data: formData,
                 success: function(response) {
+                    $('.tipe_delete_title').append(response.value);
                     $('#tipe_delete_id').val(response.id);
-                    $('.tipe_title_delete').append(response.value);
-                    $('#tipe_modal_delete').modal('show');
+                    $('.tipe-modal-delete').modal('show');
                 }
             });
         });
@@ -384,35 +573,53 @@
                 url: '{{ URL::route('jenis_pekerjaan.delete') }}',
                 type: 'POST',
                 data: formData,
+                beforeSend: function() {
+                    $('.tipe-btn-delete-spinner').css("display", "block");
+                    $('.tipe-btn-delete-yes').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil dihapus.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
             });
         });
 
-        $('#jenis_btn_create').on('click', function() {
-            $('.jenis_create_tipe_pekerjaan_id').empty();
+        // jenis create
+        $('#jenis-button-create').on('click', function() {
+            $('#jenis_create_tipe_pekerjaan_id').empty();
 
             $.ajax({
                 url: '{{ URL::route('jenis_pekerjaan.create') }}',
                 type: 'GET',
                 success: function(response) {
+                    var tipe_value = "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
 
-                    var val = "<select class=\"form-control\" id=\"jenis_create_tipe_pekerjaan_id\" name=\"jenis_create_tipe_pekerjaan_id\">" +
-                        "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
-
-                    $.each(response.tipe, function(index, value) {
-                        val += "<option value=\"" + value.id + "\">"+ value.tipe +"</option>";
+                    $.each(response.tipes, function(index, value) {
+                        tipe_value += "<option value=\"" + value.id + "\">" + value.tipe + "</option>";
                     });
 
-                    val += "</select>";
-
-                    $('.jenis_create_tipe_pekerjaan_id').append(val);
-                    $('#jenis_modal_create').modal('show');
+                    $('#jenis_create_tipe_pekerjaan_id').append(tipe_value);
+                    $('.jenis-modal-create').modal('show');
                 }
             });
+        });
+
+        $(document).on('shown.bs.modal', '.jenis-modal-create', function() {
+            $('#jenis_create_jenis').focus();
         });
 
         $('#jenis_form_create').submit(function(e) {
@@ -426,19 +633,38 @@
             }
 
             $.ajax({
-                url: '{{ URL::route('jenis_pekerjaan.store') }}',
+                url: '{{ URL::route('jenis_pekerjaan.store') }} ',
                 type: 'POST',
                 data: formData,
+                beforeSend: function() {
+                    $('.jenis-btn-create-spinner').css("display", "block");
+                    $('.jenis-btn-create-save').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil disimpan.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
             });
         });
 
-        $('.jenis_btn_edit').on('click', function() {
-            $('.jenis_edit_tipe_pekerjaan_id').empty();
+        // jenis edit
+        $('body').on('click', '.jenis-btn-edit', function(e) {
+            e.preventDefault();
+            $('#jenis_edit_tipe_pekerjaan_id').empty();
 
             var id = $(this).attr('data-id');
             var url = '{{ route("jenis_pekerjaan.edit.jenis", ":id") }}';
@@ -454,27 +680,25 @@
                 type: 'GET',
                 data: formData,
                 success: function(response) {
-                    // console.log(response);
                     $('#jenis_edit_id').val(response.id);
                     $('#jenis_edit_jenis').val(response.jenis);
 
-                    var val = "<select class=\"form-control\" id=\"jenis_edit_tipe_pekerjaan_id\" name=\"jenis_edit_tipe_pekerjaan_id\">" +
-                        "<option value=\"\">--Pilih Menu Utama--</option>";
+                    var tipe_value = "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
 
                     $.each(response.tipes, function(index, value) {
-                        val += "<option value=\"" + value.id + "\"";
-                        if (response.tipe_pekerjaan_id == value.id) {
-                            val += "selected";
+                        tipe_value += "<option value=\"" + value.id + "\"";
+
+                        if (value.id == response.tipe_pekerjaan_id) {
+                            tipe_value += "selected";
                         }
-                        val += ">"+ value.tipe +"</option>";
+
+                        tipe_value += ">" + value.tipe + "</option>";
                     });
 
-                    val += "</select>";
-
-                    $('.jenis_edit_tipe_pekerjaan_id').append(val);
-                    $('#jenis_modal_edit').modal('show');
+                    $('#jenis_edit_tipe_pekerjaan_id').append(tipe_value);
+                    $('.jenis-modal-edit').modal('show');
                 }
-            });
+            })
         });
 
         $('#jenis_form_edit').submit(function(e) {
@@ -485,7 +709,7 @@
             url = url.replace(':id', id );
 
             var formData = {
-                id: id,
+                id: $('#jenis_edit_id').val(),
                 jenis: $('#jenis_edit_jenis').val(),
                 tipe_pekerjaan_id: $('#jenis_edit_tipe_pekerjaan_id').val(),
                 button: "jenis_btn_update",
@@ -496,16 +720,34 @@
                 url: url,
                 type: 'PUT',
                 data: formData,
+                beforeSend: function() {
+                    $('.jenis-btn-edit-spinner').css("display", "block");
+                    $('.jenis-btn-edit-save').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil diperbaharui.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
             });
         });
 
-        $('.jenis_btn_delete').on('click', function() {
-            $('.jenis_title_delete').empty();
+        // jenis delete
+        $('body').on('click', '.jenis-btn-delete', function(e) {
+            e.preventDefault();
+            $('.jenis_delete_title').empty();
 
             var formData = {
                 id: $(this).attr('data-id'),
@@ -518,14 +760,14 @@
                 type: 'POST',
                 data: formData,
                 success: function(response) {
+                    $('.jenis_delete_title').append(response.value);
                     $('#jenis_delete_id').val(response.id);
-                    $('.jenis_title_delete').append(response.value);
-                    $('#jenis_modal_delete').modal('show');
+                    $('.jenis-modal-delete').modal('show');
                 }
-            })
+            });
         });
 
-        $('#jenis_form_delete').submit( function(e) {
+        $('#jenis_form_delete').submit(function(e) {
             e.preventDefault();
 
             var formData = {
@@ -538,15 +780,30 @@
                 url: '{{ URL::route('jenis_pekerjaan.delete') }}',
                 type: 'POST',
                 data: formData,
+                beforeSend: function() {
+                    $('.jenis-btn-delete-spinner').css("display", "block");
+                    $('.jenis-btn-delete-yes').css("display", "none");
+                },
                 success: function(response) {
-                    setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data berhasil dihapus.'
+                    });
+
+                    setTimeout(() => {
                         window.location.reload(1);
-                    }, 100);
+                    }, 1000);
+                },
+                error: function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                    Toast.fire({
+                        icon: 'danger',
+                        title: 'Error - ' + errorMessage
+                    });
                 }
-            })
+            });
         });
-
-
     } );
 </script>
 @endsection

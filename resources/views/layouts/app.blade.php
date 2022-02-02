@@ -175,6 +175,11 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="{{ route('pesanan_publish.index') }}" class="nav-link {{ request()->is('data_pekerjaan/pesanan_publish') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i><p>Pesanan Publish</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('proses_pekerjaan.index') }}" class="nav-link {{ request()->is('data_pekerjaan/pekerjaan') ? 'active' : '' }}">
                                             <i class="far fa-circle nav-icon"></i><p>Pekerjaan</p>
                                         </a>

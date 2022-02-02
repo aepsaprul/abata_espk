@@ -86,13 +86,13 @@
                                                                 </a>
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <a
-                                                                        class="dropdown-item sub-btn-edit"
+                                                                        class="dropdown-item text-indigo border-bottom sub-btn-edit"
                                                                         href="#"
                                                                         data-id="{{ $item->id }}">
                                                                             <i class="fa fa-pencil-alt px-2"></i> Ubah
                                                                     </a>
                                                                     <a
-                                                                        class="dropdown-item sub-btn-delete"
+                                                                        class="dropdown-item text-indigo sub-btn-delete"
                                                                         href="#"
                                                                         data-id="{{ $item->id }}">
                                                                             <i class="fa fa-trash-alt px-2"></i> Hapus
@@ -486,7 +486,7 @@
         $("#example2").DataTable();
     });
 
-  $(document).ready(function() {
+    $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
         var Toast = Swal.mixin({

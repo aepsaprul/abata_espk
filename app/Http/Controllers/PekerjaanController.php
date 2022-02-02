@@ -23,8 +23,7 @@ class PekerjaanController extends Controller
      */
     public function index()
     {
-        $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()
-            ->masterKaryawan->masterCabang->id)
+        $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
             ->orderBy('id', 'desc')
             ->get();
 
