@@ -95,7 +95,10 @@ class PelangganController extends Controller
         $pelanggan->save();
 
         return response()->json([
-            'data' => "Data pelanggan berhasil diperbaharui"
+            'id' => $pelanggan->id,
+            'nama' => $pelanggan->nama,
+            'telepon' => $pelanggan->telp,
+            'alamat' => $pelanggan->alamat
         ]);
     }
 
@@ -109,9 +112,9 @@ class PelangganController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $pelanggan = EspkPelanggan::find($id);
+        $pelanggan = EspkPelanggan::find($request->id);
         $pelanggan->delete();
 
         return response()->json([

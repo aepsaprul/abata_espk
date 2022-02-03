@@ -461,7 +461,7 @@
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     alert('Error - ' + errorMessage);
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }
@@ -530,7 +530,7 @@
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     alert('Error - ' + errorMessage);
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }
@@ -591,7 +591,7 @@
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     alert('Error - ' + errorMessage);
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }
@@ -654,7 +654,7 @@
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     alert('Error - ' + errorMessage);
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }
@@ -737,7 +737,7 @@
                 error: function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }
@@ -798,7 +798,7 @@
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     alert('Error - ' + errorMessage);
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }

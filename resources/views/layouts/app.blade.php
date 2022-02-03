@@ -211,7 +211,7 @@
                                             @foreach ($current_menus as $item_menu)
                                                 @if ($item_menu->main_id == $item->id)
                                                     <li class="nav-item">
-                                                        <a href="{{ url($item_menu->navSub->link) }}" class="nav-link">
+                                                        <a href="{{ url($item_menu->navSub->link) }}" class="nav-link {{ request()->is([''.$item_menu->navSub->link.'', ''.$item_menu->navSub->link.'/*']) ? 'active' : '' }}">
                                                             <i class="far fa-circle nav-icon"></i> <p>{{ $item_menu->navSub->title }}</p>
                                                         </a>
                                                     </li>

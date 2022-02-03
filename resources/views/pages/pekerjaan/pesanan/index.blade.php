@@ -43,111 +43,111 @@
                             @endif
                         </div>
                         <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped" style="font-size: 14px; width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center text-indigo">No</th>
-                                            <th class="text-center text-indigo">Pemesan</th>
-                                            <th class="text-center text-indigo">Nama Pesanan</th>
-                                            <th class="text-center text-indigo">Tgl Dibuat SPK</th>
-                                            <th class="text-center text-indigo">Penerima</th>
-                                            <th class="text-center text-indigo">Tanggal Disetujui</th>
-                                            <th class="text-center text-indigo">Status</th>
-                                            <th class="text-center text-indigo">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($pesanans as $key => $pesanan)
-                                        <tr>
-                                            <td class="text-center">{{ $key + 1 }}</td>
-                                            <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
-                                            <td>{{ $pesanan->nama_pesanan }}</td>
-                                            <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
-                                            <td>
-                                                @if ($pesanan->pegawaiPenerimaPesanan)
-                                                    {{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}
-                                                @else
-                                                    Kosong
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                @php
-                                                    $tanggal_disetujui = explode(" ", $pesanan->tanggal_disetujui);
-                                                @endphp
-                                                @if ($pesanan->tanggal_disetujui)
-                                                    {{ tgl_indo($tanggal_disetujui[0]) }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($pesanan->status_id != null)
-                                                    {{ $pesanan->status->nama_status }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <a
-                                                        class="dropdown-toggle btn bg-gradient-primary btn-sm"
-                                                        data-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                            <i class="fa fa-cog"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        @if ($pesanan->status_id == null || $pesanan->status_id == 8)
-                                                            <button
-                                                                class="dropdown-item text-indigo border-bottom publish"
-                                                                data-id="{{ $pesanan->id }}"
-                                                                title="Publish">
-                                                                <i class="fas fa-rocket" style="width: 20px;"></i> Publish
-                                                            </button>
-                                                            <a
-                                                                href="{{ route('pekerjaan.edit', [$pesanan->id]) }}"
-                                                                class="dropdown-item text-indigo border-bottom"
-                                                                title="Ubah">
-                                                                <i class="fas fa-pencil-alt" style="width: 20px;"></i> Ubah
-                                                            </a>
-                                                            <form
-                                                                action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}"
-                                                                method="POST"
-                                                                class="d-inline">
-                                                                    @method('delete')
-                                                                    @csrf
-                                                                        <button
-                                                                            class="dropdown-item text-indigo border-bottom"
-                                                                            onclick="return confirm('Yakin akan dihapus?')"
-                                                                            title="Hapus">
-                                                                            <i class="fas fa-minus-circle" style="width: 20px;"></i> Hapus
-                                                                        </button>
-                                                            </form>
-                                                            <a
-                                                                href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
-                                                                class="dropdown-item text-indigo"
-                                                                title="Lihat">
-                                                                <i class="fas fa-eye" style="width: 20px;"></i> Lihat
-                                                            </a>
-                                                        @else
-                                                            <a
-                                                                href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
-                                                                class="dropdown-item text-indigo"
-                                                                title="Lihat">
-                                                                <i class="fas fa-eye" style="width: 20px;"></i> Lihat
-                                                            </a>
-                                                        @endif
-                                                    </div>
+                            <table id="example1" class="table table-bordered table-striped" style="font-size: 14px; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">Pemesan</th>
+                                        <th class="text-center text-indigo">Nama Pesanan</th>
+                                        <th class="text-center text-indigo">Tgl Dibuat SPK</th>
+                                        <th class="text-center text-indigo">Penerima</th>
+                                        <th class="text-center text-indigo">Tanggal Disetujui</th>
+                                        <th class="text-center text-indigo">Status</th>
+                                        <th class="text-center text-indigo">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pesanans as $key => $pesanan)
+                                    <tr>
+                                        <td class="text-center">{{ $key + 1 }}</td>
+                                        <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
+                                        <td>{{ $pesanan->nama_pesanan }}</td>
+                                        <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
+                                        <td>
+                                            @if ($pesanan->pegawaiPenerimaPesanan)
+                                                {{ $pesanan->pegawaiPenerimaPesanan->nama_lengkap }}
+                                            @else
+                                                Kosong
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @php
+                                                $tanggal_disetujui = explode(" ", $pesanan->tanggal_disetujui);
+                                            @endphp
+                                            @if ($pesanan->tanggal_disetujui)
+                                                {{ tgl_indo($tanggal_disetujui[0]) }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($pesanan->status_id != null)
+                                                {{ $pesanan->status->nama_status }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <a
+                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                        <i class="fa fa-cog"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    @if ($pesanan->status_id == null || $pesanan->status_id == 8)
+                                                        <button
+                                                            class="dropdown-item text-indigo border-bottom publish"
+                                                            data-id="{{ $pesanan->id }}"
+                                                            title="Publish">
+                                                            <i class="fas fa-rocket" style="width: 20px;"></i> Publish
+                                                        </button>
+                                                        <a
+                                                            href="{{ route('pekerjaan.edit', [$pesanan->id]) }}"
+                                                            class="dropdown-item text-indigo border-bottom"
+                                                            title="Ubah">
+                                                            <i class="fas fa-pencil-alt" style="width: 20px;"></i> Ubah
+                                                        </a>
+                                                        <form
+                                                            action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}"
+                                                            method="POST"
+                                                            class="d-inline">
+                                                                @method('delete')
+                                                                @csrf
+                                                                    <button
+                                                                        class="dropdown-item text-indigo border-bottom"
+                                                                        onclick="return confirm('Yakin akan dihapus?')"
+                                                                        title="Hapus">
+                                                                        <i class="fas fa-minus-circle" style="width: 20px;"></i> Hapus
+                                                                    </button>
+                                                        </form>
+                                                        <a
+                                                            href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
+                                                            class="dropdown-item text-indigo"
+                                                            title="Lihat">
+                                                            <i class="fas fa-eye" style="width: 20px;"></i> Lihat
+                                                        </a>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
+                                                            class="dropdown-item text-indigo"
+                                                            title="Lihat">
+                                                            <i class="fas fa-eye" style="width: 20px;"></i> Lihat
+                                                        </a>
+                                                    @endif
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+            </div>
             <!-- /.row -->
         </div><!--/. container-fluid -->
     </section>

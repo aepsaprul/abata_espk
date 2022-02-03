@@ -192,7 +192,7 @@
                 success: function(response) {
                     Toast.fire({
                         icon: 'success',
-                        title: 'Data berhasil disimpan.'
+                        title: 'Data berhasil sinkron.'
                     });
 
                     setTimeout(() => {

@@ -72,14 +72,15 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a
-                                                        class="dropdown-item text-indigo btn-access"
-                                                        href="#">
+                                                        class="dropdown-item text-indigo btn-edit"
+                                                        href="#"
+                                                        data-id="{{ $item->id }}">
                                                             <i class="fa fa-pencil-alt px-2"></i> Ubah
                                                     </a>
                                                     <a
                                                         class="dropdown-item text-indigo btn-delete"
                                                         href="#"
-                                                        data-id="{{ $item->user_id }}">
+                                                        data-id="{{ $item->id }}">
                                                             <i class="fa fa-trash-alt px-2"></i> Hapus
                                                     </a>
                                                 </div>
@@ -322,7 +323,7 @@
                 error: function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }
@@ -402,7 +403,7 @@
                 error: function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }
@@ -428,7 +429,7 @@
                 type: 'GET',
                 data: formData,
                 success: function(response) {
-                    $('.delete_title').append(response.title);
+                    $('.delete_title').append(response.nama);
                     $('#delete_id').val(response.id);
                     $('.modal-delete').modal('show');
                 }
@@ -464,7 +465,7 @@
                 error: function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     Toast.fire({
-                        icon: 'danger',
+                        icon: 'error',
                         title: 'Error - ' + errorMessage
                     });
                 }

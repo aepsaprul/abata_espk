@@ -1,140 +1,147 @@
 @extends('layouts.app')
 
 @section('style')
-<link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
-<style>
-    .col-md-11 {
-        font-size: 12px;
-    }
-    .fas {
-        font-size: 14px;
-    }
-    .btn {
-        padding: .2rem .6rem;
-    }
-    table tr td,
-    table tr th{
-        border-bottom: none;
-    }
-    table {
-        border-bottom: 1px solid #000;
-    }
-    table .active {
-        background-color: rgb(227, 237, 245);
-    }
-</style>
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-11">
-            <h6 class="text-uppercase text-center">Data Pekerjaan</h6>
-            <div style="height: 50px;">
-            @if (session('status'))
-                <div class="text-success fst-italic">
-                    {{ session('status') }}
-                </div>
-            @endif
-            </div>
-            <div class="card mt-2">
-                <div class="card-header">
-                    <i class="fas fa-th-list"></i> Daftar Pesanan
-                </div>
-                <div class="card-body">
-                    <table id="table_dua" class="table table-bordered" style="width:100%">
-                        <thead>
-                            <tr class="text-center text-light" style="background-color: #004da9;">
-                                <th>No</th>
-                                <th>Pelaksana</th>
-                                <th>Nama Pekerjaan</th>
-                                <th>No Nota</th>
-                                <th>Tanggal Order</th>
-                                <th>Status</th>
-                                <th>Tanggal Disetujui</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pesanans as $key => $pesanan)
-                            <tr
-                            @if ($key % 2 == 1)
-                                echo class="active";
-                            @endif
-                            >
-                                <td class="text-center">{{ $key + 1 }}</td>
-                                <td>{{ $pesanan->cabangPelaksana->nama_cabang }}</td>
-                                <td>{{ $pesanan->nama_pesanan }}</td>
-                                <td>{{ $pesanan->nomor_nota }}</td>
-                                <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
-                                <td>
-                                    @if ($pesanan->status_id != null)
-                                        {{ $pesanan->status->nama_status }}
-                                        @if ($pesanan->status_id != null && $pesanan->status_id != 9)
-                                            @php $hide = "d-none"; @endphp
-                                        @else
-                                            @php $hide = ""; @endphp
-                                        @endif
-                                    @else
-                                        -
-                                        @php $hide = ""; @endphp
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    @php
-                                        $tanggal_disetujui = explode(" ", $pesanan->tanggal_disetujui);
-                                    @endphp
-                                    @if ($pesanan->tanggal_disetujui)
-                                        {{ tgl_indo($tanggal_disetujui[0]) }}
-                                    @else
-                                        -
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button
-                                            type="button"
-                                            class="btn btn-default dropdown-toggle"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                            title="Aksi">
-                                                <i class="fas fa-cog"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li class="border-bottom">
-                                                @php $modul = explode('/', $pesanan->file); @endphp
-                                                <a class="dropdown-item" href="{{ route('pekerjaan.download', [$pesanan->file]) }}">Download</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item status {{ $hide }}"
-                                                    href="#"
-                                                    data-status="{{ $pesanan->status_id }}"
-                                                    data-pesanan="{{ $pesanan->nama_pesanan }}"
-                                                    data-id="{{ $pesanan->id }}">
-                                                        Status
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div> |
-                                    <a href="{{ route('proses_pekerjaan.show', [$pesanan->id]) }}"
-                                        class="border-0 text-dark mx-2"
-                                        title="Lihat">
-                                        <i class="fas fa-eye"></i></a> |
-                                    <a href="{{ route('proses_pekerjaan.print', [$pesanan->id]) }}"
-                                        class="text-dark mx-2"
-                                        title="Print"
-                                        target="_blank"><i class="fas fa-print"></i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Pesanan Publish</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Pesanan Publish</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Info boxes -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            @if (Auth::user()->roles != "admin_espk")
+                                <button id="button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</button>
+                            @endif
+                        </div>
+                        <div class="card-body">
+                            <table id="table_satu" class="table table-bordered table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">Pelaksana</th>
+                                        <th class="text-center text-indigo">Nama Pekerjaan</th>
+                                        <th class="text-center text-indigo">No Nota</th>
+                                        <th class="text-center text-indigo">Tgl Order</th>
+                                        <th class="text-center text-indigo">Status</th>
+                                        <th class="text-center text-indigo">Tgl Disetujui</th>
+                                        <th class="text-center text-indigo">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pesanans as $key => $pesanan)
+                                    <tr>
+                                        <td class="text-center">{{ $key + 1 }}</td>
+                                        <td>{{ $pesanan->cabangPelaksana->nama_cabang }}</td>
+                                        <td>{{ $pesanan->nama_pesanan }}</td>
+                                        <td>{{ $pesanan->nomor_nota }}</td>
+                                        <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
+                                        <td>
+                                            @if ($pesanan->status_id != null)
+                                                {{ $pesanan->status->nama_status }}
+                                                @if ($pesanan->status_id != null && $pesanan->status_id != 9)
+                                                    @php $hide = "d-none"; @endphp
+                                                @else
+                                                    @php $hide = ""; @endphp
+                                                @endif
+                                            @else
+                                                -
+                                                @php $hide = ""; @endphp
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @php
+                                                $tanggal_disetujui = explode(" ", $pesanan->tanggal_disetujui);
+                                            @endphp
+                                            @if ($pesanan->tanggal_disetujui)
+                                                {{ tgl_indo($tanggal_disetujui[0]) }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <button
+                                                    type="button"
+                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                    data-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    title="Aksi">
+                                                        <i class="fas fa-cog"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    @php $modul = explode('/', $pesanan->file); @endphp
+                                                    <a
+                                                        href="{{ route('pekerjaan.download', [$pesanan->file]) }}"
+                                                        class="dropdown-item border-bottom">
+                                                            <i class="fas fa-download pr-2"></i> Download
+                                                    </a>
+                                                    <a
+                                                        href="#"
+                                                        class="dropdown-item border-bottom status {{ $hide }}"
+                                                        data-status="{{ $pesanan->status_id }}"
+                                                        data-pesanan="{{ $pesanan->nama_pesanan }}"
+                                                        data-id="{{ $pesanan->id }}">
+                                                            <i class="fas fa-exchange-alt pr-2"></i> Status
+                                                    </a>
+                                                    <a
+                                                        href="{{ route('proses_pekerjaan.show', [$pesanan->id]) }}"
+                                                        class="dropdown-item border-bottom"
+                                                        title="Lihat">
+                                                            <i class="fas fa-eye pr-2"></i> Lihat
+                                                    </a>
+                                                    <a
+                                                        href="{{ route('proses_pekerjaan.print', [$pesanan->id]) }}"
+                                                        class="dropdown-item"
+                                                        title="Print"
+                                                        target="_blank">
+                                                            <i class="fas fa-print pr-2"></i> Print
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->
 
 {{-- modal create  --}}
 <div class="modal fade" tabindex="-1" id="modal_ubah_status">
@@ -171,20 +178,28 @@
 @endsection
 
 @section('script')
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> --}}
-<script src="{{ asset('lib/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/dataTables.bootstrap5.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/jszip.min.js') }}"></script>
-<script src="{{ asset('lib/datatables/js/buttons.html5.min.js') }}"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('themes/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 <script>
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        $('#table_satu').DataTable();
-
-        $('#table_dua').DataTable();
+        $('#table_satu').DataTable({
+            'responsive': true
+        });
 
         $('body').on('click', '.status', function() {
             $('.modal_status').empty();
@@ -223,14 +238,6 @@
             $('.modal_status').append(status_val);
             $('#modal_ubah_status').modal('show');
         });
-
-        // $('#modal_status').on('change', function() {
-        //     if($('#modal_status').val() == 2 || $('#modal_status').val() == 7) {
-        //         $('#modal_keterangan').prop('required', true);
-        //     } else {
-        //         $('#modal_keterangan').prop('required', false);
-        //     }
-        // });
 
         $('#form_ubah_status').submit(function(e) {
             e.preventDefault();

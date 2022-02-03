@@ -87,7 +87,7 @@ class JenisPekerjaanController extends Controller
         $tipe = EspkTipePekerjaan::find($id);
 
         return response()->json([
-            'tipes' => $tipe->tipe,
+            'tipe' => $tipe->tipe,
             'id' => $id
         ]);
     }
