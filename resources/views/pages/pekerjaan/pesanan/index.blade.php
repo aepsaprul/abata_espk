@@ -39,7 +39,7 @@
                     <div class="card">
                         <div class="card-header">
                             @if (Auth::user()->roles != "admin_espk")
-                                <button id="button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</button>
+                                <a href="{{ route('pekerjaan.create') }}" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</a>
                             @endif
                         </div>
                         <div class="card-body">

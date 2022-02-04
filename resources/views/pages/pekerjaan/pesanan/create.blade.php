@@ -16,182 +16,222 @@
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <form action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-                <h6 class="text-uppercase text-center">Tambah Pesanan</h6>
-                <div class="row mb-2">
-                    <div class="col-md-4">
-                        <a href="{{ url('pekerjaan') }}" class="mb-4 btn btn-outline-primary"><i class="fas fa-arrow-left"></i></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3 row">
-                            <label for="pelanggan" class="col-sm-4 col-form-label">Pelanggan</label>
-                            <div class="col-sm-8">
-                                <select class="form-select form-select-sm" name="pelanggan_id" required>
-                                    <option value="">--Pilih Pelanggan--</option>
-                                    @foreach ($pelanggans as $pelanggan)
-                                        <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="nama_pesanan" class="col-sm-4 col-form-label">Nama Pesanan</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="nama_pesanan" maxlength="50" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="nomor_nota" class="col-sm-4 col-form-label">No Nota</label>
-                            <div class="col-sm-8">
-                                <input type="number" class="form-control form-control-sm" name="nomor_nota" min="0" maxlength="11" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="tanggal_pesanan" class="col-sm-4 col-form-label">Tanggal Pesanan</label>
-                            <div class="col-sm-8">
-                                <input type="date" class="form-control form-control-sm" id="tanggal_pesanan" name="tanggal_pesanan" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="rencana_jadi" class="col-sm-4 col-form-label">Rencana Jadi</label>
-                            <div class="col-sm-8">
-                                <input type="date" class="form-control form-control-sm" id="rencana_jadi" name="rencana_jadi" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="jenis_pesanan" class="col-sm-4 col-form-label">Jenis Order</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_pesanan" maxlength="30" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jumlah" maxlength="30" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="ukuran" class="col-sm-4 col-form-label">Ukuran</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="ukuran" maxlength="100" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="jenis_kertas" class="col-sm-4 col-form-label">Jenis Kertas</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="jenis_kertas" maxlength="30" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="warna" class="col-sm-4 col-form-label">Warna Tinta</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="warna" maxlength="30" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="keterangan" class="col-sm-4 col-form-label">Keterangan</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" name="keterangan">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="penerima_pesanan" class="col-sm-4 col-form-label">Penerima Pesanan</label>
-                            <div class="col-sm-8">
-                                <select class="form-select form-select-sm" name="pegawai_penerima_pesanan_id" required>
-                                    @foreach ($penerima_pesanans as $penerima_pesanan)
-                                        <option value="{{ $penerima_pesanan->id }}">{{ $penerima_pesanan->nama_lengkap }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="pegawai_desain_id" class="col-sm-4 col-form-label">Desain</label>
-                            <div class="col-sm-8">
-                                <select class="form-select form-select-sm" name="pegawai_desain_id">
-                                    @foreach ($desains as $desain)
-                                        <option value="{{ $desain->id }}">{{ $desain->nama_lengkap }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="cabang_cetak_id" class="col-sm-4 col-form-label">Cetak</label>
-                            <div class="col-sm-8">
-                                <select class="form-select form-select-sm" name="cabang_cetak_id">
-                                    @foreach ($cabang_cetaks as $cabang_cetak)
-                                        <option value="{{ $cabang_cetak->id }}" {{ $cabang_cetak->id == Auth::user()->masterKaryawan->masterCabang->id ? 'hidden' : '' }}>{{ $cabang_cetak->nama_cabang }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="cabang_finishing_id" class="col-sm-4 col-form-label">Finishing</label>
-                            <div class="col-sm-8">
-                                <select class="form-select form-select-sm" name="cabang_finishing_id">
-                                    <option value="">--Tanpa Finishing--</option>
-                                    @foreach ($cabang_finishings as $cabang_finishing)
-                                        <option value="{{ $cabang_finishing->id }}">{{ $cabang_finishing->nama_cabang }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="desain" class="col-sm-4 col-form-label">File</label>
-                            <div class="col-sm-8">
-                                <input class="form-control form-control-sm @error('file') is-invalid @enderror" id="file" type="file" name="file" required>
-                                @error('file')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        @foreach ($tipe_pekerjaans as $tipe_pekerjaan)
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p>{{ $tipe_pekerjaan->tipe }}</p>
-                                        {{-- @if ($tipe_pekerjaan->tipe == "Cetak" )
-                                            @php $type = "radio"; @endphp
-                                        @else --}}
-                                            @php $type = "checkbox"; @endphp
-                                        {{-- @endif --}}
-                                    </div>
-                                    <div class="col-md-6">
-                                        @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}">
-                                                <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
-                                                    {{ $jenis_pekerjaan->jenis }}
-                                                </label>
-                                            </div>
-                                            <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button class="btn btn-primary" type="submit">Simpan</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Tambah Pesanan</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Tambah Pesanan</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Info boxes -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <div class="input-group">
+                                    <select name="cabang_id" id="cabang_id" class="form-control form-control-sm rounded-left">
+                                        <option value="0">--Pilih Cabang--</option>
+                                    </select>
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-primary btn-flat btn-sm rounded-right">Submit</button>
+                                    </span>
+                                  </div>
+                            </h3>
+                            <div class="card-tools mr-0">
+                                <a href="{{ route('pekerjaan.index') }}" class="btn bg-gradient-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                <form action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3 row">
+                                                <label for="pelanggan" class="col-sm-4 col-form-label">Pelanggan</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control form-control-sm" name="pelanggan_id" required>
+                                                        <option value="">--Pilih Pelanggan--</option>
+                                                        @foreach ($pelanggans as $pelanggan)
+                                                            <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="nama_pesanan" class="col-sm-4 col-form-label">Nama Pesanan</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control form-control-sm" name="nama_pesanan" maxlength="50" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="nomor_nota" class="col-sm-4 col-form-label">No Nota</label>
+                                                <div class="col-sm-8">
+                                                    <input type="number" class="form-control form-control-sm" name="nomor_nota" min="0" maxlength="11" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="tanggal_pesanan" class="col-sm-4 col-form-label">Tanggal Pesanan</label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" class="form-control form-control-sm" id="tanggal_pesanan" name="tanggal_pesanan" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="rencana_jadi" class="col-sm-4 col-form-label">Rencana Jadi</label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" class="form-control form-control-sm" id="rencana_jadi" name="rencana_jadi" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="jenis_pesanan" class="col-sm-4 col-form-label">Jenis Order</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control form-control-sm" name="jenis_pesanan" maxlength="30" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control form-control-sm" name="jumlah" maxlength="30" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="ukuran" class="col-sm-4 col-form-label">Ukuran</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control form-control-sm" name="ukuran" maxlength="100" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="jenis_kertas" class="col-sm-4 col-form-label">Jenis Kertas</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control form-control-sm" name="jenis_kertas" maxlength="30" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="warna" class="col-sm-4 col-form-label">Warna Tinta</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control form-control-sm" name="warna" maxlength="30" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="keterangan" class="col-sm-4 col-form-label">Keterangan</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control form-control-sm" name="keterangan">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="penerima_pesanan" class="col-sm-4 col-form-label">Penerima Pesanan</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control form-control-sm" name="pegawai_penerima_pesanan_id" required>
+                                                        @foreach ($penerima_pesanans as $penerima_pesanan)
+                                                            <option value="{{ $penerima_pesanan->id }}">{{ $penerima_pesanan->nama_lengkap }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="pegawai_desain_id" class="col-sm-4 col-form-label">Desain</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control form-control-sm" name="pegawai_desain_id">
+                                                        @foreach ($desains as $desain)
+                                                            <option value="{{ $desain->id }}">{{ $desain->nama_lengkap }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="cabang_cetak_id" class="col-sm-4 col-form-label">Cetak</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control form-control-sm" name="cabang_cetak_id">
+                                                        @foreach ($cabang_cetaks as $cabang_cetak)
+                                                            <option value="{{ $cabang_cetak->id }}" {{ $cabang_cetak->id == Auth::user()->masterKaryawan->masterCabang->id ? 'hidden' : '' }}>{{ $cabang_cetak->nama_cabang }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="cabang_finishing_id" class="col-sm-4 col-form-label">Finishing</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control form-control-sm" name="cabang_finishing_id">
+                                                        <option value="">--Tanpa Finishing--</option>
+                                                        @foreach ($cabang_finishings as $cabang_finishing)
+                                                            <option value="{{ $cabang_finishing->id }}">{{ $cabang_finishing->nama_cabang }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="desain" class="col-sm-4 col-form-label">File</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control form-control-sm @error('file') is-invalid @enderror" id="file" type="file" name="file" required>
+                                                    @error('file')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @foreach ($tipe_pekerjaans as $tipe_pekerjaan)
+                                            <div class="card mb-2">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p>{{ $tipe_pekerjaan->tipe }}</p>
+                                                            {{-- @if ($tipe_pekerjaan->tipe == "Cetak" )
+                                                                @php $type = "radio"; @endphp
+                                                            @else --}}
+                                                                @php $type = "checkbox"; @endphp
+                                                            {{-- @endif --}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}">
+                                                                    <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
+                                                                        {{ $jenis_pekerjaan->jenis }}
+                                                                    </label>
+                                                                </div>
+                                                                <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary" type="submit">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+<!-- /.content-wrapper -->
 
 @endsection
 

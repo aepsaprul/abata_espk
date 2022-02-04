@@ -49,7 +49,6 @@
                                     {{ $karyawan->nama_lengkap }}
                                 @endif
                             </h3>
-
                             <div class="card-tools mr-0">
                                 <a href="{{ route('user.index') }}" class="btn bg-gradient-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
                             </div>

@@ -1,242 +1,138 @@
 @extends('layouts.app')
 
 @section('style')
-<link href="{{ asset('lib/datatables/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
 
-<style>
-    .col-md-11 {
-        font-size: 12px;
-    }
-    .fas {
-        font-size: 14px;
-    }
-    .btn {
-        padding: .2rem .6rem;
-    }
-    table tr td,
-    table tr th{
-        border-bottom: none;
-    }
-    table {
-        border-bottom: 1px solid #000;
-    }
-    table .active {
-        background-color: rgb(227, 237, 245);
-    }
-</style>
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-11">
-            <h6 class="text-uppercase text-center">Data Pekerjaan</h6>
-            <div style="height: 50px;">
-            @if (session('status'))
-                <div class="text-success fst-italic">
-                    {{ session('status') }}
-                </div>
-            @endif
-            </div>
-
-            {{-- tabel pekerjaan  --}}
-            @if (!$pekerjaans->isEmpty())
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-th-list"></i> Daftar Pekerjaan
-                    </div>
-                    <div class="card-body">
-                        <table id="table_satu" class="table table-bordered" style="width:100%">
-                            <thead>
-                                <tr class="text-center text-light" style="background-color: #004da9;">
-                                    <th>No</th>
-                                    <th>Pemesan</th>
-                                    <th>Nama Pesanan</th>
-                                    <th>No Nota</th>
-                                    <th>Tanggal Order</th>
-                                    <th>Status</th>
-                                    <th>Tanggal Selesai</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pekerjaans as $key => $pekerjaan)
-                                <tr
-                                @if ($key % 2 == 1)
-                                   echo class="active";
-                                @endif
-                                >
-                                    <td class="text-center">{{ $key + 1 }}</td>
-                                    <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
-                                    <td>{{ $pekerjaan->nama_pesanan }}</td>
-                                    <td>{{ $pekerjaan->nomor_nota }}</td>
-                                    <td class="text-center">
-                                        @if ($pekerjaan->tanggal_disetujui)
-                                            @php
-                                                $tanggal_disetujui = explode(" ", $pekerjaan->tanggal_disetujui);
-                                            @endphp
-                                            {{ tgl_indo($tanggal_disetujui[0]) }}
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($pekerjaan->status_id != null)
-                                            {{ $pekerjaan->status->nama_status }}
-                                            @if ($pekerjaan->status_id == 6 || $pekerjaan->status_id == 7)
-                                                @php $hide = "d-none"; @endphp
-                                            @else
-                                                @php $hide = ""; @endphp
-                                            @endif
-                                        @else
-                                            -
-                                            @php $hide = ""; @endphp
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @php
-                                            $tanggal_selesai = explode(" ", $pekerjaan->tanggal_selesai);
-                                        @endphp
-                                        @if ($pekerjaan->tanggal_selesai != null)
-                                            {{ tgl_indo($tanggal_selesai[0]) }}
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Aksi">
-                                                <i class="fas fa-cog"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li class="border-bottom">
-                                                    @php $modul = explode('/', $pekerjaan->file); @endphp
-                                                    <a class="dropdown-item" href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}">Download</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"
-                                                        class="dropdown-item status {{ $hide }}"
-                                                        data-status="{{ $pekerjaan->status_id }}"
-                                                        data-pesanan="{{ $pekerjaan->nama_pesanan }}"
-                                                        data-id="{{ $pekerjaan->id }}">Status</a>
-                                                </li>
-                                            </ul>
-                                        </div> |
-                                        <a href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}"
-                                            class="border-0 text-dark mx-2"
-                                            title="Lihat"><i class="fas fa-eye"></i></a> |
-                                        <a href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}"
-                                            class="text-dark mx-2" title="Print"
-                                            target="_blank"><i class="fas fa-print"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @endif
-
-            {{-- tabel pesanan  --}}
-            @if (!$pesanans->isEmpty())
-                <div class="card mt-2">
-                    <div class="card-header">
-                        <i class="fas fa-th-list"></i> Daftar Pesanan
-                    </div>
-                    <div class="card-body">
-                        <table id="table_dua" class="table table-bordered" style="width:100%">
-                            <thead>
-                                <tr class="text-center text-light" style="background-color: #004da9;">
-                                    <th>No</th>
-                                    <th>Pelaksana</th>
-                                    <th>Nama Pekerjaan</th>
-                                    <th>No Nota</th>
-                                    <th>Tanggal Order</th>
-                                    <th>Status</th>
-                                    <th>Tanggal Disetujui</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pesanans as $key => $pesanan)
-                                <tr
-                                @if ($key % 2 == 1)
-                                   echo class="active";
-                                @endif
-                                >
-                                    <td class="text-center">{{ $key + 1 }}</td>
-                                    <td>{{ $pesanan->cabangPelaksana->nama_cabang }}</td>
-                                    <td>{{ $pesanan->nama_pesanan }}</td>
-                                    <td>{{ $pesanan->nomor_nota }}</td>
-                                    <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
-                                    <td>
-                                        @if ($pesanan->status_id != null)
-                                            {{ $pesanan->status->nama_status }}
-                                            @if ($pesanan->status_id != null && $pesanan->status_id != 9)
-                                                @php $hide = "d-none"; @endphp
-                                            @else
-                                                @php $hide = ""; @endphp
-                                            @endif
-                                        @else
-                                            -
-                                            @php $hide = ""; @endphp
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @php
-                                            $tanggal_disetujui = explode(" ", $pesanan->tanggal_disetujui);
-                                        @endphp
-                                        @if ($pesanan->tanggal_disetujui)
-                                            {{ tgl_indo($tanggal_disetujui[0]) }}
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button
-                                                type="button"
-                                                class="btn btn-default dropdown-toggle"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                                title="Aksi">
-                                                    <i class="fas fa-cog"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li class="border-bottom">
-                                                    @php $modul = explode('/', $pesanan->file); @endphp
-                                                    <a class="dropdown-item" href="{{ route('pekerjaan.download', [$pesanan->file]) }}">Download</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item status {{ $hide }}"
-                                                        href="#"
-                                                        data-status="{{ $pesanan->status_id }}"
-                                                        data-pesanan="{{ $pesanan->nama_pesanan }}"
-                                                        data-id="{{ $pesanan->id }}">
-                                                            Status
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div> |
-                                        <a href="{{ route('proses_pekerjaan.show', [$pesanan->id]) }}"
-                                            class="border-0 text-dark mx-2"
-                                            title="Lihat">
-                                            <i class="fas fa-eye"></i></a> |
-                                        <a href="{{ route('proses_pekerjaan.print', [$pesanan->id]) }}"
-                                            class="text-dark mx-2"
-                                            title="Print"
-                                            target="_blank"><i class="fas fa-print"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @endif
-        </div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Pekerjaan</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Pekerjaan</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Info boxes -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="table_satu" class="table table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">Pemesan</th>
+                                        <th class="text-center text-indigo">Nama Pesanan</th>
+                                        <th class="text-center text-indigo">No Nota</th>
+                                        <th class="text-center text-indigo">Tgl Order</th>
+                                        <th class="text-center text-indigo">Status</th>
+                                        <th class="text-center text-indigo">Tgl Selesai</th>
+                                        <th class="text-center text-indigo">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pekerjaans as $key => $pekerjaan)
+                                    <tr
+                                    @if ($key % 2 == 1)
+                                    echo class="active";
+                                    @endif
+                                    >
+                                        <td class="text-center">{{ $key + 1 }}</td>
+                                        <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
+                                        <td>{{ $pekerjaan->nama_pesanan }}</td>
+                                        <td>{{ $pekerjaan->nomor_nota }}</td>
+                                        <td class="text-center">
+                                            @if ($pekerjaan->tanggal_disetujui)
+                                                @php
+                                                    $tanggal_disetujui = explode(" ", $pekerjaan->tanggal_disetujui);
+                                                @endphp
+                                                {{ tgl_indo($tanggal_disetujui[0]) }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($pekerjaan->status_id != null)
+                                                {{ $pekerjaan->status->nama_status }}
+                                                @if ($pekerjaan->status_id == 6 || $pekerjaan->status_id == 7)
+                                                    @php $hide = "d-none"; @endphp
+                                                @else
+                                                    @php $hide = ""; @endphp
+                                                @endif
+                                            @else
+                                                -
+                                                @php $hide = ""; @endphp
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @php
+                                                $tanggal_selesai = explode(" ", $pekerjaan->tanggal_selesai);
+                                            @endphp
+                                            @if ($pekerjaan->tanggal_selesai != null)
+                                                {{ tgl_indo($tanggal_selesai[0]) }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Aksi">
+                                                    <i class="fas fa-cog"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li class="border-bottom">
+                                                        @php $modul = explode('/', $pekerjaan->file); @endphp
+                                                        <a class="dropdown-item" href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}">Download</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#"
+                                                            class="dropdown-item status {{ $hide }}"
+                                                            data-status="{{ $pekerjaan->status_id }}"
+                                                            data-pesanan="{{ $pekerjaan->nama_pesanan }}"
+                                                            data-id="{{ $pekerjaan->id }}">Status</a>
+                                                    </li>
+                                                </ul>
+                                            </div> |
+                                            <a href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}"
+                                                class="border-0 text-dark mx-2"
+                                                title="Lihat"><i class="fas fa-eye"></i></a> |
+                                            <a href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}"
+                                                class="text-dark mx-2" title="Print"
+                                                target="_blank"><i class="fas fa-print"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+<!-- /.content-wrapper -->
 
 {{-- modal create  --}}
 <div class="modal fade" tabindex="-1" id="modal_ubah_status">
