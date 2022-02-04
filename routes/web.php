@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CabangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\JenisPekerjaanController;
@@ -58,6 +59,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('admin/user/{id}/access', [UserController::class, 'access'])->name('user.access');
         Route::put('admin/user/{id}/access_save', [UserController::class, 'accessSave'])->name('user.access_save');
         Route::post('admin/user/sync', [UserController::class, 'sync'])->name('user.sync');
+
+        // cabang
+        Route::get('admin/cabang', [CabangController::class, 'index'])->name('cabang.index');
+        Route::get('admin/cabang/create', [CabangController::class, 'create'])->name('cabang.create');
+        Route::post('admin/cabang/store', [CabangController::class, 'store'])->name('cabang.store');
+        Route::get('admin/cabang/{id}/edit', [CabangController::class, 'edit'])->name('cabang.edit');
+        Route::put('admin/cabang/{id}/update', [CabangController::class, 'update'])->name('cabang.update');
+        Route::post('admin/cabang/delete', [CabangController::class, 'delete'])->name('cabang.delete');
 
     // data primer
         // pelanggan

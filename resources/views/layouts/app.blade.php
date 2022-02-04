@@ -145,6 +145,11 @@
                                             <i class="far fa-circle nav-icon"></i><p>User</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('cabang.index') }}" class="nav-link {{ request()->is('admin/cabang') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i><p>Cabang</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item {{ request()->is('data_primer/*') ? 'menu-open' : '' }}">
