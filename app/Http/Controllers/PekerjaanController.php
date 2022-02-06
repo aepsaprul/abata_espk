@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EspkCabang;
 use App\Models\EspkJenisPekerjaan;
 use App\Models\EspkPekerjaan;
 use App\Models\EspkPekerjaanProses;
@@ -37,7 +38,10 @@ class PekerjaanController extends Controller
      */
     public function create()
     {
-        $pelanggan = EspkPelanggan::get();
+        $cabang = EspkCabang::where('cabang_id', '!=', Auth::user()->masterKaryawan->masterCabang->id)->get();
+
+        $pelanggan = EspkPelanggan::where('cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->limit(500)->get();
+
         $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23', '35'])->get();
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
         $cabang_cetak = MasterCabang::where('id', 7)->get();
@@ -49,6 +53,7 @@ class PekerjaanController extends Controller
         $tipe_pekerjaan = EspkTipePekerjaan::get();
 
         return view('pages.pekerjaan.pesanan.create', [
+            'cabangs' => $cabang,
             'pelanggans' => $pelanggan,
             'cabang_cetaks' => $cabang_cetak,
             'cabang_finishings' => $cabang_finishing,

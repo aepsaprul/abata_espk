@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="{{ asset('themes/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('themes/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('themes/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
 @endsection
 
@@ -105,6 +108,7 @@
                                                         <th class="text-center text-indigo">No</th>
                                                         <th class="text-center text-indigo">Jenis Pekerjaan</th>
                                                         <th class="text-center text-indigo">Tipe Pekerjaan</th>
+                                                        <th class="text-center text-indigo">Group</th>
                                                         <th class="text-center text-indigo">Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -114,6 +118,18 @@
                                                         <td class="text-center">{{ $key + 1 }}</td>
                                                         <td>{{ $jenis->jenis }}</td>
                                                         <td>{{ $jenis->tipePekerjaan->tipe }}</td>
+                                                        <td>
+                                                            @php
+                                                                $a = json_decode($jenis->cetak)
+                                                            @endphp
+                                                            @foreach ($a as $key => $item)
+                                                            @if ($key > 0)
+                                                                {{ ", " . $item }}
+                                                            @else
+                                                                {{ $item }}
+                                                            @endif
+                                                            @endforeach
+                                                        </td>
                                                         <td class="text-center">
                                                             <div class="btn-group">
                                                                 <a
@@ -297,6 +313,14 @@
 
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="jenis_create_cetak">Cetak</label>
+                        <div class="select2-primary">
+                            <select id="jenis_create_cetak" name="jenis_create_cetak" class="select2" multiple="multiple" data-placeholder="Select cetak" data-dropdown-css-class="select2-primary" style="width: 100%;">
+
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary jenis-btn-create-spinner" disabled style="width: 120px; display: none;">
@@ -333,7 +357,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="jenis_edit_jenis" class="form-label">Title</label>
+                        <label for="jenis_edit_jenis" class="form-label">Jenis Pekerjaan</label>
                         <input
                             type="text"
                             class="form-control form-control-sm"
@@ -343,10 +367,18 @@
                             required>
                     </div>
                     <div class="mb-3">
-                        <label for="jenis_edit_tipe_pekerjaan_id" class="form-label">Navigasi Utama</label>
+                        <label for="jenis_edit_tipe_pekerjaan_id" class="form-label">Tipe Pekerjaan</label>
                         <select class="form-control form-control-sm" name="jenis_edit_tipe_pekerjaan_id" id="jenis_edit_tipe_pekerjaan_id">
 
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenis_edit_cetak">Cetak</label>
+                        <div class="select2-primary">
+                            <select id="jenis_edit_cetak" name="jenis_edit_cetak[]" class="select2" multiple="multiple" data-placeholder="Select cetak" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                <option value="digital_print" selected>p</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -403,6 +435,13 @@
 <script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('themes/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('themes/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('themes/dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('themes/dist/js/demo.js') }}"></script>
+<!-- Page specific script -->
 
 <script>
     $(function () {
@@ -413,6 +452,8 @@
 
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        $('.select2').select2()
 
         var Toast = Swal.mixin({
             toast: true,
@@ -601,18 +642,24 @@
         // jenis create
         $('#jenis-button-create').on('click', function() {
             $('#jenis_create_tipe_pekerjaan_id').empty();
+            $('#jenis_create_cetak').empty();
 
             $.ajax({
                 url: '{{ URL::route('jenis_pekerjaan.create') }}',
                 type: 'GET',
                 success: function(response) {
-                    var tipe_value = "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
+                    var value_tipe = "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
 
                     $.each(response.tipes, function(index, value) {
-                        tipe_value += "<option value=\"" + value.id + "\">" + value.tipe + "</option>";
+                        value_tipe += "<option value=\"" + value.id + "\">" + value.tipe + "</option>";
                     });
+                    $('#jenis_create_tipe_pekerjaan_id').append(value_tipe);
 
-                    $('#jenis_create_tipe_pekerjaan_id').append(tipe_value);
+                    var value_cetak = "" +
+                            "<option value=\"digital_print\">digital_print</option>" +
+                            "<option value=\"offset\">offset</option>";
+                    $('#jenis_create_cetak').append(value_cetak);
+
                     $('.jenis-modal-create').modal('show');
                 }
             });
@@ -628,6 +675,7 @@
             var formData = {
                 jenis: $('#jenis_create_jenis').val(),
                 tipe_pekerjaan_id: $('#jenis_create_tipe_pekerjaan_id').val(),
+                cetak: $('#jenis_create_cetak').val(),
                 button: "jenis_btn_store",
                 _token: CSRF_TOKEN
             }
@@ -665,6 +713,7 @@
         $('body').on('click', '.jenis-btn-edit', function(e) {
             e.preventDefault();
             $('#jenis_edit_tipe_pekerjaan_id').empty();
+            $('#jenis_edit_cetak').empty();
 
             var id = $(this).attr('data-id');
             var url = '{{ route("jenis_pekerjaan.edit.jenis", ":id") }}';
@@ -683,19 +732,39 @@
                     $('#jenis_edit_id').val(response.id);
                     $('#jenis_edit_jenis').val(response.jenis);
 
-                    var tipe_value = "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
+
+                    var value_tipe = "<option value=\"\">--Pilih Tipe Pekerjaan--</option>";
 
                     $.each(response.tipes, function(index, value) {
-                        tipe_value += "<option value=\"" + value.id + "\"";
+                        value_tipe += "<option value=\"" + value.id + "\"";
 
                         if (value.id == response.tipe_pekerjaan_id) {
-                            tipe_value += "selected";
+                            value_tipe += "selected";
                         }
 
-                        tipe_value += ">" + value.tipe + "</option>";
+                        value_tipe += ">" + value.tipe + "</option>";
                     });
+                    $('#jenis_edit_tipe_pekerjaan_id').append(value_tipe);
 
-                    $('#jenis_edit_tipe_pekerjaan_id').append(tipe_value);
+                    //cetak
+                    const json_cetak = JSON.parse(response.cetak);
+                    var digital_print = Object.values(json_cetak).filter(item => item == 'digital_print');
+                    var offset = Object.values(json_cetak).filter(item => item == 'offset');
+                    // console.log(typeof evens); // [2, 4]
+
+                    var value_cetak = "" +
+                            "<option value=\"digital_print\"";
+                            if (digital_print != '') {
+                                value_cetak += " selected";
+                            }
+                            value_cetak += ">digital_print</option>" +
+                            "<option value=\"offset\"";
+                            if (offset != '') {
+                                value_cetak += " selected";
+                            }
+                            value_cetak += ">offset</option>";
+                    $('#jenis_edit_cetak').append(value_cetak);
+
                     $('.jenis-modal-edit').modal('show');
                 }
             })
@@ -712,6 +781,7 @@
                 id: $('#jenis_edit_id').val(),
                 jenis: $('#jenis_edit_jenis').val(),
                 tipe_pekerjaan_id: $('#jenis_edit_tipe_pekerjaan_id').val(),
+                cetak: $('#jenis_edit_cetak').val(),
                 button: "jenis_btn_update",
                 _token: CSRF_TOKEN
             }

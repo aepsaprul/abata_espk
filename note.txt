@@ -1,9 +1,17 @@
 E-SPK Versi 2.0.0
 -----------------------------------------------------------------------------------------------------
-administrator espk
+*administrator espk
 
 - nama = Admin Espk
 - email = admin_espk@gmail.com
 - pass = 4dm1nE5pk
 - roles = admin_espk
 - master_karyawan_id = 0
+
+*form pemesanan
+- data ceklist disimpan di tabel espk_pekerjaan_proses
+
+*tabel pekerjaan proses
+- field jenis_pekerjaan_id relasi dari tabel espk_jenis_pekerjaans
+- field pekerjaan_id relasi dari tabel espk_pekerjaans
+

@@ -53,6 +53,7 @@ class JenisPekerjaanController extends Controller
             $jenis = new EspkJenisPekerjaan();
             $jenis->jenis = $request->jenis;
             $jenis->tipe_pekerjaan_id = $request->tipe_pekerjaan_id;
+            $jenis->cetak = json_encode($request->cetak);
             $jenis->save();
 
             $response = "Jenis pekerjaan berhasil ditambah";
@@ -101,6 +102,7 @@ class JenisPekerjaanController extends Controller
             'id' => $id,
             'jenis' => $jenis->jenis,
             'tipe_pekerjaan_id' => $jenis->tipe_pekerjaan_id,
+            'cetak' => $jenis->cetak,
             'tipes' => $tipe
         ]);
     }
@@ -124,6 +126,7 @@ class JenisPekerjaanController extends Controller
             $jenis = EspkJenisPekerjaan::find($id);
             $jenis->jenis = $request->jenis;
             $jenis->tipe_pekerjaan_id = $request->tipe_pekerjaan_id;
+            $jenis->cetak = json_encode($request->cetak);
             $jenis->save();
 
             $response = "Jenis pekerjaan berhasil diperbaharui";
