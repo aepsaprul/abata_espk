@@ -39,7 +39,7 @@
                     <div class="card">
                         <div class="card-header">
                             @if (Auth::user()->roles != "admin_espk")
-                                <a href="{{ route('pekerjaan.create') }}" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</a>
+                                <button type="button" id="btn-create" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</button>
                             @endif
                         </div>
                         <div class="card-body">
@@ -183,6 +183,43 @@
     </div>
 </div>
 
+{{-- modal tambah  --}}
+<div class="modal fade modal-tambah" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="form_tambah">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Pemesanan</h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="create_cabang_id" class="form-label">Nama Cabang</label>
+                        <select name="create_cabang_id" id="create_cabang_id" class="form-control form-control-sm">
+                            <option value="0">--Pilih Cabang--</option>
+                            @foreach ($cabangs as $item)
+                                <option value="{{ $item->id }}">{{ $item->masterCabang->nama_cabang }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-create-spinner" disabled style="width: 130px; display: none;">
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-create-save" style="width: 130px;"><i class="fa fa-save"></i> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')
@@ -210,6 +247,20 @@
 
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        $('#btn-create').on('click', function () {
+            $('.modal-tambah').modal('show');
+        });
+
+        $('#form_tambah').submit(function (e) {
+            e.preventDefault();
+
+            var id = $('#create_cabang_id').val();
+            var url = '{{ route("pekerjaan.create", ":id") }}';
+            url = url.replace(':id', id );
+
+            window.location.href = url;
+        })
 
         $('body').on('click', '.publish', function() {
             var id = $(this).attr('data-id');

@@ -13,19 +13,24 @@ class ProsesPekerjaanController extends Controller
 {
     public function index()
     {
-        $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
-        ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
-        ->whereNotNull('status_id')
-        ->whereNotIn('status_id', [2,8,9])
-        ->orderBy('id', 'desc')
-        ->get();
+        if (Auth::user()->master_karyawan_id) {
+            $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+            ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
+            ->whereNotNull('status_id')
+            ->whereNotIn('status_id', [2,8,9])
+            ->orderBy('id', 'desc')
+            ->get();
 
-        $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
-        ->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
-        ->orderBy('id', 'desc')
-        ->get();
+            $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+            ->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
+            ->orderBy('id', 'desc')
+            ->get();
 
-        return view('pages.pekerjaan.proses_pekerjaan.index', ['pekerjaans' => $pekerjaan, 'pesanans' => $pesanan]);
+            return view('pages.pekerjaan.proses_pekerjaan.index', ['pekerjaans' => $pekerjaan, 'pesanans' => $pesanan]);
+        } else {
+            return view('error404');
+        }
+
     }
 
     public function editStatus($id)

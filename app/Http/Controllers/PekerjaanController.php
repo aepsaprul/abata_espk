@@ -24,11 +24,17 @@ class PekerjaanController extends Controller
      */
     public function index()
     {
-        $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
-            ->orderBy('id', 'desc')
-            ->get();
+        if (Auth::user()->master_karyawan_id) {
+            $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
+                ->orderBy('id', 'desc')
+                ->get();
 
-        return view('pages.pekerjaan.pesanan.index', ['pesanans' => $pekerjaan]);
+            $cabang = EspkCabang::where('cabang_id', '!=', Auth::user()->masterKaryawan->masterCabang->id)->get();
+
+            return view('pages.pekerjaan.pesanan.index', ['pesanans' => $pekerjaan, 'cabangs' => $cabang]);
+        } else {
+            return view('error404');
+        }
     }
 
     /**
@@ -36,9 +42,9 @@ class PekerjaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $cabang = EspkCabang::where('cabang_id', '!=', Auth::user()->masterKaryawan->masterCabang->id)->get();
+        $cabang = EspkCabang::where('id', $id)->first();
 
         $pelanggan = EspkPelanggan::where('cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->limit(500)->get();
 
@@ -49,15 +55,21 @@ class PekerjaanController extends Controller
         $cabang_id = Auth::user()->masterKaryawan->masterCabang->id;
         $cabang_finishing = MasterCabang::whereIn('id', [$cabang_id, '7'])->get();
 
-        $jenis_pekerjaan = EspkJenisPekerjaan::with('tipePekerjaan')->get();
+        $jenis_pekerjaan = EspkJenisPekerjaan::with('tipePekerjaan')
+            ->where('cetak', 'like', '%'. $cabang->form_group . '%')
+            ->get();
+        $jenis_pekerjaan_group = EspkJenisPekerjaan::select('tipe_pekerjaan_id')
+            ->groupBy('tipe_pekerjaan_id')
+            ->get();
         $tipe_pekerjaan = EspkTipePekerjaan::get();
 
         return view('pages.pekerjaan.pesanan.create', [
-            'cabangs' => $cabang,
+            'cabang' => $cabang,
             'pelanggans' => $pelanggan,
             'cabang_cetaks' => $cabang_cetak,
             'cabang_finishings' => $cabang_finishing,
             'jenis_pekerjaans' => $jenis_pekerjaan,
+            'jenis_pekerjaan_groups' => $jenis_pekerjaan_group,
             'tipe_pekerjaans' => $tipe_pekerjaan,
             'penerima_pesanans' => $penerima_pesanan,
             'desains' => $desain

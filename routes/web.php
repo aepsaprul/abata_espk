@@ -86,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
     // data pekerjaan
         // pesanan
         Route::resource('data_pekerjaan/pekerjaan', PekerjaanController::class);
+        Route::get('data_pekerjaan/pekerjaan/{id}/create', [PekerjaanController::class, 'create'])->name('pekerjaan.create');
         Route::get('data_pekerjaan/pekerjaan/{id}/show', [PekerjaanController::class, 'show'])->name('pekerjaan.show');
         Route::get('data_pekerjaan/pekerjaan/{file}/download', [PekerjaanController::class, 'download'])->name('pekerjaan.download');
         Route::post('data_pekerjaan/pekerjaan/publish', [PekerjaanController::class, 'publish'])->name('pekerjaan.publish');

@@ -38,14 +38,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <div class="input-group">
-                                    <select name="cabang_id" id="cabang_id" class="form-control form-control-sm rounded-left">
-                                        <option value="0">--Pilih Cabang Pelaksana--</option>
-                                        @foreach ($cabangs as $item)
-                                            <option value="{{ $item->id }}" data="{{ $item->form_group }}">{{ $item->masterCabang->nama_cabang }}</option>
-                                        @endforeach
-                                    </select>
-                                  </div>
+                                {{ $cabang->masterCabang->nama_cabang }}
                             </h3>
                             <div class="card-tools mr-0">
                                 <a href="{{ route('pekerjaan.index') }}" class="btn bg-gradient-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
@@ -54,7 +47,7 @@
                         <div class="card-body">
                             <div class="col-md-12">
                                 {{-- offset --}}
-                                <form id="form-offset" action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data" style="display: none;">
+                                <form id="form-offset" action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
@@ -181,12 +174,12 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            @foreach ($tipe_pekerjaans as $tipe_pekerjaan)
+                                            @foreach ($jenis_pekerjaan_groups as $jenis_pekerjaan_group)
                                             <div class="card mb-2">
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <p>{{ $tipe_pekerjaan->tipe }}</p>
+                                                            <p>{{ $jenis_pekerjaan_group->tipePekerjaan->tipe }}</p>
                                                             {{-- @if ($tipe_pekerjaan->tipe == "Cetak" )
                                                                 @php $type = "radio"; @endphp
                                                             @else --}}
@@ -194,14 +187,16 @@
                                                             {{-- @endif --}}
                                                         </div>
                                                         <div class="col-md-6">
-                                                            @foreach ($tipe_pekerjaan->jenisPekerjaan as $jenis_pekerjaan)
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}">
-                                                                    <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
-                                                                        {{ $jenis_pekerjaan->jenis }}
-                                                                    </label>
-                                                                </div>
-                                                                <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
+                                                            @foreach ($jenis_pekerjaans as $jenis_pekerjaan)
+                                                                @if ($jenis_pekerjaan->tipe_pekerjaan_id == $jenis_pekerjaan_group->tipe_pekerjaan_id)
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="{{ $type }}" data-id="{{ $jenis_pekerjaan->id }}" id="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_id[]" style="padding: 10px; margin-right: 10px;" value="{{ $jenis_pekerjaan->id }}">
+                                                                        <label class="form-check-label" for="jenis_pekerjaan_{{ $jenis_pekerjaan->id }}">
+                                                                            {{ $jenis_pekerjaan->jenis }}
+                                                                        </label>
+                                                                    </div>
+                                                                    <input type="text" id="jenis_pekerjaan_keterangan_{{ $type }}" class="form-control form-control-sm mt-1 mb-2 jenis_pekerjaan_keterangan_{{ $jenis_pekerjaan->id }}" name="jenis_pekerjaan_keterangan[]">
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
@@ -219,7 +214,7 @@
                                 </form>
 
                                 {{-- digital print --}}
-                                <form id="form-digital-print" action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data" style="display: none;">
+                                <form id="form-digital-print" action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
@@ -372,6 +367,124 @@
                                         </div>
                                     </div>
                                 </form>
+
+                                {{-- digital print --}}
+                                <form id="form-digital-print" action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="pelanggan_id">Pelanggan</label>
+                                                <select name="pelanggan_id" id="pelanggan_id" class="form-control form-control-sm">
+                                                    <option value="0">--Pilih Pelanggan--</option>
+                                                    @foreach ($pelanggans as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="nama_pesanan">Nama Pesanan</label>
+                                                <input type="text" id="nama_pesanan" name="nama_pesanan" class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="nomor_nota">Nomor Nota</label>
+                                                <input type="text" id="nomor_nota" name="nomor_nota" class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="tanggal_pesanan">Tanggal Pesanan</label>
+                                                <input type="date" id="tanggal_pesanan" name="tanggal_pesanan" class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="rencana_jadi">Rencana Jadi</label>
+                                                <input type="text" id="rencana_jadi" name="rencana_jadi" class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="jenis_pesanan">Jenis Produk</label>
+                                                <input type="text" id="jenis_pesanan" name="jenis_pesanan" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="jumlah_cetak">Jumlah Cetak</label>
+                                                <input type="text" id="jumlah_cetak" name="jumlah_cetak" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="ukuran">Ukuran</label>
+                                                <input type="text" id="ukuran" name="ukuran" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="catatan_kasir">Catatan Kasir</label>
+                                                <input type="text" id="catatan_kasir" name="catatan_kasir" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="catatan_produksi">Catatan Produksi</label>
+                                                <input type="text" id="catatan_produksi" name="catatan_produksi" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="keterangan">Keterangan</label>
+                                                <input type="text" id="keterangan" name="keterangan" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="pegawai_penerima_pesanan_id">Penerima Pesanan</label>
+                                                <select class="form-control form-control-sm" name="pegawai_penerima_pesanan_id" required>
+                                                    @foreach ($penerima_pesanans as $penerima_pesanan)
+                                                        <option value="{{ $penerima_pesanan->id }}">{{ $penerima_pesanan->nama_lengkap }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="pegawai_desain_id">Desain</label>
+                                                <select class="form-control form-control-sm" name="pegawai_desain_id">
+                                                    @foreach ($desains as $desain)
+                                                        <option value="{{ $desain->id }}">{{ $desain->nama_lengkap }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="cabang_finishing_id" class="col-sm-4 col-form-label">Finishing</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control form-control-sm" name="cabang_finishing_id">
+                                                    <option value="">--Tanpa Finishing--</option>
+                                                    @foreach ($cabang_finishings as $cabang_finishing)
+                                                        <option value="{{ $cabang_finishing->id }}">{{ $cabang_finishing->nama_cabang }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="desain" class="col-sm-4 col-form-label">File</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control form-control-sm @error('file') is-invalid @enderror" id="file" type="file" name="file" required>
+                                                @error('file')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -410,24 +523,6 @@
     });
 
     $(document).ready(function() {
-        $('#cabang_id').on('change', function (e) {
-            e.preventDefault();
-
-            if ($('#cabang_id option:selected').attr('data') == "offset") {
-                $('#form-offset').fadeOut(100, function(){
-                    $('#form-offset').fadeIn();
-                });
-                $('#form-digital-print').css('display', 'none');
-            } else if($('#cabang_id option:selected').attr('data') == "digital_print") {
-                $('#form-digital-print').fadeOut(100, function(){
-                    $('#form-digital-print').fadeIn();
-                });
-                $('#form-offset').css('display', 'none');
-            } else {
-                $('#form-digital-print').css('display', 'none');
-                $('#form-offset').css('display', 'none');
-            }
-        });
 
         $('.select2-pelanggan').select2();
 
