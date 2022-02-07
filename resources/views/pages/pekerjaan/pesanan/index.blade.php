@@ -199,7 +199,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="create_cabang_id" class="form-label">Nama Cabang</label>
+                        <label for="create_cabang_id" class="form-label">Nama Cabang Pelaksana</label>
                         <select name="create_cabang_id" id="create_cabang_id" class="form-control form-control-sm">
                             <option value="0">--Pilih Cabang--</option>
                             @foreach ($cabangs as $item)

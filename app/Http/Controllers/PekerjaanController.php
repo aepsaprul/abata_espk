@@ -49,19 +49,22 @@ class PekerjaanController extends Controller
         $pelanggan = EspkPelanggan::where('cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->limit(500)->get();
 
         $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23', '35'])->get();
-        $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
-        $cabang_cetak = MasterCabang::where('id', 7)->get();
 
-        $cabang_id = Auth::user()->masterKaryawan->masterCabang->id;
-        $cabang_finishing = MasterCabang::whereIn('id', [$cabang_id, '7'])->get();
+        $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
+
+        // $cabang_cetak = MasterCabang::whereIn('id', [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
+        $cabang_cetak = MasterCabang::where('id',  $cabang->cabang_id)->get();
+
+        $cabang_finishing = MasterCabang::whereIn('id', [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
 
         $jenis_pekerjaan = EspkJenisPekerjaan::with('tipePekerjaan')
             ->where('cetak', 'like', '%'. $cabang->form_group . '%')
             ->get();
+
         $jenis_pekerjaan_group = EspkJenisPekerjaan::select('tipe_pekerjaan_id')
             ->groupBy('tipe_pekerjaan_id')
             ->get();
-        $tipe_pekerjaan = EspkTipePekerjaan::get();
+        // $tipe_pekerjaan = EspkTipePekerjaan::get();
 
         return view('pages.pekerjaan.pesanan.create', [
             'cabang' => $cabang,
@@ -70,7 +73,7 @@ class PekerjaanController extends Controller
             'cabang_finishings' => $cabang_finishing,
             'jenis_pekerjaans' => $jenis_pekerjaan,
             'jenis_pekerjaan_groups' => $jenis_pekerjaan_group,
-            'tipe_pekerjaans' => $tipe_pekerjaan,
+            // 'tipe_pekerjaans' => $tipe_pekerjaan,
             'penerima_pesanans' => $penerima_pesanan,
             'desains' => $desain
         ]);
@@ -101,7 +104,7 @@ class PekerjaanController extends Controller
         $pekerjaan->tanggal_pesanan = $request->tanggal_pesanan;
         $pekerjaan->rencana_jadi = $request->rencana_jadi;
         $pekerjaan->jenis_pesanan = $request->jenis_pesanan;
-        $pekerjaan->jumlah = $request->jumlah;
+        $pekerjaan->jumlah = $request->jumlah_cetak;
         $pekerjaan->ukuran = $request->ukuran;
         $pekerjaan->jenis_kertas = $request->jenis_kertas;
         $pekerjaan->warna = $request->warna;
@@ -142,18 +145,24 @@ class PekerjaanController extends Controller
     public function show($id)
     {
         $pekerjaan = EspkPekerjaan::find($id);
+
         $tipe_pekerjaan = EspkTipePekerjaan::with([
-            'jenisPekerjaan',
-            'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
-                $query->where('pekerjaan_id', $id);
-            }
-        ])->get();
+                'jenisPekerjaan',
+                'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
+                    $query->where('pekerjaan_id', $id);
+                }
+            ])
+            ->get();
+
         $status_pekerjaan = EspkStatusPekerjaan::where('pekerjaan_id', $id)->get();
+
+        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
 
         return view('pages.pekerjaan.pesanan.show', [
             'pekerjaan' => $pekerjaan,
             'tipe_pekerjaans' => $tipe_pekerjaan,
-            'status_pekerjaans' => $status_pekerjaan
+            'status_pekerjaans' => $status_pekerjaan,
+            'cabang' => $cabang
         ]);
     }
 
@@ -166,23 +175,36 @@ class PekerjaanController extends Controller
     public function edit($id)
     {
         $pekerjaan = EspkPekerjaan::find($id);
-        $pelanggan = EspkPelanggan::get();
-        $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23'])->get();
+
+        $pelanggan = EspkPelanggan::where('cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->get();
+
+        $penerima_pesanan = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->whereIn('master_jabatan_id', ['21', '22', '23', '35'])->get();
+
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
-        $cabang_cetak = MasterCabang::get();
-        $cabang_finishing = MasterCabang::get();
-        $jenis_pekerjaan = EspkJenisPekerjaan::with([
-            'tipePekerjaan',
-            'pekerjaanProses' => function ($query) use ($id) {
-                $query->where('pekerjaan_id', $id);
-            }
-        ])->get();
+
+        $cabang_cetak = EspkCabang::get();
+
+        $cabang_finishing = EspkCabang::get();
+
+        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        $cabang_group = $cabang->form_group;
+
+        // $jenis_pekerjaan = EspkJenisPekerjaan::with([
+        //     'tipePekerjaan',
+        //     'pekerjaanProses' => function ($query) use ($id) {
+        //         $query->where('pekerjaan_id', $id);
+        //     }
+        // ])->get();
+
         $tipe_pekerjaan = EspkTipePekerjaan::with([
-            'jenisPekerjaan',
+            'jenisPekerjaan' => function ($query) use ($cabang_group) {
+                $query->where('cetak', 'like', '%'. $cabang_group . '%');
+            },
             'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
                 $query->where('pekerjaan_id', $id);
             }
         ])->get();
+
         // $pekerjaan_proses = EspkPekerjaanProses::where('pekerjaan_id', $id)->get();
         $pekerjaan_proses = EspkPekerjaanProses::where('pekerjaan_id', $id)->get();
 
@@ -191,11 +213,11 @@ class PekerjaanController extends Controller
             'pelanggans' => $pelanggan,
             'cabang_cetaks' => $cabang_cetak,
             'cabang_finishings' => $cabang_finishing,
-            'jenis_pekerjaans' => $jenis_pekerjaan,
             'tipe_pekerjaans' => $tipe_pekerjaan,
             'penerima_pesanans' => $penerima_pesanan,
             'desains' => $desain,
-            'pekerjaan_proses' => $pekerjaan_proses
+            'pekerjaan_proses' => $pekerjaan_proses,
+            'cabang' => $cabang
         ]);
     }
 

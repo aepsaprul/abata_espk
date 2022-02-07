@@ -15,7 +15,7 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $pelanggan = EspkPelanggan::get();
+        $pelanggan = EspkPelanggan::where('cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->get();
 
         return view('pages.data-primer.pelanggan.index', ['pelanggans' => $pelanggan]);
     }

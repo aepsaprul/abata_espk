@@ -23,7 +23,8 @@ class UserController extends Controller
 
     public function create()
     {
-        $karyawan = MasterKaryawan::where('status', 'Aktif')
+        $karyawan = MasterKaryawan::with('masterCabang')
+            ->where('status', 'Aktif')
             ->doesntHave('navAccess')
             ->get();
 

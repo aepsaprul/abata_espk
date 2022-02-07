@@ -280,8 +280,9 @@
                 type: 'GET',
                 success: function (response) {
                     var value_karyawan = "<option value=\"0\">--Pilih Karyawan--</option>";
+
                     $.each(response.karyawans, function (index, item) {
-                        value_karyawan += "<option value=\"" + item.id + "\">" + item.nama_lengkap + "</option>";
+                        value_karyawan += "<option value=\"" + item.id + "\">" + item.nama_lengkap + " - " + item.master_cabang.nama_cabang + "</option>";
                     });
                     $('#create_karyawan_id').append(value_karyawan);
 
