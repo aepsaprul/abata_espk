@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EspkCabang;
 use App\Models\EspkPekerjaan;
 use App\Models\EspkPekerjaanProses;
 use App\Models\EspkStatusPekerjaan;
@@ -72,18 +73,23 @@ class ProsesPekerjaanController extends Controller
     public function show($id)
     {
         $pekerjaan = EspkPekerjaan::find($id);
+
         $tipe_pekerjaan = EspkTipePekerjaan::with([
             'jenisPekerjaan',
             'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
                 $query->where('pekerjaan_id', $id);
             }
         ])->get();
+
         $status_pekerjaan = EspkStatusPekerjaan::where('pekerjaan_id', $id)->get();
+
+        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
 
         return view('pages.pekerjaan.proses_pekerjaan.show', [
             'pekerjaan' => $pekerjaan,
             'tipe_pekerjaans' => $tipe_pekerjaan,
-            'status_pekerjaans' => $status_pekerjaan
+            'status_pekerjaans' => $status_pekerjaan,
+            'cabang' => $cabang
         ]);
     }
 

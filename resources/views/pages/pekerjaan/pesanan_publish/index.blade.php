@@ -37,11 +37,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            @if (Auth::user()->roles != "admin_espk")
-                                <button id="button-create" type="button" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</button>
-                            @endif
-                        </div>
                         <div class="card-body">
                             <table id="table_satu" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
@@ -101,26 +96,26 @@
                                                     @php $modul = explode('/', $pesanan->file); @endphp
                                                     <a
                                                         href="{{ route('pekerjaan.download', [$pesanan->file]) }}"
-                                                        class="dropdown-item border-bottom">
+                                                        class="dropdown-item border-bottom text-indigo">
                                                             <i class="fas fa-download pr-2"></i> Download
                                                     </a>
                                                     <a
                                                         href="#"
-                                                        class="dropdown-item border-bottom status {{ $hide }}"
+                                                        class="dropdown-item border-bottom text-indigo status {{ $hide }}"
                                                         data-status="{{ $pesanan->status_id }}"
                                                         data-pesanan="{{ $pesanan->nama_pesanan }}"
                                                         data-id="{{ $pesanan->id }}">
                                                             <i class="fas fa-exchange-alt pr-2"></i> Status
                                                     </a>
                                                     <a
-                                                        href="{{ route('proses_pekerjaan.show', [$pesanan->id]) }}"
-                                                        class="dropdown-item border-bottom"
+                                                        href="{{ route('pesanan_publish.show', [$pesanan->id]) }}"
+                                                        class="dropdown-item border-bottom text-indigo"
                                                         title="Lihat">
                                                             <i class="fas fa-eye pr-2"></i> Lihat
                                                     </a>
                                                     <a
                                                         href="{{ route('proses_pekerjaan.print', [$pesanan->id]) }}"
-                                                        class="dropdown-item"
+                                                        class="dropdown-item text-indigo"
                                                         title="Print"
                                                         target="_blank">
                                                             <i class="fas fa-print pr-2"></i> Print

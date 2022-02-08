@@ -94,6 +94,7 @@ Route::middleware(['auth'])->group(function () {
 
         // pesanan publish
         Route::get('data_pekerjaan/pesanan_publish', [PesananPublishController::class, 'index'])->name('pesanan_publish.index');
+        Route::get('data_pekerjaan/pesanan_publish/{id}/show', [PesananPublishController::class, 'show'])->name('pesanan_publish.show');
 
         // proses pekerjaan
         Route::get('data_pekerjaan/proses_pekerjaan', [ProsesPekerjaanController::class, 'index'])->name('proses_pekerjaan.index');

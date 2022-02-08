@@ -247,7 +247,7 @@ class PekerjaanController extends Controller
         $pekerjaan->tanggal_pesanan = $request->tanggal_pesanan;
         $pekerjaan->rencana_jadi = $request->rencana_jadi;
         $pekerjaan->jenis_pesanan = $request->jenis_pesanan;
-        $pekerjaan->jumlah = $request->jumlah;
+        $pekerjaan->jumlah = $request->jumlah_cetak;
         $pekerjaan->ukuran = $request->ukuran;
         $pekerjaan->jenis_kertas = $request->jenis_kertas;
         $pekerjaan->warna = $request->warna;
@@ -319,7 +319,7 @@ class PekerjaanController extends Controller
     public function publish(Request $request)
     {
         $pekerjaan = EspkPekerjaan::find($request->id);
-        $pelaksana = MasterCabang::where('id', 7)->get();
+        $pelaksana = MasterCabang::where('id', $pekerjaan->cabang_cetak_id)->get();
 
         return response()->json([
             'id' => $pekerjaan->id,
