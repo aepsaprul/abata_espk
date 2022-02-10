@@ -134,7 +134,8 @@
                                 </div>
                             </div>
 
-                            <h3>Data Laporan</h3>
+                            <h6 class="text-uppercase"><strong>Data Laporan</strong></h6>
+                            <hr>
                             <table id="table_one" class="table table-bordered table-striped" style="font-size: 12px;">
                                 <thead>
                                     <tr>
