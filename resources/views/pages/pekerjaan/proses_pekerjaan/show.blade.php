@@ -13,12 +13,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Lihat Pesanan</h1>
+                    <h1 class="m-0">Lihat Pekerjaan</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Lihat Pesanan</li>
+                        <li class="breadcrumb-item active">Lihat Pekerjaan</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -37,7 +37,7 @@
                                 Cabang Pelaksana : <strong>{{ $cabang->masterCabang->nama_cabang }}</strong>
                             </h3>
                             <div class="card-tools mr-0">
-                                <a href="{{ route('pesanan_publish.index') }}" class="btn bg-gradient-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
+                                <a href="{{ route('proses_pekerjaan.index') }}" class="btn bg-gradient-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
                             </div>
                         </div>
                         <div class="card-body">

@@ -106,5 +106,6 @@ Route::middleware(['auth'])->group(function () {
     // laporan
     Route::get('laporan/pekerjaan', [LaporanController::class, 'indexPekerjaan'])->name('laporan.index_pekerjaan');
     Route::get('laporan/get_data_pekerjaan', [LaporanController::class, 'getDataPekerjaan'])->name('laporan.get_data_pekerjaan');
+    Route::post('laporan/search', [LaporanController::class, 'search'])->name('laporan.search');
 
 });

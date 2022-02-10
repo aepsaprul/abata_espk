@@ -38,7 +38,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <table id="table_satu" class="table table-bordered" style="width:100%">
+                            <table id="table_satu" class="table table-bordered table-striped" style="font-size: 14px; width:100%">
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
@@ -53,11 +53,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($pekerjaans as $key => $pekerjaan)
-                                    <tr
-                                    @if ($key % 2 == 1)
-                                    echo class="active";
-                                    @endif
-                                    >
+                                    <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
                                         <td>{{ $pekerjaan->nama_pesanan }}</td>
@@ -97,29 +93,43 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Aksi">
-                                                    <i class="fas fa-cog"></i>
+                                                <button
+                                                    type="button"
+                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                    data-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    title="Aksi">
+                                                        <i class="fas fa-cog"></i>
                                                 </button>
-                                                <ul class="dropdown-menu">
-                                                    <li class="border-bottom">
+                                                <div class="dropdown-menu dropdown-menu-right">
                                                         @php $modul = explode('/', $pekerjaan->file); @endphp
-                                                        <a class="dropdown-item" href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}">Download</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"
-                                                            class="dropdown-item status {{ $hide }}"
+                                                        <a
+                                                            class="dropdown-item border-bottom text-indigo"
+                                                            href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}">
+                                                                <i class="fas fa-download pr-2"></i> Download
+                                                        </a>
+                                                        <a
+                                                            href="#"
+                                                            class="dropdown-item border-bottom text-indigo status {{ $hide }}"
                                                             data-status="{{ $pekerjaan->status_id }}"
                                                             data-pesanan="{{ $pekerjaan->nama_pesanan }}"
-                                                            data-id="{{ $pekerjaan->id }}">Status</a>
-                                                    </li>
-                                                </ul>
-                                            </div> |
-                                            <a href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}"
-                                                class="border-0 text-dark mx-2"
-                                                title="Lihat"><i class="fas fa-eye"></i></a> |
-                                            <a href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}"
-                                                class="text-dark mx-2" title="Print"
-                                                target="_blank"><i class="fas fa-print"></i></a>
+                                                            data-id="{{ $pekerjaan->id }}">
+                                                                <i class="fas fa-exchange-alt pr-2"></i> Status
+                                                        </a>
+                                                        <a
+                                                            href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}"
+                                                            class="dropdown-item border-bottom text-indigo"
+                                                            title="Lihat">
+                                                                <i class="fas fa-eye pr-2"></i> Lihat
+                                                        </a>
+                                                        <a
+                                                            href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}"
+                                                            class="dropdown-item text-indigo" title="Print"
+                                                            target="_blank">
+                                                                <i class="fas fa-print pr-2"></i> Print
+                                                        </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
