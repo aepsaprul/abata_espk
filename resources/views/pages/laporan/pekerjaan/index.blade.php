@@ -129,7 +129,7 @@
                                         type="button"
                                         class="btn bg-gradient-danger btn-reset btn-sm"
                                         style="width: 120px;">
-                                            <i class="fas fa-recycle" style="font-size: 12px;"></i> Reset
+                                            <i class="fas fa-undo" style="font-size: 12px;"></i> Reset
                                     </button>
                                 </div>
                             </div>
@@ -207,7 +207,10 @@
     $(document).ready(function() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        $('#table_one').DataTable();
+        $("#table_one").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["excel", "pdf"]
+        }).buttons().container().appendTo('#table_one_wrapper .col-md-6:eq(0)');
 
         $('.select-pelanggan').select2();
 
@@ -246,8 +249,47 @@
                         $('.btn-cari').css('display', 'none');
                     },
                     success: function (response) {
-                        $('#data-laporan').append('a');
-
+                        console.log(response.pekerjaans);
+                        var value_pekerjaan = "";
+                        $.each(response.pekerjaans, function (index, item) {
+                            value_pekerjaan += "" +
+                            "<tr>" +
+                                "<td class=\"text-center\">" + (index + 1) + "</td>" +
+                                "<td>" + item.cabang_pemesan.nama_cabang + "</td>" +
+                                "<td>" + item.nama_pesanan + "</td>" +
+                                "<td>" + item.nomor_nota + "</td>" +
+                                "<td>" + item.tanggal_pesanan + "</td>" +
+                                "<td>" + item.rencana_jadi + "</td>" +
+                                "<td>";
+                                    if (item.cabang_pelaksana) {
+                                        value_pekerjaan += item.cabang_pelaksana.nama_cabang;
+                                    }
+                            value_pekerjaan += "" +
+                                "</td>" +
+                                "<td>";
+                                    if (item.status) {
+                                        value_pekerjaan += item.status.nama_status;
+                                    }
+                            value_pekerjaan += "" +
+                                "</td>" +
+                                "<td>" + item.tanggal_selesai + "</td>" +
+                                "<td>";
+                                    if (item.pegawai_penerima_pesanan) {
+                                        value_pekerjaan += item.pegawai_penerima_pesanan.nama_panggilan;
+                                    }
+                            value_pekerjaan += "" +
+                                "</td>" +
+                            "</tr>";
+                        });
+                        if (value_pekerjaan == '') {
+                            value_pekerjaan_condition = "" +
+                                "<tr>" +
+                                    "<td colspan=\"10\" class=\"text-center\">Kosong</td>" +
+                                "</tr>";
+                        } else {
+                            value_pekerjaan_condition = value_pekerjaan
+                        }
+                        $('#data-laporan').append(value_pekerjaan_condition);
 
                         setTimeout(() => {
                             $('.btn-spinner').css('display', 'none');
@@ -280,59 +322,9 @@
                 $('.btn-spinner').css('display', 'none');
                 $('.btn-reset').css('display', 'inline-block');
             }, 1000);
-        })
-
-        // $(function () {
-        //     var table = $('.yajra-datatable').DataTable({
-        //         "stripeClasses": [ 'strip1', 'strip2' ],
-        //         'responsive': true,
-        //         dom: 'Bfrtip',
-        //         buttons: [
-        //             'excelHtml5',
-        //             'pdf'
-        //         ],
-        //         processing: true,
-        //         serverSide: true,
-        //         ajax: {
-        //             url: "{{ route('laporan.get_data_pekerjaan') }}",
-        //             data: function (d) {
-        //                 d.tanggal_awal = $('#tanggal_awal').val(),
-        //                 d.tanggal_akhir = $('#tanggal_akhir').val(),
-        //                 d.pelanggan_id = $('#pelanggan_id').val(),
-        //                 d.nama_pesanan = $('#nama_pesanan').val(),
-        //                 d.cabang_pemesan_id = $('#cabang_pemesan_id').val(),
-        //                 d.cabang_pelaksana_id = $('#cabang_pelaksana_id').val(),
-        //                 d.status_id = $('#status_id').val()
-        //             }
-        //         },
-        //         columns: [
-        //             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-        //             {data: 'cabangPemesan', name: 'cabangPemesan.nama_cabang'},
-        //             {data: 'nama_pesanan', name: 'nama_pesanan'},
-        //             {data: 'nomor_nota', name: 'nomor_nota'},
-        //             {data: 'tanggal_pesanan', name: 'tanggal_pesanan'},
-        //             {data: 'rencana_jadi', name: 'rencana_jadi'},
-        //             {data: 'cabangPelaksana', name: 'cabangPelaksana.nama_cabang'},
-        //             {data: 'status', name: 'status.nama_status'},
-        //             {data: 'tanggal_selesai', name: 'tanggal_selesai'},
-        //             {data: 'pegawaiPenerimaPesanan', name: 'pegawaiPenerimaPesanan.nama_panggilan'},
-        //         ],
-        //         'columnDefs': [
-        //             {
-        //                 "targets": 0, // your case first column
-        //                 "className": "text-center",
-        //                 "width": "4%"
-        //             },
-        //             {
-        //                 "targets": 3,
-        //                 "className": "text-center",
-        //             }
-        //         ]
-        //     });
-        // });
+        });
 
         $('body').on('click', '.lihat', function () {
-            // alert($(this).attr('data-id'));
 
             var id = $(this).attr('data-id');
             var url = '{{ route("proses_pekerjaan.show", ":id") }}';
