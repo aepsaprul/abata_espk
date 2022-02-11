@@ -47,7 +47,6 @@
                                         <th class="text-center text-indigo">No Nota</th>
                                         <th class="text-center text-indigo">Tgl Order</th>
                                         <th class="text-center text-indigo">Status</th>
-                                        <th class="text-center text-indigo">Tgl Selesai</th>
                                         <th class="text-center text-indigo">Aksi</th>
                                     </tr>
                                 </thead>
@@ -82,54 +81,48 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            @php
-                                                $tanggal_selesai = explode(" ", $pekerjaan->tanggal_selesai);
-                                            @endphp
-                                            @if ($pekerjaan->tanggal_selesai != null)
-                                                {{ tgl_indo($tanggal_selesai[0]) }}
+                                            @if (Auth::user()->roles != "admin_espk")
+                                                <div class="btn-group">
+                                                    <button
+                                                        type="button"
+                                                        class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                        data-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                        title="Aksi">
+                                                            <i class="fas fa-cog"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                            @php $modul = explode('/', $pekerjaan->file); @endphp
+                                                            <a
+                                                                class="dropdown-item border-bottom text-indigo"
+                                                                href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}">
+                                                                    <i class="fas fa-download pr-2"></i> Download
+                                                            </a>
+                                                            <a
+                                                                href="#"
+                                                                class="dropdown-item border-bottom text-indigo status {{ $hide }}"
+                                                                data-status="{{ $pekerjaan->status_id }}"
+                                                                data-pesanan="{{ $pekerjaan->nama_pesanan }}"
+                                                                data-id="{{ $pekerjaan->id }}">
+                                                                    <i class="fas fa-exchange-alt pr-2"></i> Status
+                                                            </a>
+                                                            <a
+                                                                href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}"
+                                                                class="dropdown-item border-bottom text-indigo"
+                                                                title="Lihat">
+                                                                    <i class="fas fa-eye pr-2"></i> Lihat
+                                                            </a>
+                                                            <a
+                                                                href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}"
+                                                                class="dropdown-item text-indigo" title="Print"
+                                                                target="_blank">
+                                                                    <i class="fas fa-print pr-2"></i> Print
+                                                            </a>
+                                                    </div>
+                                                </div>
                                             @else
                                                 -
                                             @endif
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group">
-                                                <button
-                                                    type="button"
-                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
-                                                    data-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                    title="Aksi">
-                                                        <i class="fas fa-cog"></i>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                        @php $modul = explode('/', $pekerjaan->file); @endphp
-                                                        <a
-                                                            class="dropdown-item border-bottom text-indigo"
-                                                            href="{{ route('pekerjaan.download', [$pekerjaan->file]) }}">
-                                                                <i class="fas fa-download pr-2"></i> Download
-                                                        </a>
-                                                        <a
-                                                            href="#"
-                                                            class="dropdown-item border-bottom text-indigo status {{ $hide }}"
-                                                            data-status="{{ $pekerjaan->status_id }}"
-                                                            data-pesanan="{{ $pekerjaan->nama_pesanan }}"
-                                                            data-id="{{ $pekerjaan->id }}">
-                                                                <i class="fas fa-exchange-alt pr-2"></i> Status
-                                                        </a>
-                                                        <a
-                                                            href="{{ route('proses_pekerjaan.show', [$pekerjaan->id]) }}"
-                                                            class="dropdown-item border-bottom text-indigo"
-                                                            title="Lihat">
-                                                                <i class="fas fa-eye pr-2"></i> Lihat
-                                                        </a>
-                                                        <a
-                                                            href="{{ route('proses_pekerjaan.print', [$pekerjaan->id]) }}"
-                                                            class="dropdown-item text-indigo" title="Print"
-                                                            target="_blank">
-                                                                <i class="fas fa-print pr-2"></i> Print
-                                                        </a>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -231,14 +224,6 @@
             $('.modal_status').append(status_val);
             $('#modal_ubah_status').modal('show');
         });
-
-        // $('#modal_status').on('change', function() {
-        //     if($('#modal_status').val() == 2 || $('#modal_status').val() == 7) {
-        //         $('#modal_keterangan').prop('required', true);
-        //     } else {
-        //         $('#modal_keterangan').prop('required', false);
-        //     }
-        // });
 
         $('#form_ubah_status').submit(function(e) {
             e.preventDefault();

@@ -136,46 +136,48 @@
 
                             <h6 class="text-uppercase"><strong>Data Laporan</strong></h6>
                             <hr>
-                            <table id="table_one" class="table table-bordered table-striped" style="font-size: 12px;">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center text-indigo" style="vertical-align: text-top;">No</th>
-                                        <th class="text-center text-indigo" style="vertical-align: text-top;">Pemesan</th>
-                                        <th class="text-center text-indigo">Nama Pekerjaan</th>
-                                        <th class="text-center text-indigo">No Nota</th>
-                                        <th class="text-center text-indigo">Tgl Order</th>
-                                        <th class="text-center text-indigo">Rencana Jadi</th>
-                                        <th class="text-center text-indigo" style="vertical-align: text-top;">Pelaksana</th>
-                                        <th class="text-center text-indigo" style="vertical-align: text-top;">Status</th>
-                                        <th class="text-center text-indigo" style="vertical-align: text-top;">Tgl Selesai</th>
-                                        <th class="text-center text-indigo">Penerima Pesanan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="data-laporan">
-                                    @foreach ($pekerjaans as $key => $item)
+                            <div id="data-laporan">
+                                <table id="table_one" class="table table-bordered table-striped" style="font-size: 12px;">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $key + 1 }}</td>
-                                            <td>{{ $item->cabangPemesan->nama_cabang }}</td>
-                                            <td>{{ $item->nama_pesanan }}</td>
-                                            <td>{{ $item->nomor_nota }}</td>
-                                            <td>{{ $item->tanggal_pesanan }}</td>
-                                            <td>{{ $item->rencana_jadi }}</td>
-                                            <td>{{ $item->cabangPelaksana->nama_cabang }}</td>
-                                            <td>
-                                                @if ($item->status)
-                                                    {{ $item->status->nama_status }}
-                                                @endif
-                                            </td>
-                                            <td>{{ $item->tanggal_selesai }}</td>
-                                            <td>
-                                                @if ($item->pegawaiPenerimaPesanan)
-                                                    {{ $item->pegawaiPenerimaPesanan->nama_panggilan }}
-                                                @endif
-                                            </td>
+                                            <th class="text-center text-indigo" style="vertical-align: text-top;">No</th>
+                                            <th class="text-center text-indigo" style="vertical-align: text-top;">Pemesan</th>
+                                            <th class="text-center text-indigo">Nama Pekerjaan</th>
+                                            <th class="text-center text-indigo">No Nota</th>
+                                            <th class="text-center text-indigo">Tgl Order</th>
+                                            <th class="text-center text-indigo">Rencana Jadi</th>
+                                            <th class="text-center text-indigo" style="vertical-align: text-top;">Pelaksana</th>
+                                            <th class="text-center text-indigo" style="vertical-align: text-top;">Status</th>
+                                            <th class="text-center text-indigo" style="vertical-align: text-top;">Tgl Selesai</th>
+                                            <th class="text-center text-indigo">Penerima Pesanan</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pekerjaans as $key => $item)
+                                            <tr>
+                                                <td class="text-center">{{ $key + 1 }}</td>
+                                                <td>{{ $item->cabangPemesan->nama_cabang }}</td>
+                                                <td>{{ $item->nama_pesanan }}</td>
+                                                <td>{{ $item->nomor_nota }}</td>
+                                                <td>{{ $item->tanggal_pesanan }}</td>
+                                                <td>{{ $item->rencana_jadi }}</td>
+                                                <td>{{ $item->cabangPelaksana->nama_cabang }}</td>
+                                                <td>
+                                                    @if ($item->status)
+                                                        {{ $item->status->nama_status }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->tanggal_selesai }}</td>
+                                                <td>
+                                                    @if ($item->pegawaiPenerimaPesanan)
+                                                        {{ $item->pegawaiPenerimaPesanan->nama_panggilan }}
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -251,7 +253,23 @@
                     },
                     success: function (response) {
                         console.log(response.pekerjaans);
-                        var value_pekerjaan = "";
+                        var value_pekerjaan = "" +
+                        "<table id=\"table_one\" class=\"table table-bordered table-striped\" style=\"font-size: 12px;\">" +
+                            "<thead>" +
+                                "<tr>" +
+                                    "<th class=\"text-center text-indigo\" style=\"vertical-align: text-top;\">No</th>" +
+                                    "<th class=\"text-center text-indigo\" style=\"vertical-align: text-top;\">Pemesan</th>" +
+                                    "<th class=\"text-center text-indigo\">Nama Pekerjaan</th>" +
+                                    "<th class=\"text-center text-indigo\">No Nota</th>" +
+                                    "<th class=\"text-center text-indigo\">Tgl Order</th>" +
+                                    "<th class=\"text-center text-indigo\">Rencana Jadi</th>" +
+                                    "<th class=\"text-center text-indigo\" style=\"vertical-align: text-top;\">Pelaksana</th>" +
+                                    "<th class=\"text-center text-indigo\" style=\"vertical-align: text-top;\">Status</th>" +
+                                    "<th class=\"text-center text-indigo\" style=\"vertical-align: text-top;\">Tgl Selesai</th>" +
+                                    "<th class=\"text-center text-indigo\">Penerima Pesanan</th>" +
+                                "</tr>" +
+                            "</thead>" +
+                            "<tbody>";
                         $.each(response.pekerjaans, function (index, item) {
                             value_pekerjaan += "" +
                             "<tr>" +
@@ -282,6 +300,10 @@
                                 "</td>" +
                             "</tr>";
                         });
+                        value_pekerjaan += "" +
+                            "</tbody>" +
+                        "</table>";
+
                         if (value_pekerjaan == '') {
                             value_pekerjaan_condition = "" +
                                 "<tr>" +
@@ -296,6 +318,11 @@
                             $('.btn-spinner').css('display', 'none');
                             $('.btn-cari').css('display', 'inline-block');
                         }, 1000);
+
+                        $("#table_one").DataTable({
+                            "responsive": true, "lengthChange": false, "autoWidth": false,
+                            "buttons": ["excel", "pdf"]
+                        }).buttons().container().appendTo('#table_one_wrapper .col-md-6:eq(0)');
                     },
                     error: function(xhr, status, error){
                         var errorMessage = xhr.status + ': ' + xhr.statusText

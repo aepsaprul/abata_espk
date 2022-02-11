@@ -175,7 +175,7 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('pekerjaan.index') }}" class="nav-link {{ request()->is('data_pekerjaan/pesanan') ? 'active' : '' }}">
+                                        <a href="{{ route('pekerjaan.index') }}" class="nav-link {{ request()->is('data_pekerjaan/pekerjaan') ? 'active' : '' }}">
                                             <i class="far fa-circle nav-icon"></i><p>Pesanan</p>
                                         </a>
                                     </li>
@@ -185,7 +185,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('proses_pekerjaan.index') }}" class="nav-link {{ request()->is('data_pekerjaan/pekerjaan') ? 'active' : '' }}">
+                                        <a href="{{ route('proses_pekerjaan.index') }}" class="nav-link {{ request()->is('data_pekerjaan/proses_pekerjaan') ? 'active' : '' }}">
                                             <i class="far fa-circle nav-icon"></i><p>Pekerjaan</p>
                                         </a>
                                     </li>

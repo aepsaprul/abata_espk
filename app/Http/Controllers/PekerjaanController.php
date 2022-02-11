@@ -26,15 +26,25 @@ class PekerjaanController extends Controller
     {
         if (Auth::user()->master_karyawan_id) {
             $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
+                ->where('status_id', '!=', 6)
+                ->orWhere('status_id', null)
                 ->orderBy('id', 'desc')
+                ->limit(1000)
                 ->get();
 
             $cabang = EspkCabang::where('cabang_id', '!=', Auth::user()->masterKaryawan->masterCabang->id)->get();
 
-            return view('pages.pekerjaan.pesanan.index', ['pesanans' => $pekerjaan, 'cabangs' => $cabang]);
         } else {
-            return view('error404');
+            $pekerjaan = EspkPekerjaan::orderBy('id', 'desc')
+                ->where('status_id', '!=', 6)
+                ->orWhere('status_id', null)
+                ->limit(1000)
+                ->get();
+
+            $cabang = EspkCabang::get();
         }
+
+        return view('pages.pekerjaan.pesanan.index', ['pesanans' => $pekerjaan, 'cabangs' => $cabang]);
     }
 
     /**

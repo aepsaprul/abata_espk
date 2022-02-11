@@ -15,14 +15,20 @@ class PesananPublishController extends Controller
     {
         if (Auth::user()->master_karyawan_id) {
             $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
-            ->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
-            ->orderBy('id', 'desc')
-            ->get();
-
-            return view('pages.pekerjaan.pesanan_publish.index', ['pesanans' => $pesanan]);
+                ->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
+                ->where('status_id', '!=', 6)
+                ->orWhere('status_id', null)
+                ->orderBy('id', 'desc')
+                ->get();
         } else {
-            return view('error404');
+            $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+                ->where('status_id', '!=', 6)
+                ->orWhere('status_id', null)
+                ->orderBy('id', 'desc')
+                ->get();
         }
+
+        return view('pages.pekerjaan.pesanan_publish.index', ['pesanans' => $pesanan]);
     }
 
     public function show($id)

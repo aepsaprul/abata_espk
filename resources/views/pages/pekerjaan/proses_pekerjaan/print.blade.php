@@ -38,7 +38,13 @@
                                 <th class="text-uppercase text-center">pemesan</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
-                                <td class="text-uppercase text-center">{{ $pekerjaan->pelanggan->nama }}</td>
+                                <td class="text-uppercase text-center">
+                                    @if ($pekerjaan->pelanggan)
+                                        {{ $pekerjaan->pelanggan->nama }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                             </tr>
                         </table>
 

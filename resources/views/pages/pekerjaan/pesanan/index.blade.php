@@ -37,11 +37,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            @if (Auth::user()->roles != "admin_espk")
+                        @if (Auth::user()->roles != "admin_espk")
+                            <div class="card-header">
                                 <button type="button" id="btn-create" class="btn bg-gradient-primary btn-sm pl-3 pr-3"><i class="fa fa-plus"></i> Tambah</button>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped" style="font-size: 14px; width: 100%;">
                                 <thead>
@@ -88,57 +88,61 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            <div class="btn-group">
-                                                <a
-                                                    class="dropdown-toggle btn bg-gradient-primary btn-sm"
-                                                    data-toggle="dropdown"
-                                                    aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                        <i class="fa fa-cog"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    @if ($pesanan->status_id == null || $pesanan->status_id == 8)
-                                                        <button
-                                                            class="dropdown-item text-indigo border-bottom publish"
-                                                            data-id="{{ $pesanan->id }}"
-                                                            title="Publish">
-                                                            <i class="fas fa-rocket" style="width: 20px;"></i> Publish
-                                                        </button>
-                                                        <a
-                                                            href="{{ route('pekerjaan.edit', [$pesanan->id]) }}"
-                                                            class="dropdown-item text-indigo border-bottom"
-                                                            title="Ubah">
-                                                            <i class="fas fa-pencil-alt" style="width: 20px;"></i> Ubah
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}"
-                                                            method="POST"
-                                                            class="d-inline">
-                                                                @method('delete')
-                                                                @csrf
-                                                                    <button
-                                                                        class="dropdown-item text-indigo border-bottom"
-                                                                        onclick="return confirm('Yakin akan dihapus?')"
-                                                                        title="Hapus">
-                                                                        <i class="fas fa-minus-circle" style="width: 20px;"></i> Hapus
-                                                                    </button>
-                                                        </form>
-                                                        <a
-                                                            href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
-                                                            class="dropdown-item text-indigo"
-                                                            title="Lihat">
-                                                            <i class="fas fa-eye" style="width: 20px;"></i> Lihat
-                                                        </a>
-                                                    @else
-                                                        <a
-                                                            href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
-                                                            class="dropdown-item text-indigo"
-                                                            title="Lihat">
-                                                            <i class="fas fa-eye" style="width: 20px;"></i> Lihat
-                                                        </a>
-                                                    @endif
+                                            @if (Auth::user()->roles != "admin_espk")
+                                                <div class="btn-group">
+                                                    <a
+                                                        class="dropdown-toggle btn bg-gradient-primary btn-sm"
+                                                        data-toggle="dropdown"
+                                                        aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        @if ($pesanan->status_id == null || $pesanan->status_id == 8)
+                                                            <button
+                                                                class="dropdown-item text-indigo border-bottom publish"
+                                                                data-id="{{ $pesanan->id }}"
+                                                                title="Publish">
+                                                                <i class="fas fa-rocket" style="width: 20px;"></i> Publish
+                                                            </button>
+                                                            <a
+                                                                href="{{ route('pekerjaan.edit', [$pesanan->id]) }}"
+                                                                class="dropdown-item text-indigo border-bottom"
+                                                                title="Ubah">
+                                                                <i class="fas fa-pencil-alt" style="width: 20px;"></i> Ubah
+                                                            </a>
+                                                            <form
+                                                                action="{{ route('pekerjaan.destroy', [$pesanan->id]) }}"
+                                                                method="POST"
+                                                                class="d-inline">
+                                                                    @method('delete')
+                                                                    @csrf
+                                                                        <button
+                                                                            class="dropdown-item text-indigo border-bottom"
+                                                                            onclick="return confirm('Yakin akan dihapus?')"
+                                                                            title="Hapus">
+                                                                            <i class="fas fa-minus-circle" style="width: 20px;"></i> Hapus
+                                                                        </button>
+                                                            </form>
+                                                            <a
+                                                                href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
+                                                                class="dropdown-item text-indigo"
+                                                                title="Lihat">
+                                                                <i class="fas fa-eye" style="width: 20px;"></i> Lihat
+                                                            </a>
+                                                        @else
+                                                            <a
+                                                                href="{{ route('pekerjaan.show', [$pesanan->id]) }}"
+                                                                class="dropdown-item text-indigo"
+                                                                title="Lihat">
+                                                                <i class="fas fa-eye" style="width: 20px;"></i> Lihat
+                                                            </a>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -269,6 +273,7 @@
 
         $('body').on('click', '.publish', function() {
             var id = $(this).attr('data-id');
+            $('.modal_cabang_pelaksana_id').empty();
 
             var formData = {
                 id: id,
