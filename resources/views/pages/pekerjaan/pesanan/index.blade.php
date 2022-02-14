@@ -159,7 +159,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-{{-- modal create  --}}
+{{-- modal publish  --}}
 <div class="modal fade" tabindex="-1" id="modal_create">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -222,7 +222,7 @@
                         <span class="spinner-grow spinner-grow-sm"></span>
                         Loading..
                     </button>
-                    <button type="submit" class="btn btn-primary btn-create-save" style="width: 130px;"><i class="fa fa-save"></i> Simpan</button>
+                    <button type="submit" class="btn btn-primary btn-create-save" style="width: 130px;"><i class="fa fa-angle-double-right"></i> Lanjut</button>
                 </div>
             </form>
         </div>

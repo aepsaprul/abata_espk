@@ -61,13 +61,13 @@
                             <tr style="border: 2px solid #d0d0d0;">
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">no nota</th>
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">tgl spk dibuat</th>
-                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">rencana tgl disetujui/tgl order</th>
+                                <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">tgl disetujui</th>
                                 <th class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">rencana jadi</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->nomor_nota }}</td>
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->tanggal_pesanan }}</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">-</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ date('Y-m-d', strtotime($pekerjaan->tanggal_disetujui)) }}</td>
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->rencana_jadi }}</td>
                             </tr>
                         </table>

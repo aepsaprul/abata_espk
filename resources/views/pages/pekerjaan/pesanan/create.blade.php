@@ -84,7 +84,7 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="tanggal_pesanan">Tanggal Pesanan</label>
-                                                            <input type="date" id="tanggal_pesanan" name="tanggal_pesanan" class="form-control form-control-sm" required>
+                                                            <input type="date" id="tanggal_pesanan" name="tanggal_pesanan" class="form-control form-control-sm" value="{{ date('Y-m-d') }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -204,7 +204,7 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="tanggal_pesanan">Tanggal Pesanan</label>
-                                                            <input type="date" id="tanggal_pesanan" name="tanggal_pesanan" class="form-control form-control-sm" required>
+                                                            <input type="date" id="tanggal_pesanan" name="tanggal_pesanan" class="form-control form-control-sm" value="{{ date('Y-m-d') }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
