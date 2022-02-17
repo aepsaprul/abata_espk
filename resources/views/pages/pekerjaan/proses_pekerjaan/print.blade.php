@@ -67,7 +67,13 @@
                             <tr style="border: 2px solid #d0d0d0;">
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->nomor_nota }}</td>
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->tanggal_pesanan }}</td>
-                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ date('Y-m-d', strtotime($pekerjaan->tanggal_disetujui)) }}</td>
+                                <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">
+                                    @if ($pekerjaan->tanggal_disetujui)
+                                        {{ date('Y-m-d', strtotime($pekerjaan->tanggal_disetujui)) }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td class="text-uppercase text-center" style="border: 2px solid #d0d0d0;">{{ $pekerjaan->rencana_jadi }}</td>
                             </tr>
                         </table>
