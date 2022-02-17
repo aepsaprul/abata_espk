@@ -48,11 +48,12 @@ class HomeController extends Controller
         $pesanan_menunggu_disetujui = $pesanan_menunggu_disetujui->get();
 
         // pesanan selesai bulan ini
-        $pesanan_selesai = EspkPekerjaan::where('status_id', 6)->newQuery();
+        $pesanan_selesai = EspkPekerjaan::where('status_id', 6)
+            ->whereYear('tanggal_pesanan', date('Y'))
+            ->whereMonth('tanggal_pesanan', date('m'))
+            ->newQuery();
         if (Auth::user()->masterKaryawan) {
-            $pesanan_selesai = $pesanan_selesai->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
-                ->whereYear('tanggal_pesanan', date('Y'))
-                ->whereMonth('tanggal_pesanan', date('n'));
+            $pesanan_selesai = $pesanan_selesai->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
         }
         $pesanan_selesai = $pesanan_selesai->get();
 
