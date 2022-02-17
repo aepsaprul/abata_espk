@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\JenisPekerjaanController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PesananPublishController;
 use App\Http\Controllers\ProsesPekerjaanController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
+    // dashboard
+    Route::get('home/{value}/selengkapnya', [HomeController::class, 'selengkapnya'])->name('home.selengkapnya');
+
     // admin
         // menu
         Route::get('admin/navigasi', [MenuController::class, 'index'])->name('navigasi.index');

@@ -38,7 +38,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <table id="table_satu" class="table table-bordered table-striped" style="width:100%">
+                            <table id="table_satu" class="table table-bordered table-striped" style="width:100%; font-size: 14px;">
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
