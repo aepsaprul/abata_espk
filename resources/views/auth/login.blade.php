@@ -14,8 +14,16 @@
     <link rel="stylesheet" href="{{ asset('themes/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('themes/dist/css/adminlte.min.css') }}">
+    <style>
+        .login-page {
+            background-image: url('https://bing.biturl.top/?resolution=1920&format=image&index=0&mkt=zh-CN');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
-<body class="hold-transition login-page" style="background: url('{{ asset('asset/277929.jpg') }}')">
+<body class="hold-transition login-page">
   <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
