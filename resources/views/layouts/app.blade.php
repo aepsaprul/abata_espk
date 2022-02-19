@@ -55,7 +55,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
+                        <i class="fas fa-exsand-angle-alt"></i>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -137,17 +137,17 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="{{ route('navigasi.index') }}" class="nav-link {{ request()->is('admin/navigasi') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Navigasi</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Navigasi</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('user.index') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>User</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>User</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('cabang.index') }}" class="nav-link {{ request()->is('admin/cabang') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Cabang</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Cabang</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -159,12 +159,12 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="{{ route('pelanggan.index') }}" class="nav-link {{ request()->is('data_primer/pelanggan') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Pelanggan</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Pelanggan</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('jenis_pekerjaan.index') }}" class="nav-link {{ request()->is('data_primer/jenis_pekerjaan') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Jenis Pekerjaan</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Jenis Pekerjaan</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -176,17 +176,17 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="{{ route('pekerjaan.index') }}" class="nav-link {{ request()->is('data_pekerjaan/pekerjaan') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Pesanan</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Pesanan</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('pesanan_publish.index') }}" class="nav-link {{ request()->is('data_pekerjaan/pesanan_publish') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Pesanan Publish</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Pesanan Publish</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('proses_pekerjaan.index') }}" class="nav-link {{ request()->is('data_pekerjaan/proses_pekerjaan') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Pekerjaan</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Pekerjaan</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -198,7 +198,7 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="{{ route('laporan.index_pekerjaan') }}" class="nav-link {{ request()->is('laporan/pekerjaan') ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i><p>Pekerjaan</p>
+                                            <i class="fas fa-angle-right nav-icon"></i><p>Pekerjaan</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -217,7 +217,7 @@
                                                 @if ($item_menu->main_id == $item->id)
                                                     <li class="nav-item">
                                                         <a href="{{ url($item_menu->navSub->link) }}" class="nav-link {{ request()->is([''.$item_menu->navSub->link.'', ''.$item_menu->navSub->link.'/*']) ? 'active' : '' }}">
-                                                            <i class="far fa-circle nav-icon"></i> <p>{{ $item_menu->navSub->title }}</p>
+                                                            <i class="fas fa-angle-right nav-icon"></i> <p>{{ $item_menu->navSub->title }}</p>
                                                         </a>
                                                     </li>
                                                 @endif
