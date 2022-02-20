@@ -68,12 +68,6 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a
-                            class="dropdown-item main-btn-edit"
-                            href="#">
-                                <i class="fa fa-id-card px-2"></i> Profil
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a
                             class="dropdown-item main-btn-delete"
                             href="{{ route('logout') }}"
                             onclick="event.preventDefault();

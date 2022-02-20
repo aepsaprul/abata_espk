@@ -21,4 +21,8 @@ class MasterCabang extends Model
     public function masterKaryawan() {
         return $this->hasMany(MasterKaryawan::class);
     }
+
+    public function cabang() {
+        return $this->hasMany(EspkCabang::class, 'cabang_id', 'id');
+    }
 }

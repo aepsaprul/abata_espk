@@ -17,7 +17,7 @@ class CabangController extends Controller
 
     public function create()
     {
-        $master_cabang = MasterCabang::get();
+        $master_cabang = MasterCabang::doesntHave('cabang')->get();
 
         return response()->json([
             'master_cabangs' => $master_cabang
@@ -39,7 +39,7 @@ class CabangController extends Controller
     public function edit($id)
     {
         $cabang = EspkCabang::find($id);
-        $master_cabang = MasterCabang::get();
+        $master_cabang = MasterCabang::doesntHave('cabang')->get();
 
         return response()->json([
             'id' => $cabang->id,

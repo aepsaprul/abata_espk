@@ -16,6 +16,7 @@ class UserController extends Controller
         $nav_access = EspkNavAccess::with('masterKaryawan')
             ->select(DB::raw('count(*) as nav_access_count, user_id'))
             ->groupBy('user_id')
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('pages.admin.user.index', ['users' => $nav_access]);

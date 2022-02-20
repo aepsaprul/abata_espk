@@ -259,7 +259,7 @@
         // create
         $('#button-create').on('click', function() {
             $.ajax({
-                url: '{{ URL::route('cabang.create') }}',
+                url: "{{ URL::route('cabang.create') }}",
                 type: 'GET',
                 success: function (response) {
                     var value_cabang = "<option value=\"0\">--Pilih Cabang--</option>";
@@ -286,7 +286,7 @@
             }
 
             $.ajax({
-                url: '{{ URL::route('cabang.store') }} ',
+                url: "{{ URL::route('cabang.store') }}",
                 type: 'POST',
                 data: formData,
                 beforeSend: function() {
@@ -316,6 +316,7 @@
         // edit
         $('body').on('click', '.btn-edit', function(e) {
             e.preventDefault();
+            $('#edit_cabang_id').empty();
 
             var id = $(this).attr('data-id');
             var url = '{{ route("cabang.edit", ":id") }}';
@@ -420,7 +421,7 @@
             }
 
             $.ajax({
-                url: '{{ URL::route('cabang.delete') }}',
+                url: "{{ URL::route('cabang.delete') }}",
                 type: 'POST',
                 data: formData,
                 beforeSend: function() {
