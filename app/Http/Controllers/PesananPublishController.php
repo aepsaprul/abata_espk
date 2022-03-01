@@ -46,7 +46,7 @@ class PesananPublishController extends Controller
 
         $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
 
-        return view('pages.pekerjaan.proses_pekerjaan.show', [
+        return view('pages.pekerjaan.pesanan_publish.show', [
             'pekerjaan' => $pekerjaan,
             'tipe_pekerjaans' => $tipe_pekerjaan,
             'status_pekerjaans' => $status_pekerjaan,

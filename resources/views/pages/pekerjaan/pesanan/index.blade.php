@@ -47,7 +47,10 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
-                                        <th class="text-center text-indigo">Pemesan</th>
+                                        @if (Auth::user()->roles == "admin_espk")
+                                            <th class="text-center text-indigo">Pemesan</th>
+                                        @endif
+                                        <th class="text-center text-indigo">Pelaksana</th>
                                         <th class="text-center text-indigo">Nama Pesanan</th>
                                         <th class="text-center text-indigo">Tgl Dibuat SPK</th>
                                         <th class="text-center text-indigo">Penerima</th>
@@ -60,7 +63,10 @@
                                     @foreach ($pesanans as $key => $pesanan)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
+                                        @if (Auth::user()->roles == "admin_espk")
+                                            <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
+                                        @endif
+                                        <td>{{ $pesanan->cabangCetak->nama_cabang }}</td>
                                         <td>{{ $pesanan->nama_pesanan }}</td>
                                         <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
                                         <td>
@@ -281,7 +287,7 @@
             }
 
             $.ajax({
-                url: '{{ URL::route('pekerjaan.publish') }}',
+                url: "{{ URL::route('pekerjaan.publish') }}",
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -309,7 +315,7 @@
             }
 
             $.ajax({
-                url: '{{ URL::route('pekerjaan.publish_store') }}',
+                url: "{{ URL::route('pekerjaan.publish_store') }}",
                 type: 'POST',
                 data: formData,
                 success: function(response) {

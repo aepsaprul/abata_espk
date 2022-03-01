@@ -222,6 +222,24 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
+                                                    <label for="bahan">Bahan</label>
+                                                    <input disabled type="text" id="bahan" name="bahan" class="form-control form-control-sm" value="{{ $pekerjaan->bahan }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="satuan">Satuan</label>
+                                                    <input disabled type="text" id="satuan" name="satuan" class="form-control form-control-sm" value="{{ $pekerjaan->satuan }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="finishing">Finishing</label>
+                                                    <input disabled type="text" id="finishing" name="finishing" class="form-control form-control-sm" value="{{ $pekerjaan->finishing }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
                                                     <label for="catatan_kasir">Catatan Kasir</label>
                                                     <input disabled type="text" id="catatan_kasir" name="catatan_kasir" class="form-control form-control-sm" value="{{ $pekerjaan->catatan_kasir }}">
                                                 </div>
@@ -254,6 +272,16 @@
                                                 <div class="form-group">
                                                     <label for="pegawai_desain_id">Desain</label>
                                                     <input disabled type="text" class="form-control form-control-sm" name="pegawai_desain_id" value="{{ $pekerjaan->pegawaiDesain->nama_lengkap }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="pegawai_operator_id">Operator</label>
+                                                    <input disabled type="text" class="form-control form-control-sm" name="pegawai_operator_id"
+                                                    @if ($pekerjaan->pegawaiOperator)
+                                                        value="{{ $pekerjaan->pegawaiOperator->nama_lengkap }}"
+                                                    @endif
+                                                     >
                                                 </div>
                                             </div>
                                             <div class="col-md-3">

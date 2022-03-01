@@ -41,6 +41,10 @@ class EspkPekerjaan extends Model
         return $this->belongsTo(MasterKaryawan::class, 'pegawai_desain_id', 'id');
     }
 
+    public function pegawaiOperator() {
+        return $this->belongsTo(MasterKaryawan::class, 'pegawai_operator_id', 'id');
+    }
+
     public function status() {
         return $this->belongsTo(EspkStatus::class, 'status_id', 'id');
     }

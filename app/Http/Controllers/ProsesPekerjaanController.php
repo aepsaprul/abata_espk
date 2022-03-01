@@ -102,10 +102,20 @@ class ProsesPekerjaanController extends Controller
             }
         ])->get();
 
-        return view('pages.pekerjaan.proses_pekerjaan.print', [
-            'pekerjaan' => $pekerjaan,
-            'proses_pekerjaans' => $proses_pekerjaan,
-            'tipe_pekerjaans' => $tipe_pekerjaan
-        ]);
+        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_pelaksana_id)->first();
+
+        if ($cabang->form_group == "offset") {
+            return view('pages.pekerjaan.proses_pekerjaan.print', [
+                'pekerjaan' => $pekerjaan,
+                'proses_pekerjaans' => $proses_pekerjaan,
+                'tipe_pekerjaans' => $tipe_pekerjaan
+            ]);
+        } else {
+            return view('pages.pekerjaan.proses_pekerjaan.print_digital', [
+                'pekerjaan' => $pekerjaan,
+                'proses_pekerjaans' => $proses_pekerjaan,
+                'tipe_pekerjaans' => $tipe_pekerjaan
+            ]);
+        }
     }
 }

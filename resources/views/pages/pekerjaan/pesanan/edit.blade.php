@@ -232,6 +232,24 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
+                                                        <label for="bahan">Bahan</label>
+                                                        <input type="text" id="bahan" name="bahan" class="form-control form-control-sm" value="{{ $pekerjaan->bahan }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="satuan">Satuan</label>
+                                                        <input type="text" id="satuan" name="satuan" class="form-control form-control-sm" value="{{ $pekerjaan->satuan }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="finishing">Finishing</label>
+                                                        <input type="text" id="finishing" name="finishing" class="form-control form-control-sm" value="{{ $pekerjaan->finishing }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
                                                         <label for="catatan_kasir">Catatan Kasir</label>
                                                         <input type="text" id="catatan_kasir" name="catatan_kasir" class="form-control form-control-sm" value="{{ $pekerjaan->catatan_kasir }}">
                                                     </div>
@@ -264,6 +282,16 @@
                                                         <select class="form-control form-control-sm" name="pegawai_desain_id">
                                                             @foreach ($desains as $desain)
                                                                 <option value="{{ $desain->id }}" {{ $desain->id == $pekerjaan->pegawai_desain_id ? 'selected' : '' }}>{{ $desain->nama_lengkap }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pegawai_operator_id">Operator</label>
+                                                        <select class="form-control form-control-sm" name="pegawai_operator_id">
+                                                            @foreach ($operators as $operator)
+                                                                <option value="{{ $operator->id }}" {{ $operator->id == $pekerjaan->pegawai_operator_id ? 'selected' : '' }}>{{ $operator->nama_lengkap }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

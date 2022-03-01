@@ -215,7 +215,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label for="jenis_pesanan">Jenis Produk</label>
+                                                            <label for="jenis_pesanan">Jenis Cetak</label>
                                                             <input type="text" id="jenis_pesanan" name="jenis_pesanan" class="form-control form-control-sm">
                                                         </div>
                                                     </div>
@@ -229,6 +229,24 @@
                                                         <div class="form-group">
                                                             <label for="ukuran">Ukuran</label>
                                                             <input type="text" id="ukuran" name="ukuran" class="form-control form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="bahan">Bahan</label>
+                                                            <input type="text" id="bahan" name="bahan" class="form-control form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="satuan">Satuan</label>
+                                                            <input type="text" id="satuan" name="satuan" class="form-control form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="finishing">Finishing</label>
+                                                            <input type="text" id="finishing" name="finishing" class="form-control form-control-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -251,7 +269,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label for="pegawai_penerima_pesanan_id">Penerima Pesanan</label>
+                                                            <label for="pegawai_penerima_pesanan_id">Pemesan</label>
                                                             <select class="form-control form-control-sm" name="pegawai_penerima_pesanan_id" required>
                                                                 @foreach ($penerima_pesanans as $penerima_pesanan)
                                                                     <option value="{{ $penerima_pesanan->id }}">{{ $penerima_pesanan->nama_lengkap }}</option>
@@ -270,7 +288,17 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="cabang_cetak_id">Cetak</label>
+                                                        <div class="form-group">
+                                                            <label for="pegawai_operator_id">Operator</label>
+                                                            <select class="form-control form-control-sm" name="pegawai_operator_id">
+                                                                @foreach ($operators as $operator)
+                                                                    <option value="{{ $operator->id }}">{{ $operator->nama_lengkap }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="cabang_cetak_id">Cabang Cetak</label>
                                                         <select class="form-control form-control-sm" name="cabang_cetak_id">
                                                             @foreach ($cabang_cetaks as $cabang_cetak)
                                                                 <option value="{{ $cabang_cetak->id }}" }}>{{ $cabang_cetak->nama_cabang }}</option>
@@ -278,7 +306,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="cabang_finishing_id">Finishing</label>
+                                                        <label for="cabang_finishing_id">Cabang Finishing</label>
                                                         <select class="form-control form-control-sm" name="cabang_finishing_id">
                                                             <option value="">--Tanpa Finishing--</option>
                                                             @foreach ($cabang_finishings as $cabang_finishing)

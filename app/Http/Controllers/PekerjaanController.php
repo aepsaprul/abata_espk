@@ -62,7 +62,24 @@ class PekerjaanController extends Controller
 
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
 
-        // $cabang_cetak = MasterCabang::whereIn('id', [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
+        $operator = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)
+            ->whereIn('master_jabatan_id', [
+                '43',
+                '44',
+                '45',
+                '46',
+                '47',
+                '48',
+                '49',
+                '50',
+                '51',
+                '52',
+                '53',
+                '63',
+                '65',
+            ])
+            ->get();
+
         $cabang_cetak = MasterCabang::where('id',  $cabang->cabang_id)->get();
 
         $cabang_finishing = MasterCabang::whereIn('id', [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
@@ -74,7 +91,6 @@ class PekerjaanController extends Controller
         $jenis_pekerjaan_group = EspkJenisPekerjaan::select('tipe_pekerjaan_id')
             ->groupBy('tipe_pekerjaan_id')
             ->get();
-        // $tipe_pekerjaan = EspkTipePekerjaan::get();
 
         return view('pages.pekerjaan.pesanan.create', [
             'cabang' => $cabang,
@@ -83,9 +99,9 @@ class PekerjaanController extends Controller
             'cabang_finishings' => $cabang_finishing,
             'jenis_pekerjaans' => $jenis_pekerjaan,
             'jenis_pekerjaan_groups' => $jenis_pekerjaan_group,
-            // 'tipe_pekerjaans' => $tipe_pekerjaan,
             'penerima_pesanans' => $penerima_pesanan,
-            'desains' => $desain
+            'desains' => $desain,
+            'operators' => $operator
         ]);
     }
 
@@ -107,6 +123,7 @@ class PekerjaanController extends Controller
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
         $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
         $pekerjaan->pegawai_desain_id = $request->pegawai_desain_id;
+        $pekerjaan->pegawai_operator_id = $request->pegawai_operator_id;
         $pekerjaan->cabang_cetak_id = $request->cabang_cetak_id;
         $pekerjaan->cabang_finishing_id = $request->cabang_finishing_id;
         $pekerjaan->nama_pesanan = $request->nama_pesanan;
@@ -116,8 +133,13 @@ class PekerjaanController extends Controller
         $pekerjaan->jenis_pesanan = $request->jenis_pesanan;
         $pekerjaan->jumlah = $request->jumlah_cetak;
         $pekerjaan->ukuran = $request->ukuran;
+        $pekerjaan->satuan = $request->satuan;
+        $pekerjaan->bahan = $request->bahan;
+        $pekerjaan->finishing = $request->finishing;
         $pekerjaan->jenis_kertas = $request->jenis_kertas;
         $pekerjaan->warna = $request->warna;
+        $pekerjaan->catatan_kasir = $request->catatan_kasir;
+        $pekerjaan->catatan_produksi = $request->catatan_produksi;
         $pekerjaan->keterangan = $request->keterangan;
 
         if ($request->file('file')) {
@@ -192,19 +214,30 @@ class PekerjaanController extends Controller
 
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
 
+        $operator = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)
+            ->whereIn('master_jabatan_id', [
+                '43',
+                '44',
+                '45',
+                '46',
+                '47',
+                '48',
+                '49',
+                '50',
+                '51',
+                '52',
+                '53',
+                '63',
+                '65',
+            ])
+            ->get();
+
         $cabang_cetak = EspkCabang::get();
 
         $cabang_finishing = EspkCabang::get();
 
         $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
         $cabang_group = $cabang->form_group;
-
-        // $jenis_pekerjaan = EspkJenisPekerjaan::with([
-        //     'tipePekerjaan',
-        //     'pekerjaanProses' => function ($query) use ($id) {
-        //         $query->where('pekerjaan_id', $id);
-        //     }
-        // ])->get();
 
         $tipe_pekerjaan = EspkTipePekerjaan::with([
             'jenisPekerjaan' => function ($query) use ($cabang_group) {
@@ -227,7 +260,8 @@ class PekerjaanController extends Controller
             'penerima_pesanans' => $penerima_pesanan,
             'desains' => $desain,
             'pekerjaan_proses' => $pekerjaan_proses,
-            'cabang' => $cabang
+            'cabang' => $cabang,
+            'operators' => $operator
         ]);
     }
 
@@ -250,6 +284,7 @@ class PekerjaanController extends Controller
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
         $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
         $pekerjaan->pegawai_desain_id = $request->pegawai_desain_id;
+        $pekerjaan->pegawai_operator_id = $request->pegawai_operator_id;
         $pekerjaan->cabang_cetak_id = $request->cabang_cetak_id;
         $pekerjaan->cabang_finishing_id = $request->cabang_finishing_id;
         $pekerjaan->nama_pesanan = $request->nama_pesanan;
@@ -259,16 +294,16 @@ class PekerjaanController extends Controller
         $pekerjaan->jenis_pesanan = $request->jenis_pesanan;
         $pekerjaan->jumlah = $request->jumlah_cetak;
         $pekerjaan->ukuran = $request->ukuran;
+        $pekerjaan->satuan = $request->satuan;
+        $pekerjaan->bahan = $request->bahan;
+        $pekerjaan->finishing = $request->finishing;
         $pekerjaan->jenis_kertas = $request->jenis_kertas;
         $pekerjaan->warna = $request->warna;
+        $pekerjaan->catatan_kasir = $request->catatan_kasir;
+        $pekerjaan->catatan_produksi = $request->catatan_produksi;
         $pekerjaan->keterangan = $request->keterangan;
 
         if ($request->file('file')) {
-            // if($pekerjaan->file && file_exists(storage_path('app/public/' . $pekerjaan->file))) {
-            //     Storage::delete('public/' . $pekerjaan->file);
-            // }
-            // $file = $request->file('file')->store('file', 'public');
-            // $pekerjaan->file = $file;
             if($pekerjaan->file && file_exists(storage_path('app/file/' . $pekerjaan->file))) {
                 Storage::delete('file/' . $pekerjaan->file);
             }
