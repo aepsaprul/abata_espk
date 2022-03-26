@@ -15,5 +15,5 @@ E-SPK Versi 2.0.0
 - field jenis_pekerjaan_id relasi dari tabel espk_jenis_pekerjaans
 - field pekerjaan_id relasi dari tabel espk_pekerjaans
 
-mp: 4Dmin$up3r
+mp: Root@administrator01
 
