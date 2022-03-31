@@ -123,7 +123,6 @@ class PekerjaanController extends Controller
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
         $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
         $pekerjaan->pegawai_desain_id = $request->pegawai_desain_id;
-        $pekerjaan->pegawai_operator_id = $request->pegawai_operator_id;
         $pekerjaan->cabang_cetak_id = $request->cabang_cetak_id;
         $pekerjaan->cabang_finishing_id = $request->cabang_finishing_id;
         $pekerjaan->nama_pesanan = $request->nama_pesanan;
@@ -284,7 +283,6 @@ class PekerjaanController extends Controller
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
         $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
         $pekerjaan->pegawai_desain_id = $request->pegawai_desain_id;
-        $pekerjaan->pegawai_operator_id = $request->pegawai_operator_id;
         $pekerjaan->cabang_cetak_id = $request->cabang_cetak_id;
         $pekerjaan->cabang_finishing_id = $request->cabang_finishing_id;
         $pekerjaan->nama_pesanan = $request->nama_pesanan;
