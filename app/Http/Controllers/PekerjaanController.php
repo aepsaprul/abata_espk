@@ -62,24 +62,6 @@ class PekerjaanController extends Controller
 
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
 
-        $operator = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)
-            ->whereIn('master_jabatan_id', [
-                '43',
-                '44',
-                '45',
-                '46',
-                '47',
-                '48',
-                '49',
-                '50',
-                '51',
-                '52',
-                '53',
-                '63',
-                '65',
-            ])
-            ->get();
-
         $cabang_cetak = MasterCabang::where('id',  $cabang->cabang_id)->get();
 
         $cabang_finishing = MasterCabang::whereIn('id', [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
@@ -100,8 +82,7 @@ class PekerjaanController extends Controller
             'jenis_pekerjaans' => $jenis_pekerjaan,
             'jenis_pekerjaan_groups' => $jenis_pekerjaan_group,
             'penerima_pesanans' => $penerima_pesanan,
-            'desains' => $desain,
-            'operators' => $operator
+            'desains' => $desain
         ]);
     }
 
@@ -213,24 +194,6 @@ class PekerjaanController extends Controller
 
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
 
-        $operator = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)
-            ->whereIn('master_jabatan_id', [
-                '43',
-                '44',
-                '45',
-                '46',
-                '47',
-                '48',
-                '49',
-                '50',
-                '51',
-                '52',
-                '53',
-                '63',
-                '65',
-            ])
-            ->get();
-
         $cabang_cetak = EspkCabang::get();
 
         $cabang_finishing = EspkCabang::get();
@@ -259,8 +222,7 @@ class PekerjaanController extends Controller
             'penerima_pesanans' => $penerima_pesanan,
             'desains' => $desain,
             'pekerjaan_proses' => $pekerjaan_proses,
-            'cabang' => $cabang,
-            'operators' => $operator
+            'cabang' => $cabang
         ]);
     }
 

@@ -117,7 +117,11 @@
                                                     <tr>
                                                         <td class="text-center">{{ $key + 1 }}</td>
                                                         <td>{{ $jenis->jenis }}</td>
-                                                        <td>{{ $jenis->tipePekerjaan->tipe }}</td>
+                                                        <td>
+                                                            @if ($jenis->tipePekerjaan)
+                                                                {{ $jenis->tipePekerjaan->tipe }}
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             @php
                                                                 $a = json_decode($jenis->cetak)

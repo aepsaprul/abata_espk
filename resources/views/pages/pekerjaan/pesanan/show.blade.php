@@ -275,16 +275,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="pegawai_operator_id">Operator</label>
-                                                    <input disabled type="text" class="form-control form-control-sm" name="pegawai_operator_id"
-                                                    @if ($pekerjaan->pegawaiOperator)
-                                                        value="{{ $pekerjaan->pegawaiOperator->nama_lengkap }}"
-                                                    @endif
-                                                     >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
                                                 <label for="cabang_cetak_id">Cetak</label>
                                                 <input disabled type="text" class="form-control form-control-sm" name="cabang_cetak_id" value="{{ $pekerjaan->cabangCetak->nama_cabang }}">
                                             </div>

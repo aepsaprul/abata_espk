@@ -287,16 +287,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="pegawai_operator_id">Operator</label>
-                                                        <select class="form-control form-control-sm" name="pegawai_operator_id">
-                                                            @foreach ($operators as $operator)
-                                                                <option value="{{ $operator->id }}" {{ $operator->id == $pekerjaan->pegawai_operator_id ? 'selected' : '' }}>{{ $operator->nama_lengkap }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
                                                     <label for="cabang_cetak_id">Cetak</label>
                                                     <select class="form-control form-control-sm" name="cabang_cetak_id">
                                                         @foreach ($cabang_cetaks as $cabang_cetak)
