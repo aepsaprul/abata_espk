@@ -148,7 +148,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Ubah Status</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal">
+                        <span aria-hidden="true">x</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form id="form_ubah_status">
