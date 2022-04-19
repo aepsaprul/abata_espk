@@ -6,6 +6,8 @@ use App\Models\EspkCabang;
 use App\Models\EspkPekerjaan;
 use App\Models\EspkPelanggan;
 use App\Models\EspkStatus;
+use App\Models\EspkStatusPekerjaan;
+use App\Models\EspkTipePekerjaan;
 use App\Models\MasterCabang;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -51,6 +53,36 @@ class LaporanController extends Controller
 
         return response()->json([
             'pekerjaans' => $pekerjaan
+        ]);
+    }
+
+    public function show($id)
+    {
+        $pekerjaan = EspkPekerjaan::with([
+                'pegawaiDesain',
+                'pegawaiPenerimaPesanan',
+                'pelanggan',
+                'cabangCetak',
+                'cabangFinishing'
+            ])
+            ->find($id);
+
+        $tipe_pekerjaan = EspkTipePekerjaan::with([
+            'jenisPekerjaan',
+            'jenisPekerjaan.pekerjaanProses' => function($query) use ($id) {
+                $query->where('pekerjaan_id', $id);
+            }
+        ])->get();
+
+        $status_pekerjaan = EspkStatusPekerjaan::with(['status', 'pelaksana'])->where('pekerjaan_id', $id)->get();
+
+        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+
+        return response()->json([
+            'pekerjaan' => $pekerjaan,
+            'tipe_pekerjaans' => $tipe_pekerjaan,
+            'status_pekerjaans' => $status_pekerjaan,
+            'cabang' => $cabang
         ]);
     }
 }

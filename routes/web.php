@@ -112,5 +112,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('laporan/pekerjaan', [LaporanController::class, 'indexPekerjaan'])->name('laporan.index_pekerjaan');
     Route::get('laporan/get_data_pekerjaan', [LaporanController::class, 'getDataPekerjaan'])->name('laporan.get_data_pekerjaan');
     Route::post('laporan/search', [LaporanController::class, 'search'])->name('laporan.search');
+    Route::get('laporan/{id}/show', [LaporanController::class, 'show'])->name('laporan.show');
 
 });

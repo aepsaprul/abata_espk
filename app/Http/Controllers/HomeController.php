@@ -57,16 +57,54 @@ class HomeController extends Controller
         }
         $pesanan_selesai = $pesanan_selesai->get();
 
+        if (Auth::user()->master_karyawan_id) {
+            $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->master_cabang_id)->whereIn('status_id', [2,6,7])->orderBy('id', 'desc')->limit(500)->get();
+        } else {
+            $pekerjaan = EspkPekerjaan::whereIn('status_id', [2,6,7])->orderBy('id', 'desc')->limit(500)->get();
+        }
+
+        if (Auth::user()->master_karyawan_id) {
+            $pesanan_batal = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->master_cabang_id)->whereIn('status_id', [2,7])->orderBy('id', 'desc')->limit(500)->get();
+        } else {
+            $pesanan_batal = EspkPekerjaan::whereIn('status_id', [2,7])->orderBy('id', 'desc')->limit(500)->get();
+        }
+
+        if (Auth::user()->master_karyawan_id) {
+            $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+                ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
+                ->whereNotNull('status_id')
+                ->whereNotIn('status_id', [2,6,8,9])
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+                ->whereNotNull('status_id')
+                ->whereNotIn('status_id', [2,6,8,9])
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
         $jumlah_pesanan_hari_ini = count($pesanan_hari_ini);
         $jumlan_pesanan_proses = count($pesanan_proses);
         $jumlan_pesanan_menunggu_disetujui = count($pesanan_menunggu_disetujui);
         $jumlan_pesanan_selesai = count($pesanan_selesai);
+        $jumlan_pesanan_batal = count($pesanan_batal);
+        $jumlan_data_pekerjaan = count($data_pekerjaan);
 
         return view('home', [
             'jumlah_pesanan_hari_ini' => $jumlah_pesanan_hari_ini,
             'jumlah_pesanan_proses' => $jumlan_pesanan_proses,
             'jumlah_pesanan_menunggu_disetujui' => $jumlan_pesanan_menunggu_disetujui,
-            'jumlah_pesanan_selesai' => $jumlan_pesanan_selesai
+            'jumlah_pesanan_selesai' => $jumlan_pesanan_selesai,
+            'jumlah_pesanan_batal' => $jumlan_pesanan_batal,
+            'jumlah_data_pekerjaan' => $jumlan_data_pekerjaan,
+            'pekerjaans' => $pekerjaan,
+            'pesanan_hari_ini' => $pesanan_hari_ini,
+            'pesanan_proses' => $pesanan_proses,
+            'pesanan_menunggu_disetujui' => $pesanan_menunggu_disetujui,
+            'pesanan_selesai' => $pesanan_selesai,
+            'pesanan_batal' => $pesanan_batal,
+            'data_pekerjaan' => $data_pekerjaan
         ]);
     }
 
