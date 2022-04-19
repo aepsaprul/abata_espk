@@ -79,24 +79,28 @@
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>{{ $jumlah_pesanan_batal }}</h3>
-                                    <p>Dibatalkan</p>
+                            <a href="#card_pesanan_batal">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3>{{ $jumlah_pesanan_batal }}</h3>
+                                        <p>Dibatalkan</p>
+                                    </div>
+                                    {{-- <a href="{{ route('home.selengkapnya', ["selesai"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
                                 </div>
-                                {{-- <a href="{{ route('home.selengkapnya', ["selesai"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-2 col-md-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>{{ $jumlah_data_pekerjaan }}</h3>
-                                    <p>Pekerjaan</p>
+                            <a href="#card_pekerjaan">
+                                <!-- small box -->
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3>{{ $jumlah_data_pekerjaan }}</h3>
+                                        <p>Pekerjaan</p>
+                                    </div>
+                                    {{-- <a href="{{ route('home.selengkapnya', ["selesai"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
                                 </div>
-                                {{-- <a href="{{ route('home.selengkapnya', ["selesai"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -140,6 +144,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <div id="card_pesanan_menunggu_disetujui"></div>
                             </table>
                         </div>
                     </div>
@@ -180,6 +185,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <div id="card_pesanan_proses"></div>
                             </table>
                         </div>
                     </div>
@@ -220,6 +226,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <div id="card_pesanan_selesai"></div>
                             </table>
                         </div>
                     </div>
@@ -260,6 +267,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <div id="card_pesanan_batal"></div>
                             </table>
                         </div>
                     </div>
@@ -300,6 +308,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <div id="card_pekerjaan"></div>
                             </table>
                         </div>
                     </div>

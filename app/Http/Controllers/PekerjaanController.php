@@ -26,7 +26,7 @@ class PekerjaanController extends Controller
     {
         if (Auth::user()->master_karyawan_id) {
             $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
-                ->where('status_id', '!=', 6)
+                ->whereNotIn('status_id', [2,6,7])
                 ->orWhere('status_id', null)
                 ->orderBy('id', 'desc')
                 ->limit(1000)
@@ -36,7 +36,7 @@ class PekerjaanController extends Controller
 
         } else {
             $pekerjaan = EspkPekerjaan::orderBy('id', 'desc')
-                ->where('status_id', '!=', 6)
+                ->whereNotIn('status_id', [2,6,7])
                 ->orWhere('status_id', null)
                 ->limit(1000)
                 ->get();

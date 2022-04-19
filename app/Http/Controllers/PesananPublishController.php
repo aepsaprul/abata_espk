@@ -16,12 +16,12 @@ class PesananPublishController extends Controller
         if (Auth::user()->master_karyawan_id) {
             $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
                 ->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
-                ->where('status_id', '!=', 6)
+                ->whereNotIn('status_id', [2,6,7])
                 ->orderBy('id', 'desc')
                 ->get();
         } else {
             $pesanan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
-                ->where('status_id', '!=', 6)
+                ->whereNotIn('status_id', [2,6,7])
                 ->orderBy('id', 'desc')
                 ->get();
         }
