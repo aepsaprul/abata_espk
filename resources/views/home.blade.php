@@ -226,7 +226,7 @@
                     {{-- data pesanan selesai --}}
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title font-weight-bold text-uppercase">Data Pesanan Selesai</h5>
+                            <h5 class="card-title font-weight-bold text-uppercase">Data Pesanan Selesai Bulan Ini</h5>
                         </div>
                         <div class="card-body">
                             <table id="tabel_pesanan" class="table table-bordered" style="font-size: 13px; width: 100%;">
@@ -269,7 +269,7 @@
                             <h5 class="card-title font-weight-bold text-uppercase">Data Pesanan Dibatalkan</h5>
                         </div>
                         <div class="card-body">
-                            <table id="tabel_pesanan" class="table table-bordered" style="font-size: 13px; width: 100%;">
+                            <table id="tabel_pesanan_batal" class="table table-bordered" style="font-size: 13px; width: 100%;">
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
@@ -386,6 +386,7 @@
         $('#tabel_pesanan_hari_ini').DataTable();
         $('#tabel_pesanan_proses').DataTable();
         $('#tabel_pesanan_menunggu_disetujui').DataTable();
+        $('#tabel_pesanan_batal').DataTable();
         $('#tabel_pekerjaan').DataTable();
     })
 </script>
