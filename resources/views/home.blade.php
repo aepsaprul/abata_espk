@@ -39,44 +39,52 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>{{ $jumlah_pesanan_hari_ini }}</h3>
-                                    <p>Pesanan Hari Ini</p>
+                            <a href="#card_pesanan_hari_ini">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $jumlah_pesanan_hari_ini }}</h3>
+                                        <p>Pesanan Hari Ini</p>
+                                    </div>
+                                    {{-- <a href="{{ route('home.selengkapnya', ["pesanan_hari_ini"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
                                 </div>
-                                {{-- <a href="{{ route('home.selengkapnya', ["pesanan_hari_ini"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-2 col-md-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>{{ $jumlah_pesanan_menunggu_disetujui }}</h3>
-                                    <p>Menunggu Di Setujui</p>
+                            <a href="#card_pesanan_menunggu_disetujui">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3>{{ $jumlah_pesanan_menunggu_disetujui }}</h3>
+                                        <p>Menunggu Di Setujui</p>
+                                    </div>
+                                    {{-- <a href="{{ route('home.selengkapnya', ["menunggu_disetujui"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
                                 </div>
-                                {{-- <a href="{{ route('home.selengkapnya', ["menunggu_disetujui"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-2 col-md-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>{{ $jumlah_pesanan_proses }}</h3>
-                                    <p>Sedang Di Proses</p>
+                            <a href="#card_pesanan_proses">
+                                <!-- small box -->
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3>{{ $jumlah_pesanan_proses }}</h3>
+                                        <p>Sedang Di Proses</p>
+                                    </div>
+                                    {{-- <a href="{{ route('home.selengkapnya', ["sedang_diproses"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
                                 </div>
-                                {{-- <a href="{{ route('home.selengkapnya', ["sedang_diproses"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-2 col-md-2 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>{{ $jumlah_pesanan_selesai }}</h3>
-                                    <p>Selesai Bulan Ini</p>
+                            <a href="#card_pesanan_selesai">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $jumlah_pesanan_selesai }}</h3>
+                                        <p>Selesai Bulan Ini</p>
+                                    </div>
+                                    {{-- <a href="{{ route('home.selengkapnya', ["selesai"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
                                 </div>
-                                {{-- <a href="{{ route('home.selengkapnya', ["selesai"]) }}" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a> --}}
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-2 col-md-2 col-6">
                             <a href="#card_pesanan_batal">
