@@ -130,12 +130,15 @@ class PekerjaanController extends Controller
 
         $pekerjaan->save();
 
-        foreach ($request->jenis_pekerjaan_id as $key => $jenis_pekerjaan) {
-            $jenis_pekerjaans = new EspkPekerjaanProses();
-            $jenis_pekerjaans->jenis_pekerjaan_id = $jenis_pekerjaan;
-            $jenis_pekerjaans->pekerjaan_id = $pekerjaan->id;
-            $jenis_pekerjaans->keterangan = $request->jenis_pekerjaan_keterangan[$key];
-            $jenis_pekerjaans->save();
+        if ($request->jenis_pekerjaan_id) {
+            # code...
+            foreach ($request->jenis_pekerjaan_id as $key => $jenis_pekerjaan) {
+                $jenis_pekerjaans = new EspkPekerjaanProses();
+                $jenis_pekerjaans->jenis_pekerjaan_id = $jenis_pekerjaan;
+                $jenis_pekerjaans->pekerjaan_id = $pekerjaan->id;
+                $jenis_pekerjaans->keterangan = $request->jenis_pekerjaan_keterangan[$key];
+                $jenis_pekerjaans->save();
+            }
         }
 
         $status_pekerjaan = new EspkStatusPekerjaan;
