@@ -96,7 +96,7 @@ class PekerjaanController extends Controller
     {
         $validated = $request->validate([
             'pegawai_penerima_pesanan_id' => 'required',
-            'file' => 'max:5000'
+            'file' => 'required|image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
         $pekerjaan = new EspkPekerjaan;

@@ -12,10 +12,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="{{ asset('lib/fontawesome-5/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/lib/fontawesome-5/css/all.min.css') }}" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('lib/bootstrap-5/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/lib/bootstrap-5/bootstrap.min.css') }}" rel="stylesheet">
 
     <style>
         table tr th {
@@ -161,7 +161,7 @@
 
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col">
-                                <div class="d-flex justify-content-end"><img src="{{ asset('asset/acc2.png') }}" class="p-2 mb-2" style="max-width: 60px; border: 1px solid #202020"></div>
+                                <div class="d-flex justify-content-end"><img src="{{ asset('public/asset/acc2.png') }}" class="p-2 mb-2" style="max-width: 60px; border: 1px solid #202020"></div>
                             </div>
                         </div>
                     </div>
@@ -171,9 +171,9 @@
     </div>
 
     {{-- <script src="{{ asset('lib/bootstrap-5/bootstrap.min.js') }}"></script> --}}
-    <script src="{{ asset('lib/bootstrap-5/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('lib/datatables/js/jquery-3.5.1.js') }}"></script>
-    <script src="{{ asset('lib/fontawesome-5/js/fontawesome.min.js') }}"></script>
+    <script src="{{ asset('public/lib/bootstrap-5/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/lib/datatables/js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ asset('public/lib/fontawesome-5/js/fontawesome.min.js') }}"></script>
 
     <script>
         window.print();
