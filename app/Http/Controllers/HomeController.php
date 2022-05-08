@@ -28,48 +28,23 @@ class HomeController extends Controller
     {
         // pesanan hari ini
         $pesanan = EspkPekerjaan::where('tanggal_pesanan', date('Y-m-d'))->newQuery();
-        if (Auth::user()->masterKaryawan) {
-            $pesanan = $pesanan->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
-        }
-        $pesanan_hari_ini = $pesanan->get();
-
         // pesanan sedang diproses
         $pesanan_proses = EspkPekerjaan::whereIn('status_id', [3,4,5])->newQuery();
-        if (Auth::user()->masterKaryawan) {
-            $pesanan_proses = $pesanan_proses->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
-        }
-        $pesanan_proses = $pesanan_proses->get();
-
         // pesanan menunggu disetujui
         $pesanan_menunggu_disetujui = EspkPekerjaan::where('status_id', 9)->newQuery();
-        if (Auth::user()->masterKaryawan) {
-            $pesanan_menunggu_disetujui = $pesanan_menunggu_disetujui->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
-        }
-        $pesanan_menunggu_disetujui = $pesanan_menunggu_disetujui->get();
-
         // pesanan selesai bulan ini
         $pesanan_selesai = EspkPekerjaan::where('status_id', 6)
             ->whereYear('tanggal_pesanan', date('Y'))
             ->whereMonth('tanggal_pesanan', date('m'))
             ->newQuery();
-        if (Auth::user()->masterKaryawan) {
+
+        if (Auth::user()->masterKaryawan && Auth::user()->masterKaryawan->master_cabang_id != 1) {
+            $pesanan = $pesanan->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
+            $pesanan_proses = $pesanan_proses->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
+            $pesanan_menunggu_disetujui = $pesanan_menunggu_disetujui->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
             $pesanan_selesai = $pesanan_selesai->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
-        }
-        $pesanan_selesai = $pesanan_selesai->get();
-
-        if (Auth::user()->master_karyawan_id) {
             $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->master_cabang_id)->whereIn('status_id', [2,6,7])->orderBy('id', 'desc')->limit(500)->get();
-        } else {
-            $pekerjaan = EspkPekerjaan::whereIn('status_id', [2,6,7])->orderBy('id', 'desc')->limit(500)->get();
-        }
-
-        if (Auth::user()->master_karyawan_id) {
             $pesanan_batal = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->master_cabang_id)->whereIn('status_id', [2,7])->orderBy('id', 'desc')->limit(500)->get();
-        } else {
-            $pesanan_batal = EspkPekerjaan::whereIn('status_id', [2,7])->orderBy('id', 'desc')->limit(500)->get();
-        }
-
-        if (Auth::user()->master_karyawan_id) {
             $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
                 ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
                 ->whereNotNull('status_id')
@@ -77,12 +52,76 @@ class HomeController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
         } else {
+            $pesanan_hari_ini = $pesanan->get();
+            $pesanan_proses = $pesanan_proses->get();
+            $pesanan_menunggu_disetujui = $pesanan_menunggu_disetujui->get();
+            $pesanan_selesai = $pesanan_selesai->get();
+            $pekerjaan = EspkPekerjaan::whereIn('status_id', [2,6,7])->orderBy('id', 'desc')->limit(500)->get();
+            $pesanan_batal = EspkPekerjaan::whereIn('status_id', [2,7])->orderBy('id', 'desc')->limit(500)->get();
             $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
                 ->whereNotNull('status_id')
                 ->whereNotIn('status_id', [2,6,8,9])
                 ->orderBy('id', 'desc')
                 ->get();
         }
+
+        // // pesanan hari ini
+        // $pesanan = EspkPekerjaan::where('tanggal_pesanan', date('Y-m-d'))->newQuery();
+        // if (Auth::user()->masterKaryawan && Auth::user()->masterKaryawan->master_cabang_id != 1) {
+        //     $pesanan = $pesanan->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
+        // }
+        // $pesanan_hari_ini = $pesanan->get();
+
+        // // pesanan sedang diproses
+        // $pesanan_proses = EspkPekerjaan::whereIn('status_id', [3,4,5])->newQuery();
+        // if (Auth::user()->masterKaryawan && Auth::user()->masterKaryawan->master_cabang_id != 1) {
+        //     $pesanan_proses = $pesanan_proses->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
+        // }
+        // $pesanan_proses = $pesanan_proses->get();
+
+        // // pesanan menunggu disetujui
+        // $pesanan_menunggu_disetujui = EspkPekerjaan::where('status_id', 9)->newQuery();
+        // if (Auth::user()->masterKaryawan && Auth::user()->masterKaryawan->master_cabang_id != 1) {
+        //     $pesanan_menunggu_disetujui = $pesanan_menunggu_disetujui->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
+        // }
+        // $pesanan_menunggu_disetujui = $pesanan_menunggu_disetujui->get();
+
+        // // pesanan selesai bulan ini
+        // $pesanan_selesai = EspkPekerjaan::where('status_id', 6)
+        //     ->whereYear('tanggal_pesanan', date('Y'))
+        //     ->whereMonth('tanggal_pesanan', date('m'))
+        //     ->newQuery();
+        // if (Auth::user()->masterKaryawan && Auth::user()->masterKaryawan->master_cabang_id != 1) {
+        //     $pesanan_selesai = $pesanan_selesai->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
+        // }
+        // $pesanan_selesai = $pesanan_selesai->get();
+
+        // if (Auth::user()->master_karyawan_id) {
+        //     $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->master_cabang_id)->whereIn('status_id', [2,6,7])->orderBy('id', 'desc')->limit(500)->get();
+        // } else {
+        //     $pekerjaan = EspkPekerjaan::whereIn('status_id', [2,6,7])->orderBy('id', 'desc')->limit(500)->get();
+        // }
+
+        // if (Auth::user()->master_karyawan_id && Auth::user()->masterKaryawan->master_cabang_id != 1) {
+        //     $pesanan_batal = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->master_cabang_id)->whereIn('status_id', [2,7])->orderBy('id', 'desc')->limit(500)->get();
+        // } else {
+        //     $pesanan_batal = EspkPekerjaan::whereIn('status_id', [2,7])->orderBy('id', 'desc')->limit(500)->get();
+        // }
+
+        // if (Auth::user()->master_karyawan_id) {
+        //     $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+        //         ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
+        //         ->whereNotNull('status_id')
+        //         ->whereNotIn('status_id', [2,6,8,9])
+        //         ->orderBy('id', 'desc')
+        //         ->get();
+        // } else {
+        //     $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+        //         ->whereNotNull('status_id')
+        //         ->whereNotIn('status_id', [2,6,8,9])
+        //         ->orderBy('id', 'desc')
+        //         ->get();
+        // }
 
         $jumlah_pesanan_hari_ini = count($pesanan_hari_ini);
         $jumlan_pesanan_proses = count($pesanan_proses);
