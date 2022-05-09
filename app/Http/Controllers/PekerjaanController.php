@@ -27,7 +27,6 @@ class PekerjaanController extends Controller
         if (Auth::user()->master_karyawan_id) {
             $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
                 ->whereNotIn('status_id', [2,6,7])
-                ->orWhere('status_id', null)
                 ->orderBy('id', 'desc')
                 ->limit(1000)
                 ->get();
@@ -37,7 +36,6 @@ class PekerjaanController extends Controller
         } else {
             $pekerjaan = EspkPekerjaan::orderBy('id', 'desc')
                 ->whereNotIn('status_id', [2,6,7])
-                ->orWhere('status_id', null)
                 ->limit(1000)
                 ->get();
 
@@ -121,6 +119,7 @@ class PekerjaanController extends Controller
         $pekerjaan->catatan_kasir = $request->catatan_kasir;
         $pekerjaan->catatan_produksi = $request->catatan_produksi;
         $pekerjaan->keterangan = $request->keterangan;
+        $pekerjaan->status_id = 0;
 
         if ($request->file('file')) {
             $file_name = $request->file('file')->getClientOriginalName();
@@ -281,12 +280,14 @@ class PekerjaanController extends Controller
         $pekerjaan_proses = EspkPekerjaanProses::where('pekerjaan_id', $id);
         $pekerjaan_proses->delete();
 
-        foreach ($request->jenis_pekerjaan_id as $key => $jenis_pekerjaan) {
-            $jenis_pekerjaans = new EspkPekerjaanProses();
-            $jenis_pekerjaans->jenis_pekerjaan_id = $jenis_pekerjaan;
-            $jenis_pekerjaans->pekerjaan_id = $pekerjaan->id;
-            $jenis_pekerjaans->keterangan = $request->jenis_pekerjaan_keterangan[$key];
-            $jenis_pekerjaans->save();
+        if ($request->jenis_pekerjaan_id) {
+            foreach ($request->jenis_pekerjaan_id as $key => $jenis_pekerjaan) {
+                $jenis_pekerjaans = new EspkPekerjaanProses();
+                $jenis_pekerjaans->jenis_pekerjaan_id = $jenis_pekerjaan;
+                $jenis_pekerjaans->pekerjaan_id = $pekerjaan->id;
+                $jenis_pekerjaans->keterangan = $request->jenis_pekerjaan_keterangan[$key];
+                $jenis_pekerjaans->save();
+            }
         }
 
         return redirect()->route('pekerjaan.index')->with('status', 'Data berhasil disimpan');

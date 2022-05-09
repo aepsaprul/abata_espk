@@ -356,7 +356,11 @@
                                         </tr>
                                         @foreach ($status_pekerjaans as $status)
                                             <tr>
-                                                <td>{{ $status->status->nama_status }}</td>
+                                                <td>
+                                                    @if ($status->status)
+                                                        {{ $status->status->nama_status }}
+                                                    @endif
+                                                </td>
                                                 <td>{{ $status->pelaksana->nama_lengkap }}</td>
                                                 <td class="text-center">
                                                     @php
