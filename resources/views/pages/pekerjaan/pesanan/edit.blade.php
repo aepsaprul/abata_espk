@@ -149,7 +149,7 @@
                                                     <label for="cabang_cetak_id">Cetak</label>
                                                     <select class="form-control form-control-sm" name="cabang_cetak_id">
                                                         @foreach ($cabang_cetaks as $cabang_cetak)
-                                                            <option value="{{ $cabang_cetak->id }}" {{ $cabang_cetak->id == $pekerjaan->cabang_cetak_id ? 'selected' : '' }}>{{ $cabang_cetak->masterCabang->nama_cabang }}</option>
+                                                            <option value="{{ $cabang_cetak->cabang_id }}" {{ $cabang_cetak->cabang_id == $pekerjaan->cabang_cetak_id ? 'selected' : '' }}>{{ $cabang_cetak->masterCabang->nama_cabang }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -157,7 +157,7 @@
                                                     <label for="cabang_finishing_id">Finishing</label>
                                                     <select class="form-control form-control-sm" name="cabang_finishing_id">
                                                         @foreach ($cabang_finishings as $cabang_finishing)
-                                                            <option value="{{ $cabang_finishing->id }}" {{ $cabang_finishing->id == $pekerjaan->cabang_finishing_id ? 'selected' : '' }}>{{ $cabang_finishing->masterCabang->nama_cabang }}</option>
+                                                            <option value="{{ $cabang_finishing->cabang_id }}" {{ $cabang_finishing->cabang_id == $pekerjaan->cabang_finishing_id ? 'selected' : '' }}>{{ $cabang_finishing->masterCabang->nama_cabang }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
