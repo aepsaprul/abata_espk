@@ -94,7 +94,7 @@ class PekerjaanController extends Controller
     {
         $validated = $request->validate([
             'pegawai_penerima_pesanan_id' => 'required',
-            'file' => 'required|image|mimes:jpg,png,jpeg|max:2048'
+            'file' => 'required|max:15000'
         ]);
 
         $pekerjaan = new EspkPekerjaan;
@@ -239,7 +239,7 @@ class PekerjaanController extends Controller
     {
         $validated = $request->validate([
             'pegawai_penerima_pesanan_id' => 'required',
-            'file' => 'max:5000'
+            'file' => 'required|max:15000'
         ]);
 
         $pekerjaan = EspkPekerjaan::find($id);

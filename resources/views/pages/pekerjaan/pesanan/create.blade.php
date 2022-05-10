@@ -305,7 +305,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="desain">File (jpg, jpeg, png, max 2 mb)</label>
+                                                        <label for="desain">File</label>
                                                         <input class="form-control form-control-sm @error('file') is-invalid @enderror" id="file" type="file" name="file" required>
                                                         @error('file')
                                                             <div class="text-danger">{{ $message }}</div>
