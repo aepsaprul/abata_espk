@@ -97,7 +97,11 @@ class PekerjaanController extends Controller
             'file' => 'required|max:15000'
         ]);
 
+        $get_pekerjaan = EspkPekerjaan::whereNotNull('id_espk')->get();
+        $count_get_pekerjaan = count($get_pekerjaan);
+
         $pekerjaan = new EspkPekerjaan;
+        $pekerjaan->id_espk = date('Ym') . $count_get_pekerjaan;
         $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
         $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;

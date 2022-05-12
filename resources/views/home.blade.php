@@ -125,6 +125,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">ID</th>
                                         <th class="text-center text-indigo">Nama Pesanan</th>
                                         <th class="text-center text-indigo">Tgl Order</th>
                                         <th class="text-center text-indigo">Rencana Jadi</th>
@@ -136,6 +137,7 @@
                                     @foreach ($pesanan_hari_ini as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>{{ $item->id_espk }}</td>
                                             <td>{{ $item->nama_pesanan }}</td>
                                             <td class="text-center">{{ tgl_indo($item->tanggal_pesanan) }}</td>
                                             <td class="text-center">{{ tgl_indo($item->rencana_jadi) }}</td>
@@ -166,6 +168,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">ID</th>
                                         <th class="text-center text-indigo">Nama Pesanan</th>
                                         <th class="text-center text-indigo">Tgl Order</th>
                                         <th class="text-center text-indigo">Rencana Jadi</th>
@@ -177,6 +180,7 @@
                                     @foreach ($pesanan_menunggu_disetujui as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>{{ $item->id_espk }}</td>
                                             <td>{{ $item->nama_pesanan }}</td>
                                             <td class="text-center">{{ tgl_indo($item->tanggal_pesanan) }}</td>
                                             <td class="text-center">{{ tgl_indo($item->rencana_jadi) }}</td>
@@ -207,6 +211,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">ID</th>
                                         <th class="text-center text-indigo">Nama Pesanan</th>
                                         <th class="text-center text-indigo">Tgl Order</th>
                                         <th class="text-center text-indigo">Rencana Jadi</th>
@@ -218,6 +223,7 @@
                                     @foreach ($pesanan_proses as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>{{ $item->id_espk }}</td>
                                             <td>{{ $item->nama_pesanan }}</td>
                                             <td class="text-center">{{ tgl_indo($item->tanggal_pesanan) }}</td>
                                             <td class="text-center">{{ tgl_indo($item->rencana_jadi) }}</td>
@@ -248,6 +254,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">ID</th>
                                         <th class="text-center text-indigo">Nama Pesanan</th>
                                         <th class="text-center text-indigo">Tgl Order</th>
                                         <th class="text-center text-indigo">Rencana Jadi</th>
@@ -259,6 +266,7 @@
                                     @foreach ($pesanan_selesai as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>{{ $item->id_espk }}</td>
                                             <td>{{ $item->nama_pesanan }}</td>
                                             <td class="text-center">{{ tgl_indo($item->tanggal_pesanan) }}</td>
                                             <td class="text-center">{{ tgl_indo($item->rencana_jadi) }}</td>
@@ -289,6 +297,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">ID</th>
                                         <th class="text-center text-indigo">Nama Pesanan</th>
                                         <th class="text-center text-indigo">Tgl Order</th>
                                         <th class="text-center text-indigo">Rencana Jadi</th>
@@ -300,6 +309,7 @@
                                     @foreach ($pesanan_batal as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>{{ $item->id_espk }}</td>
                                             <td>{{ $item->nama_pesanan }}</td>
                                             <td class="text-center">{{ tgl_indo($item->tanggal_pesanan) }}</td>
                                             <td class="text-center">{{ tgl_indo($item->rencana_jadi) }}</td>
@@ -330,6 +340,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
+                                        <th class="text-center text-indigo">ID</th>
                                         <th class="text-center text-indigo">Pemesan</th>
                                         <th class="text-center text-indigo">Nama Pesanan</th>
                                         <th class="text-center text-indigo">No Nota</th>
@@ -339,35 +350,36 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($data_pekerjaan as $key => $pekerjaan)
-                                    <tr>
-                                        <td class="text-center">{{ $key + 1 }}</td>
-                                        <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
-                                        <td>{{ $pekerjaan->nama_pesanan }}</td>
-                                        <td>{{ $pekerjaan->nomor_nota }}</td>
-                                        <td class="text-center">
-                                            @if ($pekerjaan->tanggal_disetujui)
-                                                @php
-                                                    $tanggal_disetujui = explode(" ", $pekerjaan->tanggal_disetujui);
-                                                @endphp
-                                                {{ tgl_indo($tanggal_disetujui[0]) }}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($pekerjaan->status_id != null)
-                                                {{ $pekerjaan->status->nama_status }}
-                                                @if ($pekerjaan->status_id == 6 || $pekerjaan->status_id == 7)
-                                                    @php $hide = "d-none"; @endphp
+                                        <tr>
+                                            <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>{{ $item->id_espk }}</td>
+                                            <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
+                                            <td>{{ $pekerjaan->nama_pesanan }}</td>
+                                            <td>{{ $pekerjaan->nomor_nota }}</td>
+                                            <td class="text-center">
+                                                @if ($pekerjaan->tanggal_disetujui)
+                                                    @php
+                                                        $tanggal_disetujui = explode(" ", $pekerjaan->tanggal_disetujui);
+                                                    @endphp
+                                                    {{ tgl_indo($tanggal_disetujui[0]) }}
                                                 @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($pekerjaan->status_id != null)
+                                                    {{ $pekerjaan->status->nama_status }}
+                                                    @if ($pekerjaan->status_id == 6 || $pekerjaan->status_id == 7)
+                                                        @php $hide = "d-none"; @endphp
+                                                    @else
+                                                        @php $hide = ""; @endphp
+                                                    @endif
+                                                @else
+                                                    -
                                                     @php $hide = ""; @endphp
                                                 @endif
-                                            @else
-                                                -
-                                                @php $hide = ""; @endphp
-                                            @endif
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
