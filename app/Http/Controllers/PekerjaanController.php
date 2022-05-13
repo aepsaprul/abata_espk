@@ -101,7 +101,7 @@ class PekerjaanController extends Controller
         $count_get_pekerjaan = count($get_pekerjaan);
 
         $pekerjaan = new EspkPekerjaan;
-        $pekerjaan->id_espk = date('Ym') . $count_get_pekerjaan;
+        $pekerjaan->id_espk = date('ymd') . $count_get_pekerjaan;
         $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
         $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
