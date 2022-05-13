@@ -349,17 +349,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data_pekerjaan as $key => $pekerjaan)
+                                    @foreach ($data_pekerjaan as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
                                             <td>{{ $item->id_espk }}</td>
-                                            <td>{{ $pekerjaan->cabangPemesan->nama_cabang }}</td>
-                                            <td>{{ $pekerjaan->nama_pesanan }}</td>
-                                            <td>{{ $pekerjaan->nomor_nota }}</td>
+                                            <td>{{ $item->cabangPemesan->nama_cabang }}</td>
+                                            <td>{{ $item->nama_pesanan }}</td>
+                                            <td>{{ $item->nomor_nota }}</td>
                                             <td class="text-center">
-                                                @if ($pekerjaan->tanggal_disetujui)
+                                                @if ($item->tanggal_disetujui)
                                                     @php
-                                                        $tanggal_disetujui = explode(" ", $pekerjaan->tanggal_disetujui);
+                                                        $tanggal_disetujui = explode(" ", $item->tanggal_disetujui);
                                                     @endphp
                                                     {{ tgl_indo($tanggal_disetujui[0]) }}
                                                 @else
@@ -367,9 +367,9 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($pekerjaan->status_id != null)
-                                                    {{ $pekerjaan->status->nama_status }}
-                                                    @if ($pekerjaan->status_id == 6 || $pekerjaan->status_id == 7)
+                                                @if ($item->status_id != null)
+                                                    {{ $item->status->nama_status }}
+                                                    @if ($item->status_id == 6 || $item->status_id == 7)
                                                         @php $hide = "d-none"; @endphp
                                                     @else
                                                         @php $hide = ""; @endphp
