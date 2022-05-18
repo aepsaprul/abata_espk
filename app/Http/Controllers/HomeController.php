@@ -88,8 +88,8 @@ class HomeController extends Controller
 
         // pesanan selesai bulan ini
         $pesanan_selesai = EspkPekerjaan::where('status_id', 6)
-            ->whereYear('tanggal_pesanan', date('Y'))
-            ->whereMonth('tanggal_pesanan', date('m'))
+            ->whereYear('tanggal_selesai', date('Y'))
+            ->whereMonth('tanggal_selesai', date('m'))
             ->newQuery();
         if (Auth::user()->masterKaryawan && Auth::user()->masterKaryawan->master_cabang_id != 1) {
             $pesanan_selesai = $pesanan_selesai->where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id);
