@@ -68,13 +68,13 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="nama_pesanan">Nama Pesanan</label>
-                                                        <input type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}">
+                                                        <input type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="nomor_nota">Nomor Nota</label>
-                                                        <input type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}">
+                                                        <input type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -92,31 +92,31 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="jenis_pesanan">Jenis Produk</label>
-                                                        <input type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}">
+                                                        <input type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="jumlah_cetak">Jumlah Cetak</label>
-                                                        <input type="text" class="form-control form-control-sm" name="jumlah_cetak" value="{{ $pekerjaan->jumlah }}">
+                                                        <input type="text" class="form-control form-control-sm" name="jumlah_cetak" value="{{ $pekerjaan->jumlah }}" maxlength="30">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="ukuran">Ukuran</label>
-                                                        <input type="text" class="form-control form-control-sm" name="ukuran" value="{{ $pekerjaan->ukuran }}">
+                                                        <input type="text" class="form-control form-control-sm" name="ukuran" value="{{ $pekerjaan->ukuran }}" maxlength="30">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="jenis_kertas">Jenis Kertas</label>
-                                                        <input type="text" class="form-control form-control-sm" name="jenis_kertas" value="{{ $pekerjaan->jenis_kertas }}">
+                                                        <input type="text" class="form-control form-control-sm" name="jenis_kertas" value="{{ $pekerjaan->jenis_kertas }}" maxlength="30">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="warna">Warna Tinta</label>
-                                                        <input type="text" class="form-control form-control-sm" name="warna" value="{{ $pekerjaan->warna }}">
+                                                        <input type="text" class="form-control form-control-sm" name="warna" value="{{ $pekerjaan->warna }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -191,13 +191,13 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="nama_pesanan">Nama Pesanan</label>
-                                                        <input type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}">
+                                                        <input type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="nomor_nota">Nomor Nota</label>
-                                                        <input type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}">
+                                                        <input type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -215,37 +215,37 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="jenis_pesanan">Jenis Produk</label>
-                                                        <input type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}">
+                                                        <input type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="jumlah_cetak">Jumlah Cetak</label>
-                                                        <input type="text" class="form-control form-control-sm" name="jumlah_cetak" value="{{ $pekerjaan->jumlah }}">
+                                                        <input type="text" class="form-control form-control-sm" name="jumlah_cetak" value="{{ $pekerjaan->jumlah }}" maxlength="30">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="ukuran">Ukuran</label>
-                                                        <input type="text" class="form-control form-control-sm" name="ukuran" value="{{ $pekerjaan->ukuran }}">
+                                                        <input type="text" class="form-control form-control-sm" name="ukuran" value="{{ $pekerjaan->ukuran }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="bahan">Bahan</label>
-                                                        <input type="text" id="bahan" name="bahan" class="form-control form-control-sm" value="{{ $pekerjaan->bahan }}">
+                                                        <input type="text" id="bahan" name="bahan" class="form-control form-control-sm" value="{{ $pekerjaan->bahan }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="satuan">Satuan</label>
-                                                        <input type="text" id="satuan" name="satuan" class="form-control form-control-sm" value="{{ $pekerjaan->satuan }}">
+                                                        <input type="text" id="satuan" name="satuan" class="form-control form-control-sm" value="{{ $pekerjaan->satuan }}" maxlength="20">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label for="finishing">Finishing</label>
-                                                        <input type="text" id="finishing" name="finishing" class="form-control form-control-sm" value="{{ $pekerjaan->finishing }}">
+                                                        <input type="text" id="finishing" name="finishing" class="form-control form-control-sm" value="{{ $pekerjaan->finishing }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">

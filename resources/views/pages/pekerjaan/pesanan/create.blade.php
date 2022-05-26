@@ -72,13 +72,13 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="nama_pesanan">Nama Pesanan</label>
-                                                            <input type="text" id="nama_pesanan" name="nama_pesanan" class="form-control form-control-sm" required>
+                                                            <input type="text" id="nama_pesanan" name="nama_pesanan" class="form-control form-control-sm" maxlength="50" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="nomor_nota">Nomor Nota</label>
-                                                            <input type="text" id="nomor_nota" name="nomor_nota" class="form-control form-control-sm" required>
+                                                            <input type="text" id="nomor_nota" name="nomor_nota" class="form-control form-control-sm" maxlength="50" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -96,31 +96,31 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="jenis_pesanan">Jenis Produk</label>
-                                                            <input type="text" id="jenis_pesanan" name="jenis_pesanan" class="form-control form-control-sm">
+                                                            <input type="text" id="jenis_pesanan" name="jenis_pesanan" class="form-control form-control-sm" maxlength="50">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="jumlah_cetak">Jumlah Cetak</label>
-                                                            <input type="text" id="jumlah_cetak" name="jumlah_cetak" class="form-control form-control-sm">
+                                                            <input type="text" id="jumlah_cetak" name="jumlah_cetak" class="form-control form-control-sm" maxlength="30">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="ukuran">Ukuran</label>
-                                                            <input type="text" id="ukuran" name="ukuran" class="form-control form-control-sm">
+                                                            <input type="text" id="ukuran" name="ukuran" class="form-control form-control-sm" maxlength="30">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="jenis_kertas">Jenis Kertas</label>
-                                                            <input type="text" id="jenis_kertas" name="jenis_kertas" class="form-control form-control-sm">
+                                                            <input type="text" id="jenis_kertas" name="jenis_kertas" class="form-control form-control-sm" maxlength="30">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="warna">Warna Tinta</label>
-                                                            <input type="text" id="warna" name="warna" class="form-control form-control-sm">
+                                                            <input type="text" id="warna" name="warna" class="form-control form-control-sm" maxlength="50">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -192,13 +192,13 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="nama_pesanan">Nama Pesanan</label>
-                                                            <input type="text" id="nama_pesanan" name="nama_pesanan" class="form-control form-control-sm" required>
+                                                            <input type="text" id="nama_pesanan" name="nama_pesanan" class="form-control form-control-sm" required maxlength="50">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="nomor_nota">Nomor Nota</label>
-                                                            <input type="text" id="nomor_nota" name="nomor_nota" class="form-control form-control-sm" required>
+                                                            <input type="text" id="nomor_nota" name="nomor_nota" class="form-control form-control-sm" required maxlength="50">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -216,37 +216,37 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="jenis_pesanan">Jenis Cetak</label>
-                                                            <input type="text" id="jenis_pesanan" name="jenis_pesanan" class="form-control form-control-sm">
+                                                            <input type="text" id="jenis_pesanan" name="jenis_pesanan" class="form-control form-control-sm" maxlength="50">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="jumlah_cetak">Jumlah Cetak</label>
-                                                            <input type="text" id="jumlah_cetak" name="jumlah_cetak" class="form-control form-control-sm">
+                                                            <input type="text" id="jumlah_cetak" name="jumlah_cetak" class="form-control form-control-sm" maxlength="30">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="ukuran">Ukuran</label>
-                                                            <input type="text" id="ukuran" name="ukuran" class="form-control form-control-sm">
+                                                            <input type="text" id="ukuran" name="ukuran" class="form-control form-control-sm" maxlength="30">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="bahan">Bahan</label>
-                                                            <input type="text" id="bahan" name="bahan" class="form-control form-control-sm">
+                                                            <input type="text" id="bahan" name="bahan" class="form-control form-control-sm" maxlength="50">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="satuan">Satuan</label>
-                                                            <input type="text" id="satuan" name="satuan" class="form-control form-control-sm">
+                                                            <input type="text" id="satuan" name="satuan" class="form-control form-control-sm" maxlength="20">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="finishing">Finishing</label>
-                                                            <input type="text" id="finishing" name="finishing" class="form-control form-control-sm">
+                                                            <input type="text" id="finishing" name="finishing" class="form-control form-control-sm" maxlength="50">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
