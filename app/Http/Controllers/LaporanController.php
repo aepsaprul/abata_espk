@@ -17,7 +17,7 @@ class LaporanController extends Controller
 {
     public function indexPekerjaan()
     {
-        $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')->get();
+        $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')->orderBy('id', 'desc')->get();
         $pelanggan = EspkPelanggan::get();
         $cabang = EspkCabang::get();
         $status = EspkStatus::get();

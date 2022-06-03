@@ -109,12 +109,21 @@ class HomeController extends Controller
         }
 
         if (Auth::user()->master_karyawan_id) {
-            $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
-                ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
+            if (Auth::user()->masterKaryawan->masterCabang->id == 1) {
+                $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
                 ->whereNotNull('status_id')
                 ->whereNotIn('status_id', [2,1,8,9])
                 ->orderBy('id', 'desc')
                 ->get();
+            } else {
+                $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+                    ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
+                    ->whereNotNull('status_id')
+                    ->whereNotIn('status_id', [2,1,8,9])
+                    ->orderBy('id', 'desc')
+                    ->get();
+            }
+
         } else {
             $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
                 ->whereNotNull('status_id')
