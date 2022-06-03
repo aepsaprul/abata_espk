@@ -60,7 +60,11 @@
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $item->masterKaryawan->nama_lengkap }}</td>
-                                        <td>{{ $item->masterKaryawan->masterJabatan->nama_jabatan }}</td>
+                                        <td>
+                                            @if ($item->masterKaryawan->masterJabatan)
+                                                {{ $item->masterKaryawan->masterJabatan->nama_jabatan }}
+                                            @endif
+                                        </td>
                                         <td>{{ $item->masterKaryawan->email }}</td>
                                         <td style="width: 150px;">{{ $item->masterKaryawan->masterCabang->nama_cabang }}</td>
                                         <td class="text-center">
