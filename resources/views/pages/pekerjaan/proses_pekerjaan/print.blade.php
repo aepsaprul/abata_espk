@@ -33,6 +33,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-6 border border-3">
                         <h1 class="text-center fw-bold text-uppercase my-2">spk</h1>
+                        <p class="text-center text-uppercase" style="font-size: 20px;">{{ $pekerjaan->cabangPemesan->nama_cabang }}</p>
                         <table class="table table-bordered" style="border: 2px solid #d0d0d0;">
                             <tr style="border: 2px solid #d0d0d0;">
                                 <th class="text-uppercase text-center">pemesan</th>

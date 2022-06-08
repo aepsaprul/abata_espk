@@ -83,7 +83,7 @@
     <div id="container">
         <div id="header">
             <div class="judul">
-                <p class="title">spk</p>
+                <p class="title">spk {{ $pekerjaan->cabangPemesan->nama_cabang }}</p>
                 <p class="title_sm">{{ $pekerjaan->nama_pesanan }}</p>
             </div>
             <div class="acc">
