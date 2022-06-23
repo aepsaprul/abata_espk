@@ -59,14 +59,28 @@
                                     @foreach ($users as $key => $item)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td>{{ $item->masterKaryawan->nama_lengkap }}</td>
                                         <td>
-                                            @if ($item->masterKaryawan->masterJabatan)
-                                                {{ $item->masterKaryawan->masterJabatan->nama_jabatan }}
+                                            @if ($item->masterKaryawan)
+                                                {{ $item->masterKaryawan->nama_lengkap }}
                                             @endif
                                         </td>
-                                        <td>{{ $item->masterKaryawan->email }}</td>
-                                        <td style="width: 150px;">{{ $item->masterKaryawan->masterCabang->nama_cabang }}</td>
+                                        <td>
+                                            @if ($item->masterKaryawan)
+                                                @if ($item->masterKaryawan->masterJabatan)
+                                                    {{ $item->masterKaryawan->masterJabatan->nama_jabatan }}
+                                                @endif
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($item->masterKaryawan)
+                                                {{ $item->masterKaryawan->email }}
+                                            @endif
+                                        </td>
+                                        <td style="width: 150px;">
+                                            @if ($item->masterKaryawan)
+                                                {{ $item->masterKaryawan->masterCabang->nama_cabang }}
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <div class="btn-group">
                                                 <a

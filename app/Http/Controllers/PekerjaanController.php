@@ -242,8 +242,7 @@ class PekerjaanController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'pegawai_penerima_pesanan_id' => 'required',
-            'file' => 'required|max:15000'
+            'pegawai_penerima_pesanan_id' => 'required'
         ]);
 
         $pekerjaan = EspkPekerjaan::find($id);

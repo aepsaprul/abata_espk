@@ -157,7 +157,7 @@
                                             <tr>
                                                 <td class="text-center">{{ $key + 1 }}</td>
                                                 <td>{{ $item->cabangPemesan->nama_cabang }}</td>
-                                                <td><a href="#" class="btn-detail" data-id="{{ $item->id }}"> {{ $item->nama_pesanan }} </a></td>
+                                                <td><a href="#" class="btn-detail" data-id="{{ $item->id }}"> {{ $item->nama_pesanan }} </a> | <a href="{{ route('proses_pekerjaan.print', [$item->id]) }}" target="_blank">Print</a></td>
                                                 <td>{{ $item->nomor_nota }}</td>
                                                 <td>{{ $item->tanggal_pesanan }}</td>
                                                 <td>{{ $item->rencana_jadi }}</td>
