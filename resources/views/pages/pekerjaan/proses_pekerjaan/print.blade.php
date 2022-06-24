@@ -51,7 +51,7 @@
 
                         <table class="table table-bordered" style="border: 2px solid #d0d0d0;">
                             <tr style="border: 2px solid #d0d0d0;">
-                                <th class="text-uppercase text-center">judul</th>
+                                <th class="text-uppercase text-center">judul pesanan</th>
                             </tr>
                             <tr style="border: 2px solid #d0d0d0;">
                                 <td class="text-uppercase text-center">{{ $pekerjaan->nama_pesanan }}</td>
