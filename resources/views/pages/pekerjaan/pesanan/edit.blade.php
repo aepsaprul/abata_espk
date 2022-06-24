@@ -56,7 +56,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="pelanggan_id">Pelanggan</label>
+                                                        <label for="pelanggan_id">Pemesan</label>
                                                         <select class="form-control form-control-sm" name="pelanggan_id">
                                                             <option value="">--Pilih Pelanggan--</option>
                                                             @foreach ($pelanggans as $pelanggan)
@@ -67,19 +67,19 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="nama_pesanan">Nama Pesanan</label>
+                                                        <label for="nama_pesanan">Judul Pesanan</label>
                                                         <input type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="nomor_nota">Nomor Nota</label>
+                                                        <label for="nomor_nota">No Nota</label>
                                                         <input type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}" maxlength="50">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="tanggal_pesanan">Tanggal Pesanan</label>
+                                                        <label for="tanggal_pesanan">Tanggal Dibuat</label>
                                                         <input type="date" class="form-control form-control-sm" name="tanggal_pesanan" value="{{ $pekerjaan->tanggal_pesanan }}">
                                                     </div>
                                                 </div>
@@ -91,7 +91,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="jenis_pesanan">Jenis Produk</label>
+                                                        <label for="jenis_pesanan">Jenis Order</label>
                                                         <input type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}" maxlength="50">
                                                     </div>
                                                 </div>
@@ -127,7 +127,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="pegawai_penerima_pesanan_id">Penerima Pesanan</label>
+                                                        <label for="pegawai_penerima_pesanan_id">Penerima Order</label>
                                                         <select class="form-control form-control-sm" name="pegawai_penerima_pesanan_id">
                                                             @foreach ($penerima_pesanans as $penerima_pesanan)
                                                                 <option value="{{ $penerima_pesanan->id }}" {{ $penerima_pesanan->id == $pekerjaan->pegawai_penerima_pesanan_id ? 'selected' : '' }}>{{ $penerima_pesanan->nama_lengkap }}</option>

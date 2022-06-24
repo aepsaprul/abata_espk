@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3">
-                                                    <label for="pelanggan_id" class="form-label">Pelanggan</label>
+                                                    <label for="pelanggan_id" class="form-label">Pemesan</label>
                                                     <select id="pelanggan_id" class="form-control form-control-sm select-pelanggan" name="pelanggan_id">
                                                         <option value="">-- Pilih Pelanggan --</option>
                                                         @foreach ($pelanggans as $pelanggan)
@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3">
-                                                    <label for="nama_pesanan" class="form-label">Nama Pesanan</label>
+                                                    <label for="nama_pesanan" class="form-label">Judul Pesanan</label>
                                                     <input type="text" class="form-control form-control-sm" id="nama_pesanan" name="nama_pesanan">
                                                 </div>
                                             </div>
@@ -142,14 +142,14 @@
                                         <tr>
                                             <th class="text-center text-indigo" style="vertical-align: text-top;">No</th>
                                             <th class="text-center text-indigo" style="vertical-align: text-top;">Pemesan</th>
-                                            <th class="text-center text-indigo">Nama Pekerjaan</th>
+                                            <th class="text-center text-indigo">Judul Pesanan</th>
                                             <th class="text-center text-indigo">No Nota</th>
-                                            <th class="text-center text-indigo">Tgl Order</th>
+                                            <th class="text-center text-indigo">Tgl Dibuat</th>
                                             <th class="text-center text-indigo">Rencana Jadi</th>
                                             <th class="text-center text-indigo" style="vertical-align: text-top;">Pelaksana</th>
                                             <th class="text-center text-indigo" style="vertical-align: text-top;">Status</th>
                                             <th class="text-center text-indigo" style="vertical-align: text-top;">Tgl Selesai</th>
-                                            <th class="text-center text-indigo">Penerima Pesanan</th>
+                                            <th class="text-center text-indigo">Penerima Order</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -389,7 +389,7 @@
                                 "<div class=\"row mb-3\">" +
                                     "<div class=\"col-md-3\">" +
                                         "<div class=\"form-group\">" +
-                                            "<label for=\"pelanggan_id\">Pelanggan</label>" +
+                                            "<label for=\"pelanggan_id\">Pemesan</label>" +
                                             "<input disabled type=\"text\" class=\"form-control form-control-sm\" name=\"pelanggan_id\"";
 
                                                 if (response.pekerjaan.pelanggan) {
@@ -401,19 +401,19 @@
                                     "</div>" +
                                     "<div class=\"col-md-3\">" +
                                         "<div class=\"form-group\">" +
-                                            "<label for=\"nama_pesanan\">Nama Pesanan</label>" +
+                                            "<label for=\"nama_pesanan\">Judul Pesanan</label>" +
                                             "<input disabled type=\"text\" class=\"form-control form-control-sm\" name=\"nama_pesanan\" value=\"" + response.pekerjaan.nama_pesanan + "\">" +
                                         "</div>" +
                                     "</div>" +
                                     "<div class=\"col-md-3\">" +
                                         "<div class=\"form-group\">" +
-                                            "<label for=\"nomor_nota\">Nomor Nota</label>" +
+                                            "<label for=\"nomor_nota\">No Nota</label>" +
                                             "<input disabled type=\"number\" class=\"form-control form-control-sm\" name=\"nomor_nota\" value=\"" + response.pekerjaan.nomor_nota + "\">" +
                                         "</div>" +
                                     "</div>" +
                                     "<div class=\"col-md-3\">" +
                                         "<div class=\"form-group\">" +
-                                            "<label for=\"tanggal_pesanan\">Tanggal Pesanan</label>" +
+                                            "<label for=\"tanggal_pesanan\">Tanggal Dibuat</label>" +
                                             "<input disabled type=\"date\" class=\"form-control form-control-sm\" name=\"tanggal_pesanan\" value=\"" + response.pekerjaan.tanggal_pesanan + "\">" +
                                         "</div>" +
                                     "</div>" +
@@ -425,7 +425,7 @@
                                     "</div>" +
                                     "<div class=\"col-md-3\">" +
                                         "<div class=\"form-group\">" +
-                                            "<label for=\"jenis_pesanan\">Jenis Produk</label>" +
+                                            "<label for=\"jenis_pesanan\">Jenis Order</label>" +
                                             "<input disabled type=\"text\" class=\"form-control form-control-sm\" name=\"jenis_pesanan\" value=\"" + response.pekerjaan.jenis_pesanan + "\">" +
                                         "</div>" +
                                     "</div>" +
@@ -461,7 +461,7 @@
                                     "</div>" +
                                     "<div class=\"col-md-3\">" +
                                         "<div class=\"form-group\">" +
-                                            "<label for=\"pegawai_penerima_pesanan_id\">Penerima Pesanan</label>" +
+                                            "<label for=\"pegawai_penerima_pesanan_id\">Penerima Order</label>" +
                                             "<input disabled type=\"text\" class=\"form-control form-control-sm\" name=\"pegawai_penerima_pesanan_id\"";
 
                                                 if (response.pekerjaan.pegawai_penerima_pesanan) {

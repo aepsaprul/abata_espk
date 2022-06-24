@@ -43,9 +43,9 @@
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
                                         <th class="text-center text-indigo">Pemesan</th>
-                                        <th class="text-center text-indigo">Nama Pesanan</th>
+                                        <th class="text-center text-indigo">Judul Pesanan</th>
                                         <th class="text-center text-indigo">No Nota</th>
-                                        <th class="text-center text-indigo">Tgl Order</th>
+                                        <th class="text-center text-indigo">Tgl Dibuat</th>
                                         <th class="text-center text-indigo">Status</th>
                                         <th class="text-center text-indigo">Aksi</th>
                                     </tr>

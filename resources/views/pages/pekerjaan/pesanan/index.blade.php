@@ -51,9 +51,9 @@
                                             <th class="text-center text-indigo">Pemesan</th>
                                         @endif
                                         <th class="text-center text-indigo">Pelaksana</th>
-                                        <th class="text-center text-indigo">Nama Pesanan</th>
-                                        <th class="text-center text-indigo">Tgl Dibuat SPK</th>
-                                        <th class="text-center text-indigo">Penerima</th>
+                                        <th class="text-center text-indigo">Judul Pesanan</th>
+                                        <th class="text-center text-indigo">Tgl SPK Dibuat</th>
+                                        <th class="text-center text-indigo">Penerima Order</th>
                                         <th class="text-center text-indigo">Tanggal Disetujui</th>
                                         <th class="text-center text-indigo">Status</th>
                                         <th class="text-center text-indigo">Aksi</th>
@@ -182,7 +182,7 @@
                 <form id="form_create">
                     <input type="hidden" class="form-control" id="modal_id" name="modal_id">
                     <div class="mb-3">
-                        <label for="modal_nama_pesanan" class="form-label">Nama Pesanan</label>
+                        <label for="modal_nama_pesanan" class="form-label">Judul Pesanan</label>
                         <input type="text" class="form-control" id="modal_nama_pesanan" name="modal_nama_pesanan" disabled>
                     </div>
                     <div class="mb-3">

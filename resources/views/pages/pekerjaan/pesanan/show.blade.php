@@ -54,7 +54,7 @@
                                         <div class="row mb-3">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="pelanggan_id">Pelanggan</label>
+                                                    <label for="pelanggan_id">Pemesan</label>
                                                     <input disabled type="text" class="form-control form-control-sm" name="pelanggan_id"
                                                         @if ($pekerjaan->pelanggan)
                                                             value="{{ $pekerjaan->pelanggan->nama }}"
@@ -64,19 +64,19 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="nama_pesanan">Nama Pesanan</label>
+                                                    <label for="nama_pesanan">Judul Pesanan</label>
                                                     <input disabled type="text" class="form-control form-control-sm" name="nama_pesanan" value="{{ $pekerjaan->nama_pesanan }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="nomor_nota">Nomor Nota</label>
+                                                    <label for="nomor_nota">No Nota</label>
                                                     <input disabled type="number" class="form-control form-control-sm" name="nomor_nota" value="{{ $pekerjaan->nomor_nota }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="tanggal_pesanan">Tanggal Pesanan</label>
+                                                    <label for="tanggal_pesanan">Tanggal Dibuat</label>
                                                     <input disabled type="date" class="form-control form-control-sm" name="tanggal_pesanan" value="{{ $pekerjaan->tanggal_pesanan }}">
                                                 </div>
                                             </div>
@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="jenis_pesanan">Jenis Produk</label>
+                                                    <label for="jenis_pesanan">Jenis Order</label>
                                                     <input disabled type="text" class="form-control form-control-sm" name="jenis_pesanan" value="{{ $pekerjaan->jenis_pesanan }}">
                                                 </div>
                                             </div>
@@ -124,7 +124,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="pegawai_penerima_pesanan_id">Penerima Pesanan</label>
+                                                    <label for="pegawai_penerima_pesanan_id">Penerima Order</label>
                                                     <input disabled type="text" class="form-control form-control-sm" name="pegawai_penerima_pesanan_id"
                                                         @if ($pekerjaan->pegawaiPenerimaPesanan)
                                                             value="{{ $pekerjaan->pegawaiPenerimaPesanan->nama_lengkap }}"
