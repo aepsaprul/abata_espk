@@ -465,7 +465,7 @@
                                             "<input disabled type=\"text\" class=\"form-control form-control-sm\" name=\"pelanggan_id\"";
 
                                                 if (response.pekerjaan.pelanggan) {
-                                                    data_laporan_detail += "value=" + response.pekerjaan.pelanggan.nama;
+                                                    data_laporan_detail += 'value="' + response.pekerjaan.pelanggan.nama + '"';
                                                 }
 
                                             data_laporan_detail += ">" +
@@ -537,7 +537,7 @@
                                             "<input disabled type=\"text\" class=\"form-control form-control-sm\" name=\"pegawai_penerima_pesanan_id\"";
 
                                                 if (response.pekerjaan.pegawai_penerima_pesanan) {
-                                                    data_laporan_detail += "value=" + response.pekerjaan.pegawai_penerima_pesanan.nama_lengkap;
+                                                    data_laporan_detail += 'value="' + response.pekerjaan.pegawai_penerima_pesanan.nama_lengkap + '"';
                                                 }
                                                 else {
                                                     data_laporan_detail += "value=kosong";
