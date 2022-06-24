@@ -393,7 +393,7 @@
                                             "<input disabled type=\"text\" class=\"form-control form-control-sm\" name=\"pelanggan_id\"";
 
                                                 if (response.pekerjaan.pelanggan) {
-                                                    data_laporan_detail += "value=" + response.pekerjaan.pelanggan.nama;
+                                                    data_laporan_detail += 'value="' + response.pekerjaan.pelanggan.nama + '"';
                                                 }
 
                                             data_laporan_detail += ">" +
