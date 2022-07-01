@@ -47,7 +47,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-indigo">No</th>
-                                        @if (Auth::user()->roles == "admin_espk")
+                                        @if (Auth::user()->roles == "admin_espk" || Auth::user()->masterKaryawan->master_cabang_id == 1)
                                             <th class="text-center text-indigo">Pemesan</th>
                                         @endif
                                         <th class="text-center text-indigo">Pelaksana</th>
@@ -63,10 +63,16 @@
                                     @foreach ($pesanans as $key => $pesanan)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        @if (Auth::user()->roles == "admin_espk")
+                                        @if (Auth::user()->roles == "admin_espk" || Auth::user()->masterKaryawan->master_cabang_id == 1)
                                             <td>{{ $pesanan->cabangPemesan->nama_cabang }}</td>
                                         @endif
-                                        <td>{{ $pesanan->cabangCetak->nama_cabang }}</td>
+                                        <td>
+                                            @if ($pesanan->cabangTujuan)
+                                                {{ $pesanan->cabangTujuan->nama_cabang }}
+                                            @else
+                                                {{ $pesanan->cabangCetak->nama_cabang }}
+                                            @endif
+                                        </td>
                                         <td>{{ $pesanan->nama_pesanan }}</td>
                                         <td class="text-center">{{ tgl_indo($pesanan->tanggal_pesanan) }}</td>
                                         <td>
@@ -94,7 +100,9 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            @if (Auth::user()->roles != "admin_espk")
+                                            @if (Auth::user()->roles == "admin_espk" || Auth::user()->masterKaryawan->master_cabang_id == 1)
+                                                -
+                                            @else
                                                 <div class="btn-group">
                                                     <a
                                                         class="dropdown-toggle btn bg-gradient-primary btn-sm"
@@ -146,8 +154,6 @@
                                                         @endif
                                                     </div>
                                                 </div>
-                                            @else
-                                                -
                                             @endif
                                         </td>
                                     </tr>

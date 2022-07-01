@@ -25,14 +25,22 @@ class PekerjaanController extends Controller
     public function index()
     {
         if (Auth::user()->master_karyawan_id) {
-            $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
-                ->whereNotIn('status_id', [2,6,7])
-                ->orderBy('id', 'desc')
-                ->limit(1000)
-                ->get();
+            if (Auth::user()->masterKaryawan->master_cabang_id == 1) {
+                $pekerjaan = EspkPekerjaan::orderBy('id', 'desc')
+                    ->whereNotIn('status_id', [2,6,7])
+                    ->limit(1000)
+                    ->get();
 
-            $cabang = EspkCabang::where('cabang_id', '!=', Auth::user()->masterKaryawan->masterCabang->id)->get();
+                $cabang = EspkCabang::get();
+            } else {
+                $pekerjaan = EspkPekerjaan::where('cabang_pemesan_id', Auth::user()->masterKaryawan->masterCabang->id)
+                    ->whereNotIn('status_id', [2,6,7])
+                    ->orderBy('id', 'desc')
+                    ->limit(1000)
+                    ->get();
 
+                $cabang = EspkCabang::where('cabang_id', '!=', Auth::user()->masterKaryawan->masterCabang->id)->get();
+            }
         } else {
             $pekerjaan = EspkPekerjaan::orderBy('id', 'desc')
                 ->whereNotIn('status_id', [2,6,7])
@@ -60,7 +68,7 @@ class PekerjaanController extends Controller
 
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
 
-        $cabang_cetak = MasterCabang::where('id',  $cabang->cabang_id)->get();
+        $cabang_cetak = MasterCabang::whereIn('id',  [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
 
         $cabang_finishing = MasterCabang::whereIn('id', [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
 
@@ -103,6 +111,7 @@ class PekerjaanController extends Controller
         $pekerjaan = new EspkPekerjaan;
         $pekerjaan->id_espk = date('ymd') . $count_get_pekerjaan;
         $pekerjaan->cabang_pemesan_id = Auth::user()->masterKaryawan->masterCabang->id;
+        $pekerjaan->cabang_tujuan_id = $request->cabang_tujuan_id;
         $pekerjaan->pelanggan_id = $request->pelanggan_id;
         $pekerjaan->pegawai_penerima_pesanan_id = $request->pegawai_penerima_pesanan_id;
         $pekerjaan->pegawai_desain_id = $request->pegawai_desain_id;
@@ -174,7 +183,12 @@ class PekerjaanController extends Controller
 
         $status_pekerjaan = EspkStatusPekerjaan::where('pekerjaan_id', $id)->get();
 
-        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        if (EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first()) {
+            # code...
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first();
+        } else {
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        }
 
         return view('pages.pekerjaan.pesanan.show', [
             'pekerjaan' => $pekerjaan,
@@ -200,11 +214,29 @@ class PekerjaanController extends Controller
 
         $desain = MasterKaryawan::where('master_cabang_id', Auth::user()->masterKaryawan->masterCabang->id)->where('master_jabatan_id', '24')->get();
 
-        $cabang_cetak = EspkCabang::get();
+        // $cabang_cetak = EspkCabang::get();
+        // $cabang_finishing = EspkCabang::get();
 
-        $cabang_finishing = EspkCabang::get();
+        if (EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first()) {
+            # code...
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first();
+        } else {
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        }
 
-        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        $cabang_cetak = MasterCabang::whereIn('id',  [Auth::user()->masterKaryawan->master_cabang_id, $cabang->cabang_id])->get();
+
+        // dd($cabang_cetak);
+
+        $cabang_finishing = MasterCabang::whereIn('id', [Auth::user()->masterKaryawan->masterCabang->id, $cabang->cabang_id])->get();
+
+        if (EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first()) {
+            # code...
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first();
+        } else {
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        }
+
         $cabang_group = $cabang->form_group;
 
         $tipe_pekerjaan = EspkTipePekerjaan::with([

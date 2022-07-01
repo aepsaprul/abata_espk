@@ -48,6 +48,10 @@
                             <div class="col-md-12">
                                 <form id="form-digital-print" action="{{ route('pekerjaan.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+
+                                    {{-- cabang tujuan --}}
+                                    <input type="text" id="cabang_tujuan_id" name="cabang_tujuan_id" value="{{ $cabang->cabang_id }}">
+
                                     <div class="card card-primary">
                                         <div class="card-header">
                                             <h3 class="card-title">
@@ -152,8 +156,9 @@
                                                     <div class="col-md-3">
                                                         <label for="cabang_cetak_id">Cetak</label>
                                                         <select class="form-control form-control-sm" name="cabang_cetak_id">
+                                                            <option value="">--Pilih Cabang Cetak--</option>
                                                             @foreach ($cabang_cetaks as $cabang_cetak)
-                                                                <option value="{{ $cabang_cetak->id }}" {{ $cabang_cetak->id == Auth::user()->masterKaryawan->masterCabang->id ? 'hidden' : '' }}>{{ $cabang_cetak->nama_cabang }}</option>
+                                                                <option value="{{ $cabang_cetak->id }}">{{ $cabang_cetak->nama_cabang }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

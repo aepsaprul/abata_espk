@@ -52,4 +52,8 @@ class EspkPekerjaan extends Model
     public function statusPekerjaan() {
         return $this->hasMany(EspkStatusPekerjaan::class, 'pekerjaan_id', 'id');
     }
+
+    public function cabangTujuan() {
+        return $this->belongsTo(MasterCabang::class, 'cabang_tujuan_id', 'id');
+    }
 }
