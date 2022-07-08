@@ -50,7 +50,7 @@
                                     @csrf
 
                                     {{-- cabang tujuan --}}
-                                    <input type="text" id="cabang_tujuan_id" name="cabang_tujuan_id" value="{{ $cabang->cabang_id }}">
+                                    <input type="hidden" id="cabang_tujuan_id" name="cabang_tujuan_id" value="{{ $cabang->cabang_id }}">
 
                                     <div class="card card-primary">
                                         <div class="card-header">
@@ -155,7 +155,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label for="cabang_cetak_id">Cetak</label>
-                                                        <select class="form-control form-control-sm" name="cabang_cetak_id">
+                                                        <select class="form-control form-control-sm" name="cabang_cetak_id" required>
                                                             <option value="">--Pilih Cabang Cetak--</option>
                                                             @foreach ($cabang_cetaks as $cabang_cetak)
                                                                 <option value="{{ $cabang_cetak->id }}">{{ $cabang_cetak->nama_cabang }}</option>
