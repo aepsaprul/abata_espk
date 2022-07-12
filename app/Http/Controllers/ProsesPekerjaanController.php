@@ -81,7 +81,14 @@ class ProsesPekerjaanController extends Controller
 
         $status_pekerjaan = EspkStatusPekerjaan::where('pekerjaan_id', $id)->get();
 
-        $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        // $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+
+        if (EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first()) {
+            # code...
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_tujuan_id)->first();
+        } else {
+            $cabang = EspkCabang::where('cabang_id', $pekerjaan->cabang_cetak_id)->first();
+        }
 
         return view('pages.pekerjaan.proses_pekerjaan.show', [
             'pekerjaan' => $pekerjaan,

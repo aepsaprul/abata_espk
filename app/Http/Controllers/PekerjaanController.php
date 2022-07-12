@@ -363,7 +363,12 @@ class PekerjaanController extends Controller
     public function publish(Request $request)
     {
         $pekerjaan = EspkPekerjaan::find($request->id);
-        $pelaksana = MasterCabang::where('id', $pekerjaan->cabang_cetak_id)->get();
+
+        if ($pekerjaan->cabang_tujuan_id) {
+            $pelaksana = MasterCabang::where('id', $pekerjaan->cabang_tujuan_id)->get();
+        } else {
+            $pelaksana = MasterCabang::where('id', $pekerjaan->cabang_cetak_id)->get();
+        }
 
         return response()->json([
             'id' => $pekerjaan->id,

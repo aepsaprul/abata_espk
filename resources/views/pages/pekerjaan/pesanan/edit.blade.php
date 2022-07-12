@@ -151,7 +151,7 @@
                                                         @foreach ($cabang_cetaks as $cabang_cetak)
                                                             <option value="{{ $cabang_cetak->id }}"
                                                                 @if ($pekerjaan->cabang_tujuan_id)
-                                                                    {{ $cabang_cetak->id == $pekerjaan->cabang_tujuan_id ? 'selected' : '' }}
+                                                                    {{ $cabang_cetak->id == $pekerjaan->cabang_cetak_id ? 'selected' : '' }}
                                                                 @else
                                                                     {{ $cabang_cetak->id == $pekerjaan->cabang_cetak_id ? 'selected' : '' }}
                                                                 @endif
@@ -298,7 +298,7 @@
                                                         @foreach ($cabang_cetaks as $cabang_cetak)
                                                             <option value="{{ $cabang_cetak->id }}"
                                                                 @if ($pekerjaan->cabang_tujuan_id)
-                                                                    {{ $cabang_cetak->id == $pekerjaan->cabang_tujuan_id ? 'selected' : '' }}
+                                                                    {{ $cabang_cetak->id == $pekerjaan->cabang_cetak_id ? 'selected' : '' }}
                                                                 @else
                                                                     {{ $cabang_cetak->id == $pekerjaan->cabang_cetak_id ? 'selected' : '' }}
                                                                 @endif
