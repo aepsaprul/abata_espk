@@ -168,7 +168,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <label for="file">File</label>
+                                                    <label for="file">File (Maks 15MB)</label>
                                                     <input class="form-control form-control-sm mb-3 @error('file') is-invalid @enderror" id="file" type="file" name="file">
                                                     @error('file')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -315,7 +315,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <label for="file">File</label>
+                                                    <label for="file">File (Maks 15MB)</label>
                                                     <input class="form-control form-control-sm mb-3 @error('file') is-invalid @enderror" id="file" type="file" name="file">
                                                     @error('file')
                                                         <div class="text-danger">{{ $message }}</div>
