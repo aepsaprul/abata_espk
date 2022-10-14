@@ -17,17 +17,17 @@ class LaporanController extends Controller
 {
     public function indexPekerjaan()
     {
-        $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')->orderBy('id', 'desc')->get();
-        $pelanggan = EspkPelanggan::get();
-        $cabang = EspkCabang::get();
-        $status = EspkStatus::get();
+      $pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')->orderBy('id', 'desc')->limit(500)->get();
+      $pelanggan = EspkPelanggan::get();
+      $cabang = EspkCabang::get();
+      $status = EspkStatus::get();
 
-        return view('pages.laporan.pekerjaan.index', [
-            'pekerjaans' => $pekerjaan,
-            'pelanggans' => $pelanggan,
-            'cabangs' => $cabang,
-            'status' => $status
-        ]);
+      return view('pages.laporan.pekerjaan.index', [
+        'pekerjaans' => $pekerjaan,
+        'pelanggans' => $pelanggan,
+        'cabangs' => $cabang,
+        'status' => $status
+      ]);
     }
 
     public function search(Request $request)

@@ -103,18 +103,6 @@
                     </div>
                 </div>
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
@@ -237,13 +225,13 @@
         @yield('content')
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        {{-- <footer class="main-footer">
           <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
           All rights reserved.
           <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 3.1.0
           </div>
-        </footer>
+        </footer> --}}
     </div>
     <!-- ./wrapper -->
 

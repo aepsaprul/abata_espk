@@ -114,6 +114,7 @@ class HomeController extends Controller
                 ->whereNotNull('status_id')
                 ->whereNotIn('status_id', [2,1,8,9])
                 ->orderBy('id', 'desc')
+                ->limit(500)
                 ->get();
             } else {
                 $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
@@ -121,6 +122,7 @@ class HomeController extends Controller
                     ->whereNotNull('status_id')
                     ->whereNotIn('status_id', [2,1,8,9])
                     ->orderBy('id', 'desc')
+                    ->limit(500)
                     ->get();
             }
 
@@ -129,6 +131,7 @@ class HomeController extends Controller
                 ->whereNotNull('status_id')
                 ->whereNotIn('status_id', [2,1,8,9])
                 ->orderBy('id', 'desc')
+                ->limit(500)
                 ->get();
         }
 
