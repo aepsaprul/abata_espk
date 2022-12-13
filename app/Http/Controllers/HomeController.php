@@ -116,11 +116,26 @@ class HomeController extends Controller
                 ->orderBy('id', 'desc')
                 ->limit(500)
                 ->get();
+
+                $hitung_data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+                ->whereNotNull('status_id')
+                ->whereNotIn('status_id', [2,1,6,8,7,9])
+                ->orderBy('id', 'desc')
+                ->limit(500)
+                ->get();
             } else {
                 $data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
                     ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
                     ->whereNotNull('status_id')
                     ->whereNotIn('status_id', [2,1,8,9])
+                    ->orderBy('id', 'desc')
+                    ->limit(500)
+                    ->get();
+
+                $hitung_data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+                    ->where('cabang_pelaksana_id', Auth::user()->masterKaryawan->masterCabang->id)
+                    ->whereNotNull('status_id')
+                    ->whereNotIn('status_id', [2,1,6,8,7,9])
                     ->orderBy('id', 'desc')
                     ->limit(500)
                     ->get();
@@ -133,6 +148,13 @@ class HomeController extends Controller
                 ->orderBy('id', 'desc')
                 ->limit(500)
                 ->get();
+
+            $hitung_data_pekerjaan = EspkPekerjaan::whereNotNull('cabang_pelaksana_id')
+                ->whereNotNull('status_id')
+                ->whereNotIn('status_id', [2,1,6,8,7,9])
+                ->orderBy('id', 'desc')
+                ->limit(500)
+                ->get();
         }
 
         $jumlah_pesanan_hari_ini = count($pesanan_hari_ini);
@@ -140,7 +162,7 @@ class HomeController extends Controller
         $jumlan_pesanan_menunggu_disetujui = count($pesanan_menunggu_disetujui);
         $jumlan_pesanan_selesai = count($pesanan_selesai);
         $jumlan_pesanan_batal = count($pesanan_batal);
-        $jumlan_data_pekerjaan = count($data_pekerjaan);
+        $jumlan_data_pekerjaan = count($hitung_data_pekerjaan);
 
         return view('home', [
             'jumlah_pesanan_hari_ini' => $jumlah_pesanan_hari_ini,
