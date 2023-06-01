@@ -128,49 +128,45 @@
     });
 
     $(document).ready(function() {
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
 
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
+      let Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
 
         // index
         $('input[name="index[]"]').on('change', function() {
-            var id = $(this).attr('data-id');
-            var formData;
+          const id = $(this).attr('data-id');            
+          let show = '';
 
-            var id = $(this).attr('data-id');
-            var url = '{{ route("user.access_save", ":id") }}';
-            url = url.replace(':id', id );
+          if($('#index_' + id).is(":checked")) {
+            show += 'y';
+          } else {
+            show += 'n';
+          }
+          formData = {
+            id: id,
+            show: show
+          }
 
-            if($('#index_' + id).is(":checked")) {
-                formData = {
-                    id: id,
-                    show: "y",
-                    _token: CSRF_TOKEN
-                }
-            } else {
-                formData = {
-                    id: id,
-                    show: "n",
-                    _token: CSRF_TOKEN
-                }
+          $.ajax({
+            url: "{{ URL::route('user.access_save') }}",
+            type: "post",
+            data: formData,
+            success: function(response) {
+              Toast.fire({
+                icon: 'success',
+                title: 'Data berhasil disimpan.'
+              });
             }
-
-            $.ajax({
-                url: url,
-                type: 'PUT',
-                data: formData,
-                success: function(response) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Data berhasil disimpan.'
-                    });
-                }
-            });
+          });
         });
 
         // sync

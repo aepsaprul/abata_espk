@@ -62,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('admin/user/store', [UserController::class, 'store'])->name('user.store');
         Route::post('admin/user/delete', [UserController::class, 'delete'])->name('user.delete');
         Route::get('admin/user/{id}/access', [UserController::class, 'access'])->name('user.access');
-        Route::put('admin/user/{id}/access_save', [UserController::class, 'accessSave'])->name('user.access_save');
+        Route::post('admin/user/access_save', [UserController::class, 'accessSave'])->name('user.access_save');
         Route::post('admin/user/sync', [UserController::class, 'sync'])->name('user.sync');
 
         // cabang

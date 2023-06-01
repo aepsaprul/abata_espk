@@ -93,9 +93,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function accessSave(Request $request, $id)
+    public function accessSave(Request $request)
     {
-        $nav_access = EspkNavAccess::find($id);
+        $nav_access = EspkNavAccess::find($request->id);
 
         if ($request->show) {
             $nav_access->tampil = $request->show;
